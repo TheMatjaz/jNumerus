@@ -93,6 +93,11 @@ public class RomanCharMapFactoryTest {
         Assert.assertTrue(charMap.get("IV") == 4);
         Assert.assertTrue(charMap.get("I") == 1);
     }
+    
+    @Test(expected = UnsupportedOperationException.class)
+    public void charMapIsUnmodifiable() {
+        charMap.put("bla", 1);
+    }
 
     @Test
     public void staticConstructorCreatesAInverseMap() {
@@ -134,6 +139,11 @@ public class RomanCharMapFactoryTest {
         Assert.assertTrue("V".equals(inverseCharMap.get(5)));
         Assert.assertTrue("IV".equals(inverseCharMap.get(4)));
         Assert.assertTrue("I".equals(inverseCharMap.get(1)));
+    }
+    
+    @Test(expected = UnsupportedOperationException.class)
+    public void inverseCharMapIsUnmodifiable() {
+        inverseCharMap.put(1, "bla");
     }
 
     @Test

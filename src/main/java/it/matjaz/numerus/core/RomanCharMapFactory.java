@@ -1,13 +1,11 @@
 package it.matjaz.numerus.core;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.util.Pair;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
-/*
- TODO: add inverse Pair[], make maps unmodifiable
- */
 
 /**
  * Factory generating structures of pairs (basic roman character, its integer
@@ -145,7 +143,7 @@ public class RomanCharMapFactory {
         for (Pair charAndValue : generateCharPairsArray()) {
             charMap.put((String) charAndValue.getKey(), (Integer) charAndValue.getValue());
         }
-        return charMap;
+        return Collections.unmodifiableMap(charMap);
     }
 
     /**
@@ -187,7 +185,7 @@ public class RomanCharMapFactory {
         for (Pair charAndValue : generateCharPairsArray()) {
             inverseCharMap.put((Integer) charAndValue.getValue(), (String) charAndValue.getKey());
         }
-        return inverseCharMap;
+        return Collections.unmodifiableMap(inverseCharMap);
     }
 
     /**
