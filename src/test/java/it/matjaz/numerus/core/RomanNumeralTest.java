@@ -63,16 +63,20 @@ public class RomanNumeralTest {
         roman.setSymbols("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
     }
 
-    /*
-     @Test(expected = NumberFormatException.class)
-     public void whenStringContainsNotRomanCharactersThenExceptionIsThrown() {
-     roman.setSymbols("pFXC- ");
-     }
+    @Test(expected = NumberFormatException.class)
+    public void whenStringContainsNonRomanCharactersThenExceptionIsThrown() {
+        roman.setSymbols("pFXC-");
+    }
 
-     @Test(expected = NullPointerException.class)
-     public void whenNullStringIsGivenThenExceptionIsThrown() {
-     roman.setSymbols(null);
-     }
+    @Test
+    public void whenStringContainsNonRomanCharactersThenExceptionMessageShowsThem() {
+        try {
+            roman.setSymbols("pFXC-");
+        } catch (NumberFormatException ex) {
+            assertTrue(ex.getMessage().contains("pF-".toUpperCase()));
+        }
+    }
+    /*
 
      @Test(expected = NumberFormatException.class)
      public void whenStringWithIncorrectTomanSyntaxIsGivenThenExceptionIsThrown() {
