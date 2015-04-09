@@ -23,4 +23,13 @@ public class RomanCharMapFactory {
         charMap.put("I", 1);
         return charMap;
     }
+    
+    public static Map generateInverseCharMap() {
+        Map<Integer, String> inverseCharMap = new HashMap();
+        Map<String, Integer> charMap = generateCharMap();
+        charMap.keySet().stream().forEach((key) -> {
+            inverseCharMap.put(charMap.get(key), key);
+        });
+        return inverseCharMap;
+    }
 }

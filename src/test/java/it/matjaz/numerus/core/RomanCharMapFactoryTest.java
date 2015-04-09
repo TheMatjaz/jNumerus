@@ -14,10 +14,12 @@ import org.junit.Test;
 public class RomanCharMapFactoryTest {
 
     private Map<String, Integer> charMap;
+    private Map<Integer, String> inverseCharMap;
 
     @Before
     public void generateCharMap() {
         this.charMap = RomanCharMapFactory.generateCharMap();
+        this.inverseCharMap = RomanCharMapFactory.generateInverseCharMap();
     }
 
     @Test
@@ -84,5 +86,48 @@ public class RomanCharMapFactoryTest {
         Assert.assertTrue(charMap.get("V") == 5);
         Assert.assertTrue(charMap.get("IV") == 4);
         Assert.assertTrue(charMap.get("I") == 1);
+    }
+    
+    @Test
+    public void staticConstructorCreatesAInverseMap() {
+        Assert.assertThat(inverseCharMap, instanceOf(Map.class));
+    }
+    
+    @Test
+    public void staticConstructorCreatesNonEmptyInverseMap() {
+        Assert.assertFalse(inverseCharMap.isEmpty());
+    }
+    
+    @Test
+    public void inverseCharMapKeysAreIntegers() {
+        Assert.assertThat(inverseCharMap.keySet().iterator().next(), instanceOf(Integer.class));
+    }
+
+    @Test
+    public void inverseCharMapValuesAreStrings() {
+        Assert.assertThat(inverseCharMap.values().iterator().next(), instanceOf(String.class));
+    }
+      
+    @Test
+    public void inverseCharMapContainsNoOtherKeys() {
+        Assert.assertTrue(inverseCharMap.size() == 13);
+    }
+    
+    @Test
+    public void inverseCharMapIsExactOppositeOfTheCharMap() {
+        
+        Assert.assertTrue("M".equals(inverseCharMap.get(1000)));
+        Assert.assertTrue("CM".equals(inverseCharMap.get(900)));
+        Assert.assertTrue("D".equals(inverseCharMap.get(500)));
+        Assert.assertTrue("CD".equals(inverseCharMap.get(400)));
+        Assert.assertTrue("C".equals(inverseCharMap.get(100)));
+        Assert.assertTrue("XC".equals(inverseCharMap.get(90)));
+        Assert.assertTrue("L".equals(inverseCharMap.get(50)));
+        Assert.assertTrue("XL".equals(inverseCharMap.get(40)));
+        Assert.assertTrue("X".equals(inverseCharMap.get(10)));
+        Assert.assertTrue("IX".equals(inverseCharMap.get(9)));
+        Assert.assertTrue("V".equals(inverseCharMap.get(5)));
+        Assert.assertTrue("IV".equals(inverseCharMap.get(4)));
+        Assert.assertTrue("I".equals(inverseCharMap.get(1)));
     }
 }
