@@ -6,6 +6,7 @@ import java.util.Map;
 import javafx.util.Pair;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
+import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
 
 /**
  * Factory generating structures of pairs (basic roman character, its integer
@@ -226,7 +227,8 @@ public class RomanCharMapFactory {
      * characters as and the respective integer values.
      */
     public static BidiMap generateBidiCharMap() {
-        return new DualHashBidiMap(generateCharMap());
+        DualHashBidiMap bidiMap = new DualHashBidiMap(generateCharMap());
+        return UnmodifiableBidiMap.unmodifiableBidiMap(bidiMap);
     }
 
 }

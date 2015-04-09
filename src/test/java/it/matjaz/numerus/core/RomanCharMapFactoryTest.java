@@ -191,6 +191,11 @@ public class RomanCharMapFactoryTest {
         Assert.assertTrue("I".equals(bidiCharMap.getKey(1)));
     }
 
+    @Test(expected = UnsupportedOperationException.class)
+    public void bidiCharMapIsUnmodifiable() {
+        bidiCharMap.put(1, "bla");
+    }
+
     @Test
     public void staticConstructorCreatesPairsArray() {
         Assert.assertThat(charPairs, instanceOf(Pair[].class));
