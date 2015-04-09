@@ -17,14 +17,16 @@ import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
  * conversions of whole strings of roman numerals. The scructures offered are:
  * <ul>
  * <li>Array of Pairs(String, Integer)</li>
- * <li>HashMap&lt;String, Integer&gt;</li>
- * <li>HashMap&lt;Integer, String&gt;, the exact opposite of the above one</li>
- * <li>DualHashBidiMap (bidirectional map, from Apache Common Collections
- * 4.0)</li>
+ * <li>HashMap&lt;String, Integer&gt;, {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.</li>
+ * <li>HashMap&lt;Integer, String&gt;, the exact opposite of the above one,
+ * {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.</li>
+ * <li>DualHashBidiMap, bidirectional map, unmodifiable, from
+ * <a href="http://commons.apache.org/proper/commons-collections/">Apache
+ * Commons Collection 4.0</a></li>
  * </ul>
  * <p>
- * The array of Pairs is hardcoded, while the other three Maps are filled using
- * its Pairs. The structure of the array is based on the example of roman
+ * The array of Pairs is <b>hardcoded</b>, while the other three Maps are filled
+ * using its Pairs. The structure of the array is based on the example of roman
  * numerals convertion from
  * <a href="http://www.fredosaurus.com/notes-java/examples/components/romanNumerals/romanNumeral.html">fredosaurus.com</a>.
  * The pairs of values contained are:
@@ -105,18 +107,20 @@ public class RomanCharMapFactory {
     }
 
     /**
-     * Constructs a HashMap with 13 entries &lt;roman character, its integer
-     * value&gt;.
+     * Constructs an unmodifiable HashMap with 13 entries &lt;roman character,
+     * its integer value&gt;.
      * <p>
      * The Map's keys are basic roman characters stored as strings and they
      * point to their integer values. Those entries are used for conversions of
-     * whole strings of roman numerals.
+     * whole strings of roman numerals. The Map is
+     * {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.
      * <p>
      * The map returned by this method is the exact opposite of the one returned
      * by {@link #generateInverseCharMap() } (keys and values are switched). The
      * Map is filled by inserting values from the
-     * {@link #generateCharPairsArray() }. A representation of the content is
-     * the followind table:
+     * {@link #generateCharPairsArray() }.
+     * <p>
+     * A representation of the content is the followind table:
      *
      * <pre>
      * rom int
@@ -153,11 +157,14 @@ public class RomanCharMapFactory {
      * <p>
      * The Map's values are basic roman characters stored as strings and they
      * are references by their integer values. Those entries are used for
-     * conversions of whole strings of roman numerals.
+     * conversions of whole strings of roman numerals. The Map is
+     * {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.
      * <p>
      * The map returned by this method is the exact opposite of the one returned
      * by {@link #generateCharMap() } (keys and values are switched). The Map is
-     * filled by inserting values from the {@link #generateCharPairsArray() }. A
+     * filled by inserting values from the {@link #generateCharPairsArray() }.
+     * <p>
+     * A
      * representation of the content is the followind table:
      *
      * <pre>
@@ -195,7 +202,7 @@ public class RomanCharMapFactory {
      * <p>
      * The BidiMap correlates basic roman characters stored as strings and their
      * integer values. Those entries are used for conversions of whole strings
-     * of roman numerals.
+     * of roman numerals. The Map is unmodifiable.
      * <p>
      * The map returned by this method is a {@link BidiMap} from the
      * <a href="http://commons.apache.org/proper/commons-collections/">Apache
@@ -225,6 +232,7 @@ public class RomanCharMapFactory {
      *
      * @return DualHashBidiMap&lt;String, Integer&gt; containing basic roman
      * characters as and the respective integer values.
+     * @see org.apache.commons.collections4.bidimap
      */
     public static BidiMap generateBidiCharMap() {
         DualHashBidiMap bidiMap = new DualHashBidiMap(generateCharMap());

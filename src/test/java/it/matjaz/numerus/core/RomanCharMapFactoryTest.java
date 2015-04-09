@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
+ * JUnit test of {@link RomanCharMapFactory} which is generating structures of
+ * pairs (basic roman character, its integer value) to be used for conversion.
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">www.matjaz.it</a>
@@ -21,7 +23,7 @@ public class RomanCharMapFactoryTest {
     private Pair[] charPairs;
 
     @Before
-    public void generateCharMap() {
+    public void constructEveryCollectionToBeVerified() {
         this.charMap = RomanCharMapFactory.generateCharMap();
         this.inverseCharMap = RomanCharMapFactory.generateInverseCharMap();
         this.bidiCharMap = RomanCharMapFactory.generateBidiCharMap();
@@ -93,7 +95,7 @@ public class RomanCharMapFactoryTest {
         Assert.assertTrue(charMap.get("IV") == 4);
         Assert.assertTrue(charMap.get("I") == 1);
     }
-    
+
     @Test(expected = UnsupportedOperationException.class)
     public void charMapIsUnmodifiable() {
         charMap.put("bla", 1);
@@ -140,7 +142,7 @@ public class RomanCharMapFactoryTest {
         Assert.assertTrue("IV".equals(inverseCharMap.get(4)));
         Assert.assertTrue("I".equals(inverseCharMap.get(1)));
     }
-    
+
     @Test(expected = UnsupportedOperationException.class)
     public void inverseCharMapIsUnmodifiable() {
         inverseCharMap.put(1, "bla");
