@@ -23,6 +23,23 @@ public class RomanConverter {
     public Pair[] getCharValues() {
         return charValues;
     }
+    
+    public String integerToRomanString(int arabic) {
+        return "";
     }
-
+    
+    public int romanStringToInteger(String roman) {
+        int arabic = 0;
+        int i = 0;
+        while (!roman.isEmpty()) {
+            Pair romanChar = charValues[i];
+            if (roman.startsWith((String) romanChar.getKey())) {
+                arabic += (Integer) romanChar.getValue();
+                roman = roman.replaceFirst((String) romanChar.getKey(), "");
+            } else {
+                i++;
+            }
+        }
+        return arabic;
+    }
 }

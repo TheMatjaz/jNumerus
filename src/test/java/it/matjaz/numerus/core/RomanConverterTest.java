@@ -29,5 +29,15 @@ public class RomanConverterTest {
     public void whenDefaultConstructorIsCalledThenRomanCharPairsArrayIsConstructed() {
         assertArrayEquals(converter.getCharValues(), RomanCharMapFactory.generateCharPairsArray());
     }
+    
+    @Test
+    public void whenCorrectRomanIsGivenThenArabicIsReturned() {
+        assertEquals(1200, converter.romanStringToInteger("MCC"));
+    }
+    
+//    @Test
+//    public void whenIntegerIsGivenThenRomanStringIsReturned() {
+//        assertEquals("CXII", converter.integerToRomanString(112));
+//    }
 
 }
