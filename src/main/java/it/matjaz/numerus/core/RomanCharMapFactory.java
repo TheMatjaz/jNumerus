@@ -12,28 +12,6 @@ public class RomanCharMapFactory {
     private RomanCharMapFactory() {
     }
 
-    public static Map<String, Integer> generateCharMap() {
-        Map<String, Integer> charMap = new HashMap();
-        Pair[] pairsArray = generateCharPairsArray();
-        for (Pair charAndValue : pairsArray) {
-            charMap.put((String) charAndValue.getKey(), (Integer) charAndValue.getValue());
-        }
-        return charMap;
-    }
-
-    public static Map generateInverseCharMap() {
-        Map<Integer, String> inverseCharMap = new HashMap();
-        Map<String, Integer> charMap = generateCharMap();
-        charMap.keySet().stream().forEach((key) -> {
-            inverseCharMap.put(charMap.get(key), key);
-        });
-        return inverseCharMap;
-    }
-
-    public static BidiMap generateBidiCharMap() {
-        return new DualHashBidiMap(generateCharMap());
-    }
-
     public static Pair[] generateCharPairsArray() {
         Pair[] pairsArray = new Pair[]{
             new Pair("M", 1000),
@@ -52,4 +30,25 @@ public class RomanCharMapFactory {
         };
         return pairsArray;
     }
+
+    public static Map<String, Integer> generateCharMap() {
+        Map<String, Integer> charMap = new HashMap();
+        for (Pair charAndValue : generateCharPairsArray()) {
+            charMap.put((String) charAndValue.getKey(), (Integer) charAndValue.getValue());
+        }
+        return charMap;
+    }
+
+    public static Map<Integer, String> generateInverseCharMap() {
+        Map<Integer, String> inverseCharMap = new HashMap();
+        for (Pair charAndValue : generateCharPairsArray()) {
+            inverseCharMap.put((Integer) charAndValue.getValue(), (String) charAndValue.getKey());
+        }
+        return inverseCharMap;
+    }
+
+    public static BidiMap generateBidiCharMap() {
+        return new DualHashBidiMap(generateCharMap());
+    }
+
 }
