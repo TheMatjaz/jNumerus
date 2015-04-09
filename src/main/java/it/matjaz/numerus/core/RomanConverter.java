@@ -14,14 +14,15 @@ import javafx.util.Pair;
  */
 public class RomanConverter {
 
-    private final Pair[] chars;
+    private final Pair[] charValues;
 
     public RomanConverter() {
-        this.chars = RomanCharMapFactory.generateCharPairsArray();
+        this.charValues = RomanCharMapFactory.generateCharPairsArray();
     }
 
-    public Pair[] getChars() {
-        return chars;
+    public Pair[] getCharValues() {
+        return charValues;
+    }
     }
 
 }

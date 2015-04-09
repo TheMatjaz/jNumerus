@@ -22,12 +22,12 @@ public class RomanConverterTest {
 
     @Test
     public void whenDefaultConstructorIsCalledThenNonNullArrayOfPairsIsConstructed() {
-        assertNotNull(converter.getChars());
+        assertNotNull(converter.getCharValues());
     }
 
     @Test
     public void whenDefaultConstructorIsCalledThenRomanCharPairsArrayIsConstructed() {
-        assertArrayEquals(converter.getChars(), RomanCharMapFactory.generateCharPairsArray());
+        assertArrayEquals(converter.getCharValues(), RomanCharMapFactory.generateCharPairsArray());
     }
 
 }
