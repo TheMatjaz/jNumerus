@@ -29,15 +29,40 @@ public class RomanConverterTest {
     public void whenDefaultConstructorIsCalledThenRomanCharPairsArrayIsConstructed() {
         assertArrayEquals(converter.getCharValues(), RomanCharMapFactory.generateCharPairsArray());
     }
-    
+
+    @Test
+    public void whenRomanWithMultipleSameCharsIsGivenThenArabicIsReturned() {
+        assertEquals(3212, converter.romanStringToInteger("MMMCCXII"));
+    }
+
+    @Test
+    public void whenRomanWithSubtractiveFormIsGivenThenArabicIsreturned() {
+        assertEquals(1940, converter.romanStringToInteger("MCMXL"));
+    }
+
     @Test
     public void whenCorrectRomanIsGivenThenArabicIsReturned() {
-        assertEquals(1200, converter.romanStringToInteger("MCC"));
+        assertEquals(1100, converter.romanStringToInteger("MC"));
     }
-    
-//    @Test
-//    public void whenIntegerIsGivenThenRomanStringIsReturned() {
-//        assertEquals("CXII", converter.integerToRomanString(112));
-//    }
+
+    @Test
+    public void whenIntegerIsGivenThenRomanStringIsReturned() {
+        assertEquals("CXII", converter.integerToRomanString(112));
+    }
+
+    @Test
+    public void whenIntegerForRomanWithSubtractiveFormIsGivenThenRomanStringIsReturned() {
+        assertEquals("XCVI", converter.integerToRomanString(96));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNegativeIntegerIsGivenThenExceptionIsThrown() {
+        converter.integerToRomanString(-2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenTooBigIntegerIsGivenThenExceptionIsThrown() {
+        converter.integerToRomanString(4001);
+    }
 
 }
