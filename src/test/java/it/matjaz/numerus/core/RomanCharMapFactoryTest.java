@@ -50,9 +50,9 @@ public class RomanCharMapFactoryTest {
 
     @Test
     public void charMapKeysAreOnlyRomanChars() {
-        for (String romanChar : charMap.keySet()) {
+        charMap.keySet().stream().forEach((romanChar) -> {
             Assert.assertTrue(romanChar.matches("[MDCLXVI]+"));
-        }
+        });
     }
 
     @Test
@@ -73,7 +73,7 @@ public class RomanCharMapFactoryTest {
     }
 
     @Test
-    public void charMapContainsNoOtherKeys() {
+    public void charMapContainsNoOtherEntries() {
         Assert.assertTrue(charMap.size() == 13);
     }
 
@@ -113,15 +113,14 @@ public class RomanCharMapFactoryTest {
     public void inverseCharMapValuesAreStrings() {
         Assert.assertThat(inverseCharMap.values().iterator().next(), instanceOf(String.class));
     }
-      
+
     @Test
-    public void inverseCharMapContainsNoOtherKeys() {
+    public void inverseCharMapContainsNoOtherEntries() {
         Assert.assertTrue(inverseCharMap.size() == 13);
     }
-    
+
     @Test
     public void inverseCharMapIsExactOppositeOfTheCharMap() {
-        
         Assert.assertTrue("M".equals(inverseCharMap.get(1000)));
         Assert.assertTrue("CM".equals(inverseCharMap.get(900)));
         Assert.assertTrue("D".equals(inverseCharMap.get(500)));
