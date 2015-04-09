@@ -13,9 +13,6 @@ import static org.junit.Assert.*;
  */
 public class RomanNumeralTest {
 
-    public RomanNumeralTest() {
-    }
-
     private RomanNumeral roman;
 
     @Before
@@ -27,58 +24,75 @@ public class RomanNumeralTest {
     public void whenDefaultConstructorIsCalledThenSymbolsAreEmptyString() {
         assertEquals(roman.getSymbols(), "");
     }
+
+    @Test
+    public void whenCorrectStringIsGivenThenNoExceptionIsThrown() {
+        roman.setSymbols("XLII");
+        assertEquals("XLII", roman.getSymbols());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenNullStringIsGivenThenExceptionIsThrown() {
+        roman.setSymbols(null);
+    }
+
+    @Test
+    public void givenStringGetsStrippedAndUpcased() {
+        roman.setSymbols("  \t\n\r   xliI ");
+        assertEquals("XLII", roman.getSymbols());
+    }
+
+    @Test
+    public void givenStringGetsStrippedOfInnerWhiteSpaceChars() {
+        roman.setSymbols("  XL I  II");
+        assertEquals("XLIII", roman.getSymbols());
+    }
+
+    @Test(expected = NumberFormatException.class)
+    public void whenEmptyStringIsGivenThenExceptionIsThrown() {
+        roman.setSymbols("");
+    }
+
+    @Test(expected = NumberFormatException.class)
+    public void whenWhitespaceStringIsGivenThenExceptionIsThrown() {
+        roman.setSymbols("  \t\n\r  ");
+    }
+
+    @Test(expected = NumberFormatException.class)
+    public void whenImpossiblyLongStringIsGivenThenExceptionIsThrown() {
+        roman.setSymbols("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+    }
+
     /*
-     @Test
-     public void whenCorrectStringIsGivenThenNoExceptionIsThrown() {
-     roman.setNumerals("XLII");
-     assertEquals("XLII", roman.getNumerals());
-     }
-
-     @Test(expected = NumberFormatException.class)
-     public void whenEmptyStringIsGivenThenExceptionIsThrown() {
-     roman.setNumerals("");
-     }
-
-     @Test(expected = NumberFormatException.class)
-     public void whenWhitespaceStringIsGivenThenExceptionIsThrown() {
-     roman.setNumerals("  \t\n\r  ");
-     }
-
-     @Test
-     public void givenStringGetsStrippedOfWhitespaceCharsAndUpcased() {
-     roman.setNumerals("  \t\n\r   xl iI ");
-     assertEquals("XLII", roman.getNumerals());
-     }
-
      @Test(expected = NumberFormatException.class)
      public void whenStringContainsNotRomanCharactersThenExceptionIsThrown() {
-     roman.setNumerals("pFXC- ");
+     roman.setSymbols("pFXC- ");
      }
 
      @Test(expected = NullPointerException.class)
      public void whenNullStringIsGivenThenExceptionIsThrown() {
-     roman.setNumerals(null);
+     roman.setSymbols(null);
      }
 
      @Test(expected = NumberFormatException.class)
      public void whenStringWithIncorrectTomanSyntaxIsGivenThenExceptionIsThrown() {
-     roman.setNumerals("MMCMIIIX");
+     roman.setSymbols("MMCMIIIX");
      }
 
      @Test(expected = NumberFormatException.class)
      public void whenStringWithMoreThanThreeConsecutiveTenLikeIsGivenThenExceptionIsThrown() {
-     roman.setNumerals("CCCC");
+     roman.setSymbols("CCCC");
      }
 
      @Test(expected = NumberFormatException.class)
      public void whenStringWithMoreThanOneFiveLikeCharIsGivenThenExceptionIsThrown() {
-     roman.setNumerals("DD");
+     roman.setSymbols("DD");
      }
 
      @Test
      public void whenStringWithNonRomanCharIsGivenThenAllNonRomanCharsAreListedInException() {
      try {
-     roman.setNumerals("MMCZCCFUV-II=");
+     roman.setSymbols("MMCZCCFUV-II=");
      } catch (NumberFormatException ex) {
      assertEquals("Not roman characters: [Z, F, U, -, =]", ex.getMessage());
      }
@@ -87,7 +101,7 @@ public class RomanNumeralTest {
      @Test
      public void whenStringWithMoreThanThreeConsecutiveTenLikeCharsIsGivenThenTheyAreListenInException() {
      try {
-     roman.setNumerals("MMCCCCVI");
+     roman.setSymbols("MMCCCCVI");
      } catch (NumberFormatException ex) {
      assertEquals("Four consecutive [CCCC] in numeral.", ex.getMessage());
      }
@@ -96,7 +110,7 @@ public class RomanNumeralTest {
      @Test
      public void whenStringWithMoreThanOneFiveLikeCharsIsGivenThenTheyAreListenInException() {
      try {
-     roman.setNumerals("LXVVILL");
+     roman.setSymbols("LXVVILL");
      } catch (NumberFormatException ex) {
      assertEquals("Two consecutive [VV, LL] in numeral.", ex.getMessage());
      }
