@@ -9,21 +9,15 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 
 public class RomanCharMapFactory {
 
+    private RomanCharMapFactory() {
+    }
+
     public static Map<String, Integer> generateCharMap() {
         Map<String, Integer> charMap = new HashMap();
-        charMap.put("M", 1000);
-        charMap.put("CM", 900);
-        charMap.put("D", 500);
-        charMap.put("CD", 400);
-        charMap.put("C", 100);
-        charMap.put("XC", 90);
-        charMap.put("L", 50);
-        charMap.put("XL", 40);
-        charMap.put("X", 10);
-        charMap.put("IX", 9);
-        charMap.put("V", 5);
-        charMap.put("IV", 4);
-        charMap.put("I", 1);
+        Pair[] pairsArray = generateCharPairsArray();
+        for (Pair charAndValue : pairsArray) {
+            charMap.put((String) charAndValue.getKey(), (Integer) charAndValue.getValue());
+        }
         return charMap;
     }
 
@@ -39,7 +33,7 @@ public class RomanCharMapFactory {
     public static BidiMap generateBidiCharMap() {
         return new DualHashBidiMap(generateCharMap());
     }
-    
+
     public static Pair[] generateCharPairsArray() {
         Pair[] pairsArray = new Pair[]{
             new Pair("M", 1000),
