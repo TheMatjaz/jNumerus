@@ -21,16 +21,6 @@ public class RomanConverterTest {
     }
 
     @Test
-    public void whenDefaultConstructorIsCalledThenNonNullArrayOfPairsIsConstructed() {
-        assertNotNull(converter.getCharValues());
-    }
-
-    @Test
-    public void whenDefaultConstructorIsCalledThenRomanCharPairsArrayIsConstructed() {
-        assertArrayEquals(converter.getCharValues(), RomanCharMapFactory.generateCharPairsArray());
-    }
-
-    @Test
     public void whenRomanWithMultipleSameCharsIsGivenThenArabicIsReturned() {
         assertEquals(3212, converter.romanStringToInteger("MMMCCXII"));
     }
@@ -44,7 +34,7 @@ public class RomanConverterTest {
     public void whenCorrectRomanIsGivenThenArabicIsReturned() {
         assertEquals(1100, converter.romanStringToInteger("MC"));
     }
-
+    
     @Test
     public void whenIntegerIsGivenThenRomanStringIsReturned() {
         assertEquals("CXII", converter.integerToRomanString(112));

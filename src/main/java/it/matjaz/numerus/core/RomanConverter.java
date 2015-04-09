@@ -16,14 +16,33 @@ public class RomanConverter {
 
     private final Pair[] charValues;
 
+    /**
+     * Constructs the converter by preparing its reference for translating roman
+     * character into numeric values.
+     */
     public RomanConverter() {
         this.charValues = RomanCharMapFactory.generateCharPairsArray();
     }
 
-    public Pair[] getCharValues() {
-        return charValues;
-    }
-    
+    /**
+     * Converts the given syntactically correct roman numeral as String to its
+     * int value.
+     *
+     * This method performs no checks on the correctness of the roman numeral
+     * String so the correct result is <b>not</b> guaranteed if the input is
+     * incorrect.
+     *
+     * Works with 2 indexes: one is iterating through the given romanString, the
+     * other through the reference array of Pairs
+     * {@link RomanCharMapFactory#generateCharPairsArray() (roman char, value)}.
+     * The array is iterated until a char the romanString starts with is found:
+     * its values is added to the arabicValue and the search continues on the
+     * next romanString char (or pair of chars).
+     *
+     * @param romanString a string representing a syntactically correct roman
+     * numeral to be converted.
+     * @return int value of the given String.
+     */
     public int romanStringToInteger(String romanString) {
         int arabicValue = 0;
         int romanStringIndex = 0;
