@@ -1,6 +1,7 @@
 package it.matjaz.numerus.core;
 
 import java.util.Map;
+import javafx.util.Pair;
 import org.apache.commons.collections4.BidiMap;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import org.junit.Assert;
@@ -17,12 +18,14 @@ public class RomanCharMapFactoryTest {
     private Map<String, Integer> charMap;
     private Map<Integer, String> inverseCharMap;
     private BidiMap bidiCharMap;
+    private Pair[] charPairs;
 
     @Before
     public void generateCharMap() {
         this.charMap = RomanCharMapFactory.generateCharMap();
         this.inverseCharMap = RomanCharMapFactory.generateInverseCharMap();
         this.bidiCharMap = RomanCharMapFactory.generateBidiCharMap();
+        this.charPairs = RomanCharMapFactory.generateCharPairsArray();
     }
 
     @Test
@@ -177,5 +180,35 @@ public class RomanCharMapFactoryTest {
         Assert.assertTrue("V".equals(bidiCharMap.getKey(5)));
         Assert.assertTrue("IV".equals(bidiCharMap.getKey(4)));
         Assert.assertTrue("I".equals(bidiCharMap.getKey(1)));
+    }
+
+    @Test
+    public void staticConstructorCreatesPairsArray() {
+        Assert.assertThat(charPairs, instanceOf(Pair[].class));
+    }
+
+    @Test
+    public void staticConstructorCreatesPairsArrayWithSpecificLenght13() {
+        Assert.assertTrue(charPairs.length == 13);
+    }
+
+    @Test
+    public void pairsArrayContainsOnlyRomanCharsAndValuesSortedInverselyByChar() {
+        Pair[] pairsArray = new Pair[]{
+            new Pair("M", 1000),
+            new Pair("CM", 900),
+            new Pair("D", 500),
+            new Pair("CD", 400),
+            new Pair("C", 100),
+            new Pair("XC", 90),
+            new Pair("L", 50),
+            new Pair("XL", 40),
+            new Pair("X", 10),
+            new Pair("IX", 9),
+            new Pair("V", 5),
+            new Pair("IV", 4),
+            new Pair("I", 1)
+        };
+        Assert.assertArrayEquals(charPairs, pairsArray);
     }
 }
