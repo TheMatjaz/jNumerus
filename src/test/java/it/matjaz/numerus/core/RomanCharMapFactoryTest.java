@@ -1,6 +1,7 @@
 package it.matjaz.numerus.core;
 
 import java.util.Map;
+import org.apache.commons.collections4.BidiMap;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,11 +16,13 @@ public class RomanCharMapFactoryTest {
 
     private Map<String, Integer> charMap;
     private Map<Integer, String> inverseCharMap;
+    private BidiMap bidiCharMap;
 
     @Before
     public void generateCharMap() {
         this.charMap = RomanCharMapFactory.generateCharMap();
         this.inverseCharMap = RomanCharMapFactory.generateInverseCharMap();
+        this.bidiCharMap = RomanCharMapFactory.generateBidiCharMap();
     }
 
     @Test
@@ -87,17 +90,17 @@ public class RomanCharMapFactoryTest {
         Assert.assertTrue(charMap.get("IV") == 4);
         Assert.assertTrue(charMap.get("I") == 1);
     }
-    
+
     @Test
     public void staticConstructorCreatesAInverseMap() {
         Assert.assertThat(inverseCharMap, instanceOf(Map.class));
     }
-    
+
     @Test
     public void staticConstructorCreatesNonEmptyInverseMap() {
         Assert.assertFalse(inverseCharMap.isEmpty());
     }
-    
+
     @Test
     public void inverseCharMapKeysAreIntegers() {
         Assert.assertThat(inverseCharMap.keySet().iterator().next(), instanceOf(Integer.class));
@@ -129,5 +132,50 @@ public class RomanCharMapFactoryTest {
         Assert.assertTrue("V".equals(inverseCharMap.get(5)));
         Assert.assertTrue("IV".equals(inverseCharMap.get(4)));
         Assert.assertTrue("I".equals(inverseCharMap.get(1)));
+    }
+
+    @Test
+    public void staticConstructorCreatesBidiMap() {
+        Assert.assertThat(bidiCharMap, instanceOf(BidiMap.class));
+    }
+
+    @Test
+    public void staticConstructorCreatesNonEmptyBidiMap() {
+        Assert.assertFalse(bidiCharMap.isEmpty());
+    }
+
+    @Test
+    public void bidiCharMapContainsNoOtherEntries() {
+        Assert.assertTrue(charMap.size() == 13);
+    }
+
+    @Test
+    public void bidiCharMapEntriesMatchRomanChars() {
+        Assert.assertTrue(bidiCharMap.get("M").equals(1000));
+        Assert.assertTrue(bidiCharMap.get("CM").equals(900));
+        Assert.assertTrue(bidiCharMap.get("D").equals(500));
+        Assert.assertTrue(bidiCharMap.get("CD").equals(400));
+        Assert.assertTrue(bidiCharMap.get("C").equals(100));
+        Assert.assertTrue(bidiCharMap.get("XC").equals(90));
+        Assert.assertTrue(bidiCharMap.get("L").equals(50));
+        Assert.assertTrue(bidiCharMap.get("XL").equals(40));
+        Assert.assertTrue(bidiCharMap.get("X").equals(10));
+        Assert.assertTrue(bidiCharMap.get("IX").equals(9));
+        Assert.assertTrue(bidiCharMap.get("V").equals(5));
+        Assert.assertTrue(bidiCharMap.get("IV").equals(4));
+        Assert.assertTrue(bidiCharMap.get("I").equals(1));
+        Assert.assertTrue("M".equals(bidiCharMap.getKey(1000)));
+        Assert.assertTrue("CM".equals(bidiCharMap.getKey(900)));
+        Assert.assertTrue("D".equals(bidiCharMap.getKey(500)));
+        Assert.assertTrue("CD".equals(bidiCharMap.getKey(400)));
+        Assert.assertTrue("C".equals(bidiCharMap.getKey(100)));
+        Assert.assertTrue("XC".equals(bidiCharMap.getKey(90)));
+        Assert.assertTrue("L".equals(bidiCharMap.getKey(50)));
+        Assert.assertTrue("XL".equals(bidiCharMap.getKey(40)));
+        Assert.assertTrue("X".equals(bidiCharMap.getKey(10)));
+        Assert.assertTrue("IX".equals(bidiCharMap.getKey(9)));
+        Assert.assertTrue("V".equals(bidiCharMap.getKey(5)));
+        Assert.assertTrue("IV".equals(bidiCharMap.getKey(4)));
+        Assert.assertTrue("I".equals(bidiCharMap.getKey(1)));
     }
 }

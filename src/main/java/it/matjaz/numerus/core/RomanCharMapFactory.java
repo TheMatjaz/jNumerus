@@ -3,6 +3,8 @@ package it.matjaz.numerus.core;
 // @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a> <a href="http://matjaz.it">www.matjaz.it</a>
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 
 public class RomanCharMapFactory {
 
@@ -31,5 +33,9 @@ public class RomanCharMapFactory {
             inverseCharMap.put(charMap.get(key), key);
         });
         return inverseCharMap;
+    }
+    
+    public static BidiMap generateBidiCharMap() {
+        return new DualHashBidiMap(generateCharMap());
     }
 }
