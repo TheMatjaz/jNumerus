@@ -19,6 +19,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <!--<mainClass>SuperMain</mainClass>-->
+        <netbeans.hint.license>NumerusLicenseHeader</netbeans.hint.license>
     </properties>
     
     <build>
