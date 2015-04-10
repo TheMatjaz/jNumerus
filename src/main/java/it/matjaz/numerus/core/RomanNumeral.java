@@ -10,7 +10,29 @@ import java.util.regex.Pattern;
 public class RomanNumeral {
 
     private String symbols;
+
+    /**
+     * A big regex matching all syntactically correct roman numerals.
+     *
+     * Contains all possible cases of roman numerals. If a string does not match
+     * this regex, then is not a roman numeral.
+     */
+    public final String CORRECT_ROMAN_SYNTAX_REGEX = "^(M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$";
+
+    /**
+     * Non roman characters.
+     */
     public final String NON_ROMAN_CHARS_REGEX = "[^MDCLXVI]";
+
+    /**
+     * Four consecutive characters M or C or X or I.
+     */
+    private final String FOUR_CONSECUTIVE_TEN_LIKE_CHARS_REGEX = "(MMMM|CCCC|XXXX|IIII)";
+
+    /**
+     * Two non necessary consecutive characters D or L or V.
+     */
+    private final String TWO_SAME_FIVE_LIKE_CHARS_REGEX = "(D.*D|L.*L|V.*V)";
 
     public RomanNumeral() {
         this.symbols = "";
