@@ -19,11 +19,7 @@
         https://github.com/MatjazDev/Numerus
         http://matjaz.it/numerus
     </description>
-    
-    <organization>
-        <name>Matjaž</name>
-        <url>http://matjaz.it/numerus</url>
-    </organization>
+    <url>http://matjaz.it/numerus</url>
     
     <developers>
         <developer>
@@ -36,13 +32,27 @@
             </roles>
         </developer>
     </developers>
+    
+    <organization>
+        <name>Matjaž</name>
+        <url>${project.url}</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>Mozilla Public License (MPL) v2.0</name>
+            <url>https://www.mozilla.org/MPL/2.0/</url>
+            <distribution>manual</distribution>
+            <comments>Explanation of the license: https://www.mozilla.org/MPL/2.0/FAQ.html</comments>
+        </license>
+    </licenses>
 
     <!-- Project properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!--<mainClass>SuperMain</mainClass>-->
+        <!--<mainClass>it.matjaz.Numerus.cli.Main</mainClass>-->
         <netbeans.hint.license>NumerusLicenseHeader</netbeans.hint.license>
     </properties>
     
@@ -52,7 +62,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
+                <version>3.3</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -64,26 +74,75 @@
                 <version>2.10.2</version>
                 <configuration>
                     <failOnError>false</failOnError>
-                    <!--<additionalparam>-Xdoclint:none</additionalparam>-->
+                    <!--
+                    The following command completely removes the checks of the
+                    JavaDoc syntax. It's extreme, use carefully.
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                    -->
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.6</version>
                 <configuration>
                     <archive>
                         <manifest>
-                            <addClasspath>true</addClasspath>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>dependency-jars/</classpathPrefix>
                             <mainClass>${mainClass}</mainClass>
                         </manifest>
                         <manifestEntries>
-                            <Dependencies>None</Dependencies>
+                            <Dependencies>org.apache.commons.commons-collections4</Dependencies>
+                            <Built-By>Matjaž</Built-By>
                             <Url>${project.organization.url}</Url>
+                            <License>Mozilla Public License (MPL) v2.0</License>
                         </manifestEntries>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/dependency-jars/
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>${mainClass}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
