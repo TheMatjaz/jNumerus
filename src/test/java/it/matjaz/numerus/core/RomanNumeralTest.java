@@ -71,56 +71,42 @@ public class RomanNumeralTest {
     @Test
     public void whenStringContainsNonRomanCharactersThenExceptionMessageShowsThem() {
         try {
-            roman.setSymbols("pFXC-");
+            roman.setSymbols("pPFXC-");
         } catch (NumberFormatException ex) {
-            assertTrue(ex.getMessage().contains("pF-".toUpperCase()));
+            assertTrue(ex.getMessage().contains("pPF-".toUpperCase()));
         }
     }
-    /*
 
-     @Test(expected = NumberFormatException.class)
-     public void whenStringWithIncorrectTomanSyntaxIsGivenThenExceptionIsThrown() {
-     roman.setSymbols("MMCMIIIX");
-     }
+    @Test(expected = NumberFormatException.class)
+    public void whenStringWithIncorrectTomanSyntaxIsGivenThenExceptionIsThrown() {
+        roman.setSymbols("MMCMIIIX");
+    }
 
-     @Test(expected = NumberFormatException.class)
-     public void whenStringWithMoreThanThreeConsecutiveTenLikeIsGivenThenExceptionIsThrown() {
-     roman.setSymbols("CCCC");
-     }
+    @Test
+    public void whenStringContainsMoreThanThreeConsecutiveTenLikeSymbolsThenThenExceptionMessageShowsThem() {
+        try {
+            roman.setSymbols("CCCC");
+        } catch (NumberFormatException ex) {
+            assertTrue(ex.getMessage().contains("CCCC"));
+        }
+    }
 
-     @Test(expected = NumberFormatException.class)
-     public void whenStringWithMoreThanOneFiveLikeCharIsGivenThenExceptionIsThrown() {
-     roman.setSymbols("DD");
-     }
+    @Test
+    public void whenStringContainsMoreThanOneConsecutiveFiveLikeSymbolThenExceptionMessageShowsThem() {
+        try {
+            roman.setSymbols("DDXII");
+        } catch (NumberFormatException ex) {
+            assertTrue(ex.getMessage().contains("DD"));
+        }
+    }
 
-     @Test
-     public void whenStringWithNonRomanCharIsGivenThenAllNonRomanCharsAreListedInException() {
-     try {
-     roman.setSymbols("MMCZCCFUV-II=");
-     } catch (NumberFormatException ex) {
-     assertEquals("Not roman characters: [Z, F, U, -, =]", ex.getMessage());
-     }
-     }
+    @Test
+    public void whenStringContainsMoreThanOneConsecutiveFiveLikeSymbolThenExceptionMessageShowsThem2() {
+        try {
+            roman.setSymbols("DXID");
+        } catch (NumberFormatException ex) {
+            assertTrue(ex.getMessage().contains("DXID"));
+        }
+    }
 
-     @Test
-     public void whenStringWithMoreThanThreeConsecutiveTenLikeCharsIsGivenThenTheyAreListenInException() {
-     try {
-     roman.setSymbols("MMCCCCVI");
-     } catch (NumberFormatException ex) {
-     assertEquals("Four consecutive [CCCC] in numeral.", ex.getMessage());
-     }
-     }
-
-     @Test
-     public void whenStringWithMoreThanOneFiveLikeCharsIsGivenThenTheyAreListenInException() {
-     try {
-     roman.setSymbols("LXVVILL");
-     } catch (NumberFormatException ex) {
-     assertEquals("Two consecutive [VV, LL] in numeral.", ex.getMessage());
-     }
-     }
-
-     // test with all roman numbers
-
-     */
 }
