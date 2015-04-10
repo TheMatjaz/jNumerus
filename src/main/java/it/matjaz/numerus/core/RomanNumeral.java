@@ -106,7 +106,10 @@ public class RomanNumeral {
         final RomanNumeral other = (RomanNumeral) obj;
         return Objects.equals(this.symbols, other.getSymbols());
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return getSymbols();
+    }
 
 }
