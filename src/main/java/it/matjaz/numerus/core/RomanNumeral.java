@@ -39,6 +39,11 @@ public class RomanNumeral {
         this.symbols = "";
     }
 
+    public RomanNumeral(String symbols) {
+        checkRomanSyntax(symbols);
+        this.symbols = symbols;
+    }
+    
     public String getSymbols() {
         return symbols;
     }
