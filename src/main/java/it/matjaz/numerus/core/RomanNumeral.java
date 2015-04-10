@@ -1,5 +1,6 @@
 package it.matjaz.numerus.core;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -86,5 +87,26 @@ public class RomanNumeral {
             throw new NumberFormatException("Generic roman numeral syntax error.");
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.symbols);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final RomanNumeral other = (RomanNumeral) obj;
+        return Objects.equals(this.symbols, other.getSymbols());
+    }
+    
+    
 
 }
