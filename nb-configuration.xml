@@ -14,7 +14,7 @@ That way multiple projects can share the same settings (useful for formatting ru
 Any value defined here will override the pom.xml file value but is only applicable to the current project.
 -->
         <netbeans.hint.jdkPlatform>JDK_1.8</netbeans.hint.jdkPlatform>
-        <netbeans.hint.license>default</netbeans.hint.license>
         <org-netbeans-modules-javascript2-requirejs.enabled>false</org-netbeans-modules-javascript2-requirejs.enabled>
+        <netbeans.hint.licensePath>${project.basedir}/NumerusLicenseHeader.txt</netbeans.hint.licensePath>
     </properties>
 </project-shared-configuration>
