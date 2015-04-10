@@ -43,7 +43,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!--<mainClass>SuperMain</mainClass>-->
+        <!--<mainClass>it.matjaz.Numerus.cli.Main</mainClass>-->
         <netbeans.hint.license>NumerusLicenseHeader</netbeans.hint.license>
     </properties>
     
@@ -65,7 +65,11 @@
                 <version>2.10.2</version>
                 <configuration>
                     <failOnError>false</failOnError>
-                    <!--<additionalparam>-Xdoclint:none</additionalparam>-->
+                    <!--
+                    The following command completely removes the checks of the
+                    JavaDoc syntax. It's extreme, use carefully.
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                    -->
                 </configuration>
             </plugin>
             <plugin>
