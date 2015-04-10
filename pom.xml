@@ -19,11 +19,7 @@
         https://github.com/MatjazDev/Numerus
         http://matjaz.it/numerus
     </description>
-    
-    <organization>
-        <name>Matjaž</name>
-        <url>http://matjaz.it/numerus</url>
-    </organization>
+    <url>http://matjaz.it/numerus</url>
     
     <developers>
         <developer>
@@ -36,6 +32,11 @@
             </roles>
         </developer>
     </developers>
+    
+    <organization>
+        <name>Matjaž</name>
+        <url>${project.url}</url>
+    </organization>
 
     <!-- Project properties -->
     <properties>
