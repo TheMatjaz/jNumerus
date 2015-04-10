@@ -76,4 +76,11 @@
             <type>jar</type>
         </dependency>
     </dependencies>
+    <description>
+        Numerus is a free and open-source library that allows conversion and 
+        manipulation of roman numerals in Java. The library and its source code 
+        may be found on:
+        https://github.com/MatjazDev/Numerus
+        http://matjaz.it/numerus
+    </description>
 </project>
