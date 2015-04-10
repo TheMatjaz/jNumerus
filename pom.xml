@@ -2,18 +2,42 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <!-- Artifact information -->
     <modelVersion>4.0.0</modelVersion>
     <groupId>it.matjaz</groupId>
     <artifactId>Numerus</artifactId>
     <version>0.2.0</version>
     <packaging>jar</packaging>
-
+    
+    <!-- Project information and description -->
     <name>Numerus</name>
+    <description>
+        Numerus is a free and open-source library that allows conversion and 
+        manipulation of roman numerals in Java. The library and its source code 
+        may be found on:
+        https://github.com/MatjazDev/Numerus
+        http://matjaz.it/numerus
+    </description>
+    
     <organization>
-        <name>Matjaž dev@matjaz.it</name>
+        <name>Matjaž</name>
         <url>http://matjaz.it/numerus</url>
     </organization>
+    
+    <developers>
+        <developer>
+            <id>mat</id>
+            <name>Matjaž</name>
+            <email>dev@matjaz.it</email>
+            <url>http://matjaz.it</url>
+            <roles>
+                <role>Main developer</role>
+            </roles>
+        </developer>
+    </developers>
 
+    <!-- Project properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -21,6 +45,7 @@
         <!--<mainClass>SuperMain</mainClass>-->
     </properties>
     
+    <!-- Plugins and dependencies -->
     <build>
         <plugins>
             <plugin>
@@ -61,7 +86,7 @@
             </plugin>
         </plugins>
     </build>
-
+    
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -76,11 +101,5 @@
             <type>jar</type>
         </dependency>
     </dependencies>
-    <description>
-        Numerus is a free and open-source library that allows conversion and 
-        manipulation of roman numerals in Java. The library and its source code 
-        may be found on:
-        https://github.com/MatjazDev/Numerus
-        http://matjaz.it/numerus
-    </description>
+    
 </project>
