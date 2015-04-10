@@ -38,6 +38,15 @@
         <url>${project.url}</url>
     </organization>
 
+    <licenses>
+        <license>
+            <name>Mozilla Public License (MPL) v2.0</name>
+            <url>https://www.mozilla.org/MPL/2.0/</url>
+            <distribution>manual</distribution>
+            <comments>Explanation of the license: https://www.mozilla.org/MPL/2.0/FAQ.html</comments>
+        </license>
+    </licenses>
+
     <!-- Project properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -87,6 +96,8 @@
                         <manifestEntries>
                             <Dependencies>org.apache.commons.commons-collections4</Dependencies>
                             <Built-By>Matjaž</Built-By>
+                            <Url>${project.organization.url}</Url>
+                            <License>Mozilla Public License (MPL) v2.0</License>
                         </manifestEntries>
                     </archive>
                 </configuration>
