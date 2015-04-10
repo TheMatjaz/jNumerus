@@ -85,8 +85,8 @@
                             <mainClass>${mainClass}</mainClass>
                         </manifest>
                         <manifestEntries>
-                            <Dependencies>None</Dependencies>
-                            <Url>${project.organization.url}</Url>
+                            <Dependencies>org.apache.commons.commons-collections4</Dependencies>
+                            <Built-By>Matjaž</Built-By>
                         </manifestEntries>
                     </archive>
                 </configuration>
