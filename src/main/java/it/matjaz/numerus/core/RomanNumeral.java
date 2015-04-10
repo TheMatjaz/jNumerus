@@ -53,7 +53,7 @@ public class RomanNumeral {
     }
 
     // from http://stackoverflow.com/questions/5705111/how-to-get-all-substring-for-a-given-regex
-    private static String getAllMatches(String textToParse, String regex) {
+    private static String findAllInternalMatches(String textToParse, String regex) {
         StringBuilder matches = new StringBuilder();
         Matcher matcher = Pattern.compile(regex).matcher(textToParse);
         while (matcher.find()) {
@@ -69,10 +69,21 @@ public class RomanNumeral {
         if (symbols.length() >= 20) {
             throw new NumberFormatException("Impossibly long roman numeral.");
         }
-        String matches;
-        matches = getAllMatches(symbols, NON_ROMAN_CHARS_REGEX);
-        if (!matches.isEmpty()) {
-            throw new NumberFormatException("Non roman characters: " + matches);
+        if (!symbols.matches(CORRECT_ROMAN_SYNTAX_REGEX)) {
+            String illegalChars;
+            illegalChars = findAllInternalMatches(symbols, NON_ROMAN_CHARS_REGEX);
+            if (!illegalChars.isEmpty()) {
+                throw new NumberFormatException("Non roman characters: " + illegalChars);
+            }
+            illegalChars = findAllInternalMatches(symbols, FOUR_CONSECUTIVE_TEN_LIKE_CHARS_REGEX);
+            if (!illegalChars.isEmpty()) {
+                throw new NumberFormatException("Four consecutive: " + illegalChars);
+            }
+            illegalChars = findAllInternalMatches(symbols, TWO_SAME_FIVE_LIKE_CHARS_REGEX);
+            if (!illegalChars.isEmpty()) {
+                throw new NumberFormatException("Two D, L or V same characters: " + illegalChars);
+            }
+            throw new NumberFormatException("Generic roman numeral syntax error.");
         }
     }
 
