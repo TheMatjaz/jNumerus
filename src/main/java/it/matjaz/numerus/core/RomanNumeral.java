@@ -133,6 +133,32 @@ public class RomanNumeral {
     }
 
     /**
+     * Performs a check of the syntax of the given roman numeral without storing
+     * it in a RomanNumeral.
+     * <p>
+     * Returns <code>true</code> if the passed String matches the syntax of
+     * roman numerals; else <code>false</code>. Useful to just quickly check if
+     * a String is a roman numeral when an instance of it is not needed. If the
+     * result is <code>true</code>, then the passed String can be successfully
+     * stored in a RomanNumeral by
+     * {@link #RomanNumeral(java.lang.String) constructor} or
+     * {@link #setSymbols(java.lang.String) setter}.
+     *
+     * @param numeralsToCheck the String to check the roman syntax on.
+     * @return <code>true</code> if the passed String is a roman numeral; else
+     * <code>false</code>.
+     */
+    public static boolean isCorrectRomanSyntax(String numeralsToCheck) {
+        try {
+            String cleanNumerals = cleanSymbolsString(numeralsToCheck);
+            new RomanNumeral().checkRomanSyntax(cleanNumerals);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+    }
+
+    /**
      * Removes all whitespace characters from the given string and transforms
      * all characters to uppercase.
      *

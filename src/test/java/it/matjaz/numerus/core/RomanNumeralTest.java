@@ -108,5 +108,11 @@ public class RomanNumeralTest {
             assertTrue(ex.getMessage().contains("DXID"));
         }
     }
+    
+    @Test
+    public void syntaxCheckCanBePerformedWithoutInstantiation() {
+        assertTrue(RomanNumeral.isCorrectRomanSyntax("CLXXII"));
+        assertFalse(RomanNumeral.isCorrectRomanSyntax("LINUX RULES!"));
+    }
 
 }
