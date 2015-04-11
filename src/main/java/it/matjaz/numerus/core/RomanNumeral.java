@@ -183,6 +183,14 @@ public class RomanNumeral {
         }
     }
 
+    /**
+     * Returns the hash of this object.
+     * <p>
+     * Uses {@link Objects#hashCode(java.lang.Object)} and overrides
+     * {@link Object#hashCode()}.
+     *
+     * @return the hash of this object.
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -190,6 +198,14 @@ public class RomanNumeral {
         return hash;
     }
 
+    /**
+     * Verifies if the passed Object is equal to this.
+     *
+     * Returns <code>true</code> if the passed Object is the same as this, else
+     * <code>false</code>.
+     *
+     * @return a boolean telling if the two objects are equal.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -202,6 +218,16 @@ public class RomanNumeral {
         return Objects.equals(this.symbols, other.getSymbols());
     }
 
+    /**
+     * Returns a string representation of this object, which is the roman
+     * numeral stored in it.
+     * <p>
+     * This method is a delegate method and just calls {@link #getSymbols()} so
+     * the returned string is exactly the same for both. This method is here for
+     * compatibility reasons.
+     *
+     * @return a String containing the roman numeral.
+     */
     @Override
     public String toString() {
         return getSymbols();
