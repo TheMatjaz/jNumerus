@@ -114,5 +114,31 @@ public class RomanNumeralTest {
         assertTrue(RomanNumeral.isCorrectRomanSyntax("CLXXII"));
         assertFalse(RomanNumeral.isCorrectRomanSyntax("LINUX RULES!"));
     }
-
+    
+    @Test
+    public void toStringDelegatesGetter() {
+        roman.setSymbols("MCMLXIV");
+        assertEquals(roman.getSymbols(), roman.toString());
+    }
+    
+    @Test
+    public void equalsMethodWorksh() {
+        RomanNumeral numeral1 = new RomanNumeral("MCMLXIV");
+        RomanNumeral numeral2 = new RomanNumeral("MCMLXIV");
+        assertTrue(numeral1.equals(numeral2));
+    }
+    
+    @Test
+    public void defaultConstructorAndSetterIsTheSameAsInitializingConstructor() {
+        RomanNumeral numeral1 = new RomanNumeral();
+        numeral1.setSymbols("MCMLXIV");
+        RomanNumeral numeral2 = new RomanNumeral("MCMLXIV");
+        assertTrue(numeral1.equals(numeral2));
+    }
+    
+    @Test
+    public void setterAfterDefaultConstructorReturnsEmptyString() {
+        assertEquals(roman.getSymbols(), "");
+    }
+    
 }
