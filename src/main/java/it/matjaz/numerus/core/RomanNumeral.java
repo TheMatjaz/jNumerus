@@ -40,8 +40,9 @@ public class RomanNumeral {
     }
 
     public RomanNumeral(String symbols) {
-        checkRomanSyntax(symbols);
-        this.symbols = symbols;
+        String cleanSymbols = cleanSymbolsString(symbols);
+        checkRomanSyntax(cleanSymbols);
+        this.symbols = cleanSymbols;
     }
     
     public String getSymbols() {
