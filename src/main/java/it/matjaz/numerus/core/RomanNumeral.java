@@ -79,8 +79,9 @@ public class RomanNumeral {
     /**
      * Constructs an empty roman numeral.
      * <p>
-     * Contains no value so the setter needs to be used before using the
-     * RomanNumeral.
+     * Contains no value so {@link #setSymbols(java.lang.String) the setter}
+     * needs to be used before using the RomanNumeral. Calling this method and
+     * then the setter leads to the same result.
      */
     public RomanNumeral() {
         this.symbols = "";
@@ -91,6 +92,9 @@ public class RomanNumeral {
      * <p>
      * The passed string gets checked for syntax correctness. If the syntax is
      * illegal, then a {@link NumberFormatException} is thrown.
+     * <p>
+     * Whitespace charactes in the passed String are removed and the characters
+     * are upcased.
      *
      * @param symbols the initial roman numeral to be stored.
      */
@@ -116,6 +120,9 @@ public class RomanNumeral {
      * <p>
      * The passed string gets checked for syntax correctness. If the syntax is
      * illegal, then a {@link NumberFormatException} is thrown.
+     * <p>
+     * Whitespace charactes in the passed String are removed and the characters
+     * are upcased.
      *
      * @param symbols the new roman numerals to be stored
      */
