@@ -5,61 +5,150 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * A container for syntactically correct roman numerals saved as strings.
+ * <p>
+ * This class saves a string passed though the constructor or the setter if and
+ * only if is a roman number with a correct syntax, which happens if the string
+ * matches the {@link #CORRECT_ROMAN_SYNTAX_REGEX}.
+ * <p>
+ * Any string with other characters, different order, too many characters or
+ * anyhow incorrect syntax gets refused with {@link NumberFormatException},
+ * which may contain some indication of the syntax error in the Exception
+ * message.
+ * <p>
+ * The structure of a syntactically roman numeral is composed of the following
+ * symbols <i>in this order</i>:
+ * <ol>
+ * <ul>0-3 <b>M</b></ul>
+ * <ul>0-1 <b>CM</b> or 0-1 <b>CD</b> or ( 0-1 <b>D</b> and 0-3 <b>C</b> )</ul>
+ * <ul>0-1 <b>XC</b> or 0-1 <b>XL</b> or ( 0-1 <b>L</b> and 0-3 <b>X</b> )</ul>
+ * <ul>0-1 <b>IX</b> or 0-1 <b>IV</b> or ( 0-1 <b>V</b> and 0-3 <b>I</b> )</ul>
+ * </ol>
+ * <p>
+ * For the integer values of the symbols, see {@link RomanCharMapFactory}.
+ *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">www.matjaz.it</a>
  */
 public class RomanNumeral {
 
+    /**
+     * The passed string representing the roman numeral with roman symbols.
+     */
     private String symbols;
 
     /**
-     * A big regex matching all syntactically correct roman numerals.
-     *
+     * Big regex matching all syntactically correct roman numerals.
+     * <p>
      * Contains all possible cases of roman numerals. If a string does not match
-     * this regex, then is not a roman numeral.
+     * this regex, then is not a roman numeral. The structure of a syntactically
+     * roman numeral is composed of the following symbols <i>in this order</i>:
+     * <ol>
+     * <ul>0-3 <b>M</b></ul>
+     * <ul>0-1 <b>CM</b> or 0-1 <b>CD</b> or ( 0-1 <b>D</b> and 0-3 <b>C</b>
+     * )</ul>
+     * <ul>0-1 <b>XC</b> or 0-1 <b>XL</b> or ( 0-1 <b>L</b> and 0-3 <b>X</b>
+     * )</ul>
+     * <ul>0-1 <b>IX</b> or 0-1 <b>IV</b> or ( 0-1 <b>V</b> and 0-3 <b>I</b>
+     * )</ul>
+     * </ol>
+     * <p>
+     * <a href="http://stackoverflow.com/a/267405">Source of the idea</a> of
+     * this regex with a great explanation.
      */
     public final String CORRECT_ROMAN_SYNTAX_REGEX = "^(M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$";
 
     /**
-     * Non roman characters.
+     * Regex matching any non roman characters.
+     * <p>
+     * If a string contains any character matching with this regex, then is not
+     * a roman numeral, because contains illegal characters.
      */
     public final String NON_ROMAN_CHARS_REGEX = "[^MDCLXVI]";
 
     /**
-     * Four consecutive characters M or C or X or I.
+     * Regex matching four consecutive characters M or C or X or I.
      */
     private final String FOUR_CONSECUTIVE_TEN_LIKE_CHARS_REGEX = "(MMMM|CCCC|XXXX|IIII)";
 
     /**
-     * Two non necessary consecutive characters D or L or V.
+     * Regex matching two characters D or L or V in the same string.
      */
     private final String TWO_SAME_FIVE_LIKE_CHARS_REGEX = "(D.*D|L.*L|V.*V)";
 
+    /**
+     * Constructs an empty roman numeral.
+     * <p>
+     * Contains no value so the setter needs to be used before using the
+     * RomanNumeral.
+     */
     public RomanNumeral() {
         this.symbols = "";
     }
 
+    /**
+     * Constructs a roman numeral with initialized value.
+     * <p>
+     * The passed string gets checked for syntax correctness. If the syntax is
+     * illegal, then a {@link NumberFormatException} is thrown.
+     *
+     * @param symbols the initial roman numeral to be stored.
+     */
     public RomanNumeral(String symbols) {
         String cleanSymbols = cleanSymbolsString(symbols);
         checkRomanSyntax(cleanSymbols);
         this.symbols = cleanSymbols;
     }
-    
+
+    /**
+     * Getter of the roman numerals String.
+     * <p>
+     * If RomanNumeral is not initialized, the returned String is <b>empty</b>.
+     *
+     * @return a String containing the roman numeral.
+     */
     public String getSymbols() {
         return symbols;
     }
 
+    /**
+     * Setter of the roman numerals String.
+     * <p>
+     * The passed string gets checked for syntax correctness. If the syntax is
+     * illegal, then a {@link NumberFormatException} is thrown.
+     *
+     * @param symbols the new roman numerals to be stored
+     */
     public void setSymbols(String symbols) {
         String cleanSymbols = cleanSymbolsString(symbols);
         checkRomanSyntax(cleanSymbols);
         this.symbols = cleanSymbols;
     }
 
+    /**
+     * Removes all whitespace characters from the given string and transforms
+     * all characters to uppercase.
+     *
+     * @param symbols string to be cleaned and upcased.
+     * @return given string without whitespaces and upcased.
+     */
     private static String cleanSymbolsString(String symbols) {
         return symbols.replaceAll("\\s+", "").toUpperCase();
     }
 
-    // from http://stackoverflow.com/questions/5705111/how-to-get-all-substring-for-a-given-regex
+    /**
+     * Finds all the substrings of the given string matching the regex.
+     * <p>
+     * Check for all substring of <code>textToParse</code> matching the
+     * <code>regex</code>, appends them sequentially to a String and returns it.
+     * <p>
+     * <a href="http://stackoverflow.com/a/5705591">Source of the idea</a> of
+     * the algorithm.
+     *
+     * @param textToParse String to be checked for matches.
+     * @param regex to be searched in <code>textToParse</code>
+     * @return a String containing all the matches.
+     */
     private static String findAllInternalMatches(String textToParse, String regex) {
         StringBuilder matches = new StringBuilder();
         Matcher matcher = Pattern.compile(regex).matcher(textToParse);
