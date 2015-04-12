@@ -141,4 +141,11 @@ public class RomanNumeralTest {
         assertEquals(roman.getSymbols(), "");
     }
     
+    @Test
+    public void whenDefaultConstructorIsCalledThenAnInitializationTestCanBeCalled() {
+        assertFalse(roman.isInitialized());
+        roman.setSymbols("C");
+        assertTrue(roman.isInitialized());
+    }
+    
 }

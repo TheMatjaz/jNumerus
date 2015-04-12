@@ -116,6 +116,25 @@ public class RomanNumeral {
     }
 
     /**
+     * Checks if the roman numeal is empty or not.
+     * <p>
+     * Returns <code>true</code> if this RomanNumeal has a roman numeral stored
+     * in it, else <code>false</code> if contains just an empty string. The
+     * verification is done by confronting an empty String with the result of
+     * the {@link #getSymbols() getter}. The only way it can contain an empty
+     * string is to be initialized with the
+     * {@link #RomanNumeral() default constructor} (the one without parameters)
+     * without setting the value after that with the
+     * {@link #setSymbols(java.lang.String) setter}.
+     *
+     * @return <code>true</code> has a roman numeral stored in it, else
+     * <code>false</code> if it's empty.
+     */
+    public boolean isInitialized() {
+        return !"".equals(getSymbols());
+    }
+
+    /**
      * Setter of the roman numerals String.
      * <p>
      * The passed string gets checked for syntax correctness. If the syntax is
