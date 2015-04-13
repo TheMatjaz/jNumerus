@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
+
+    This Source Code Form is part of the project Numerus, a roman numerals
+    library for Java. The library and its source code may be found on:
+    https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
