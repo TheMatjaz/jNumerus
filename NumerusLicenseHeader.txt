@@ -1,0 +1,16 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Copyright (c) ${date?date?string("yyyy")}, ${userForLicense}
+${licensePrefix}All rights reserved.
+${licensePrefix?replace(" +$", "", "r")}
+${licensePrefix}This Source Code Form is part of the project ${project.name}, a roman numerals
+${licensePrefix}library for Java. The library and its source code may be found on:
+${licensePrefix}https://github.com/matjazdev/Numerus and http://matjaz.it/numerus
+${licensePrefix?replace(" +$", "", "r")}
+${licensePrefix}This Source Code Form is subject to the terms of the Mozilla Public
+${licensePrefix}License, v. 2.0. If a copy of the MPL was not distributed with this
+${licensePrefix}file, You can obtain one at http://mozilla.org/MPL/2.0/
+<#if licenseLast??>
+${licenseLast}
+</#if>
