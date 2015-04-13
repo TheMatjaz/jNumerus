@@ -66,5 +66,20 @@ public class RomanConverterTest {
     public void whenTooBigIntegerIsGivenThenExceptionIsThrown() {
         converter.integerToRomanString(4001);
     }
-
+    
+    @Test
+    public void romanNumeralsMayBeConvertedToIntegers() {
+        assertEquals(21, converter.romanNumeralToInteger(new RomanNumeral("XXI")));
+    }
+    
+    @Test
+    public void romanNumeralsAreReturnedFromIntConversion() {
+        assertEquals(new RomanNumeral("LXI"), converter.integerToRomanNumeral(61));
+    }
+    
+    @Test
+    public void whenUninitializedRomanNumeralIsConvertedReturnsZero() {
+        assertEquals(0, converter.romanNumeralToInteger(new RomanNumeral()));
+    }
+    
 }
