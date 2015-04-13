@@ -12,6 +12,7 @@
 
 package it.matjaz.numerus.core;
 
+import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -80,6 +81,29 @@ public class RomanConverterTest {
     @Test
     public void whenUninitializedRomanNumeralIsConvertedReturnsZero() {
         assertEquals(0, converter.romanNumeralToInteger(new RomanNumeral()));
+    }
+    
+    @Test
+    public void everyIntegerIsConvertedToASyntacticallyCorrectRomanNumeral() {
+        for (int i = 1; i <= 3999; i++) {
+            try {
+                converter.integerToRomanNumeral(i);
+            } catch (NumberFormatException ex) {
+                System.out.println(ex.getMessage());
+                fail("Failed to convert " + i);
+            }
+        }
+    }
+    
+    @Test
+    public void conversionIsBijective() {
+        HashMap<Integer, String> allNumerals = new HashMap<>();
+        for (int i = 1; i <= 3999; i++) {
+           allNumerals.put(i, converter.integerToRomanString(i));
+        }
+        allNumerals.keySet().stream().forEach((i) -> {
+            assertTrue(i == converter.romanStringToInteger(allNumerals.get(i)));
+        });
     }
     
 }
