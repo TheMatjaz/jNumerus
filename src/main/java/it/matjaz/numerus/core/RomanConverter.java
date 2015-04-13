@@ -9,7 +9,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-
 package it.matjaz.numerus.core;
 
 import javafx.util.Pair;
@@ -43,7 +42,9 @@ public class RomanConverter {
      * <p>
      * This method performs no checks on the correctness of the roman numeral
      * String so the correct result is <b>not</b> guaranteed if the input is
-     * incorrect.
+     * incorrect. Use
+     * {@link #romanNumeralToInteger(it.matjaz.numerus.core.RomanNumeral) romanNumeralToInteger(RomanNumeral)}
+     * to force correct inputs.
      * <p>
      * Works with 2 indexes: one is iterating through the given romanString, the
      * other through the reference array of Pairs
@@ -71,6 +72,25 @@ public class RomanConverter {
             }
         }
         return arabicValue;
+    }
+
+    /**
+     * Converts the given RomanNumeratl its int value.
+     * <p>
+     * This method extracts the numerals string from the passed RomanNumeral and
+     * calls
+     * {@link #romanStringToInteger(java.lang.String) romanStringToInteger(String)}
+     * for the conversion. This method is syntactically secure, since a
+     * RomanNumeral may not have a wrong syntax.
+     * <p>
+     * Returns 0 for an {@link RomanNumeral#RomanNumeral() unitialized}
+     * RomanNumeral.
+     *
+     * @param roman a RomanNumeral to be converted.
+     * @return int value of the RomanNumeral.
+     */
+    public int romanNumeralToInteger(RomanNumeral roman) {
+        return romanStringToInteger(roman.getSymbols());
     }
 
     /**
@@ -108,7 +128,26 @@ public class RomanConverter {
                 arabic -= romanCharValue;
             }
         }
-        //RomanNumeral roman = new RomanNumeral(romanString);
         return romanString;
+    }
+
+    /**
+     * Converts the given int value to its RomanNumeral representation.
+     * <p>
+     * This method calls {@link #integerToRomanString(int)} for the conversion
+     * and encapsulates the result String in a RomanNumeral, assuring correct
+     * syntax.
+     * <p>
+     * Throws an exception if the given int is not positve or is bigger than
+     * 3999, which are the extremes of the roman numerals range of
+     * representation.
+     *
+     * @param arabic int to be converted to a RomanNumeral.
+     * @return a RomanNumeral representing the passed value.
+     * @throws IllegalArgumentException if the arabic int is not in [1, 3999]
+     * range.
+     */
+    public RomanNumeral integerToRomanNumeral(int arabic) {
+        return new RomanNumeral(integerToRomanString(arabic));
     }
 }
