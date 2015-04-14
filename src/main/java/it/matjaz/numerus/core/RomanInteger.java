@@ -27,15 +27,18 @@ public class RomanInteger {
     
     private int value;
     private RomanNumeral numeral;
+    private final RomanConverter converter;
 
     public RomanInteger() {
+        this.converter = new RomanConverter();
         this.value = 0;
         this.numeral = new RomanNumeral();
     }
 
     public RomanInteger(int value) {
+        this.converter = new RomanConverter();
+        this.numeral = converter.integerToRomanNumeral(value);
         this.value = value;
-        this.numeral = new RomanNumeral();
     }
 
     public int getValue() {
@@ -44,6 +47,16 @@ public class RomanInteger {
 
     public RomanNumeral getNumeral() {
         return numeral;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+        this.numeral = converter.integerToRomanNumeral(value);
+    }
+
+    public void setNumeral(RomanNumeral numeral) {
+        this.numeral = numeral;
+        this.value = converter.romanNumeralToInteger(numeral);
     }
 
     
