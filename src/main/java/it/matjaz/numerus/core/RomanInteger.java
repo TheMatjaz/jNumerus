@@ -24,7 +24,7 @@ package it.matjaz.numerus.core;
  * <a href="http://matjaz.it">matjaz.it</a>
  */
 public class RomanInteger {
-    
+
     private int value;
     private RomanNumeral numeral;
     private final RomanConverter converter;
@@ -39,6 +39,27 @@ public class RomanInteger {
         this.converter = new RomanConverter();
         this.numeral = converter.integerToRomanNumeral(value);
         this.value = value;
+    }
+
+    public RomanInteger(RomanNumeral numeral) {
+        if (!numeral.isInitialized()) {
+            throw new IllegalArgumentException("Could not create a RomanInteger with uninitialized RomanNumeral.");
+        }
+        this.converter = new RomanConverter();
+        this.value = converter.romanNumeralToInteger(numeral);
+        this.numeral = numeral;
+    }
+
+    public RomanInteger(int value, RomanNumeral numeral) {
+        this.converter = new RomanConverter();
+        if (!numeral.isInitialized()) {
+            throw new IllegalArgumentException("Could not create a RomanInteger with uninitialized RomanNumeral.");
+        }
+        if (converter.romanNumeralToInteger(numeral) != value) {
+            throw new IllegalArgumentException("Not matching pair (Integer, RomanNumeral).");
+        }
+        this.value = value;
+        this.numeral = numeral;
     }
 
     public int getValue() {
@@ -59,5 +80,4 @@ public class RomanInteger {
         this.value = converter.romanNumeralToInteger(numeral);
     }
 
-    
 }
