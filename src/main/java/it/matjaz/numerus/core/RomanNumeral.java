@@ -9,7 +9,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-
 package it.matjaz.numerus.core;
 
 import java.io.Serializable;
@@ -43,7 +42,7 @@ import java.util.regex.Pattern;
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">www.matjaz.it</a>
  */
-public class RomanNumeral implements Serializable {
+public class RomanNumeral implements Serializable, Cloneable {
 
     /**
      * The passed string representing the roman numeral with roman symbols.
@@ -298,4 +297,8 @@ public class RomanNumeral implements Serializable {
         return getSymbols();
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return (RomanNumeral) super.clone();
+    }
 }

@@ -197,5 +197,29 @@ public class RomanNumeralTest {
             }
         }
     }
+    
+    @Test
+    public void romanNumeralIsCloneable() {
+        roman.setSymbols("DXI");
+        try {
+            RomanNumeral otherRoman = (RomanNumeral) roman.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail();
+        }
+    }
+    
+    @Test
+    public void clonedRomanNumeralEqualsOriginalOne() {
+        roman.setSymbols("DXI");
+        RomanNumeral otherRoman;
+        try {
+            otherRoman = (RomanNumeral) roman.clone();
+            assertEquals(roman, otherRoman);
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail();
+        }
+    }
 
 }
