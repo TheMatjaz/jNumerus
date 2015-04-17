@@ -46,6 +46,8 @@ public class RomanNumeral implements Serializable, Cloneable {
 
     /**
      * The passed string representing the roman numeral with roman symbols.
+     * 
+     * It is a serializable field.
      */
     private String symbols;
 
@@ -297,6 +299,20 @@ public class RomanNumeral implements Serializable, Cloneable {
         return getSymbols();
     }
 
+    /**
+     * Returns a {@link Object#clone() clone} of this object with the same
+     * numeral.
+     * <p>
+     * The original and the RomanNumeral store an equal roman numeral and
+     * applying an {@link #equals(java.lang.Object) equals() } method to them,
+     * will result <code>true</code>.
+     * <p>
+     * Since the only field of RomanNumeral is a String, the
+     * CloneNotSupportedException should never raise.
+     *
+     * @return a RomanNumeral with the same numeral.
+     * @throws CloneNotSupportedException when super object is not cloneable.
+     */
     @Override
     public Object clone() throws CloneNotSupportedException {
         return (RomanNumeral) super.clone();
