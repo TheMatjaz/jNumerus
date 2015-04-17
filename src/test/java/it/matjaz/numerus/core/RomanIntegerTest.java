@@ -11,7 +11,6 @@
  */
 package it.matjaz.numerus.core;
 
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -84,81 +83,109 @@ public class RomanIntegerTest {
         assertEquals(2015, roman.getValue());
         assertEquals("MMXV", roman.getNumeral().getSymbols());
     }
-    
-     @Test(expected = IllegalArgumentException.class)
-     public void costructorWithBothParametersRejectsIncorrectPair() {
-         roman = new RomanInteger(2345, new RomanNumeral("C"));
-     }
 
-     @Test
-     public void constructorWithBothParametersAcceptsCorrectPairsAndStoresThem() {
-         roman = new RomanInteger(2345, new RomanNumeral("MMCCCXLV"));
-         assertEquals(2345, roman.getValue());
-         assertEquals(new RomanNumeral("MMCCCXLV"), roman.getNumeral());
-     }
-     
-     @Test(expected = IllegalArgumentException.class)
-     public void constructorWithBothParametersRejectsIllegalInts() {
-         // TODO: this works because the Exception is about the non-matching pair.
-         // At this point (2015-04-14, v0.3.0) we don't support negative or large
-         // Integers yet.
-         roman = new RomanInteger(-4, new RomanNumeral("III"));
-     }
-     
-     @Test(expected = IllegalArgumentException.class)
-     public void constructorWithBothParametersRejectsUninitializedRomanNumerals() {
-         roman = new RomanInteger(0, new RomanNumeral());
-     }
-     
-     /*
-     @Test
-     public void intSetterUpdatesInt() {
-     roman.setValue(123);
-     assertEquals(123, roman.getValue());
-     }
+    @Test(expected = IllegalArgumentException.class)
+    public void costructorWithBothParametersRejectsIncorrectPair() {
+        roman = new RomanInteger(2345, new RomanNumeral("C"));
+    }
 
-     @Test
-     public void intSetterUpdatesRomanNumeral() {
-     roman.setValue(42);
-     assertEquals(new RomanNumeral("XLII"), roman.getNumeral());
-     }
+    @Test
+    public void constructorWithBothParametersAcceptsCorrectPairsAndStoresThem() {
+        roman = new RomanInteger(2345, new RomanNumeral("MMCCCXLV"));
+        assertEquals(2345, roman.getValue());
+        assertEquals(new RomanNumeral("MMCCCXLV"), roman.getNumeral());
+    }
 
-     @Test(expected = IllegalArgumentException.class)
-     public void intSetterRejectIllegalValues() {
-     roman.setValue(900000);
-     }
+    @Test(expected = IllegalArgumentException.class)
+    public void constructorWithBothParametersRejectsIllegalInts() {
+        // TODO: this works because the Exception is about the non-matching pair.
+        // At this point (2015-04-14, v0.3.0) we don't support negative or large
+        // Integers yet.
+        roman = new RomanInteger(-4, new RomanNumeral("III"));
+    }
 
-     @Test
-     public void intSetterWithIllegalIntDoesNotSetRomanNumeral() {
-     roman.setValue(value);
-     }
+    @Test(expected = IllegalArgumentException.class)
+    public void constructorWithBothParametersRejectsUninitializedRomanNumerals() {
+        roman = new RomanInteger(0, new RomanNumeral());
+    }
 
-     @Test
-     public void romanNumeralSetterUpdatesRomanNumeral() {
-     roman.setNumeral(new RomanNumeral("MMM"));
-     assertEquals(new RomanNumeral("MMM"), roman.getNumeral());
-     }
+    @Test
+    public void intSetterUpdatesInt() {
+        roman = new RomanInteger();
+        roman.setValue(123);
+        assertEquals(123, roman.getValue());
+    }
 
-     @Test
-     public void romanNumeralSetterUpdatesInt() {
-     roman.setNumeral(new RomanNumeral("CC"));
-     assertEquals(200, roman.getValue());
-     }
+    @Test
+    public void intSetterUpdatesRomanNumeral() {
+        roman = new RomanInteger();
+        roman.setValue(42);
+        assertEquals(new RomanNumeral("XLII"), roman.getNumeral());
+    }
 
-     /*
-     @Test
-     public void numeralStringSetterUpdatesInt() {
-     fail();
-     }
-    
-     @Test
-     public void numeralStringSetterUpdatesRomanNumeral() {
-     fail();
-     }
-    
-     @Test(expected = NumberFormatException.class)
-     public void numeralsStringSetterRejectsWrongSyntax() {
-     roman.setNumeral("LaTeX rules");
-     }
-     */
+    @Test(expected = IllegalArgumentException.class)
+    public void intSetterRejectIllegalValues() {
+        roman = new RomanInteger();
+        roman.setValue(900000);
+    }
+
+    @Test
+    public void intSetterWithIllegalIntDoesNotSetRomanNumeral() {
+        try {
+            roman = new RomanInteger(40);
+            roman.setValue(20150853);
+        } catch (IllegalArgumentException ex) {
+            assertEquals(40, roman.getValue());
+            assertEquals(new RomanNumeral("XL"), roman.getNumeral());
+        }
+    }
+
+    @Test
+    public void romanNumeralSetterUpdatesRomanNumeral() {
+        roman = new RomanInteger(2345);
+        roman.setNumeral(new RomanNumeral("MMM"));
+        assertEquals(new RomanNumeral("MMM"), roman.getNumeral());
+    }
+
+    @Test
+    public void romanNumeralSetterUpdatesInt() {
+        roman = new RomanInteger(2345);
+        roman.setNumeral(new RomanNumeral("CC"));
+        assertEquals(200, roman.getValue());
+    }
+
+    @Test
+    public void numeralSetterWithIllegalNumeralDoesNotSetInt() {
+        // kind of stupid test, because the exception is thrown by RomanNumeral
+        // not by RomanInteger and a RomanNumeral with illegal syntax can not be
+        // even constructed.
+        try {
+            roman = new RomanInteger(40);
+            roman.setNumeral(new RomanNumeral("ABCD"));
+        } catch (NumberFormatException ex) {
+            assertEquals(40, roman.getValue());
+            assertEquals(new RomanNumeral("XL"), roman.getNumeral());
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void numeralSetterRejectUninitializedRomanNumerals() {
+        roman = new RomanInteger(10);
+        roman.setNumeral(new RomanNumeral());
+    }
+
+    @Test
+    public void equalsChecksBothFields() {
+        roman = new RomanInteger(20);
+        RomanInteger otherRoman = new RomanInteger(new RomanNumeral("XX"));
+        assertTrue(roman.equals(otherRoman));
+    }
+
+    @Test
+    public void toStringReturnsBothFields() {
+        roman = new RomanInteger(14);
+        System.out.println(roman.toString());
+        assertTrue(roman.toString().contains("XIV"));
+        assertTrue(roman.toString().contains("14"));
+    }
 }

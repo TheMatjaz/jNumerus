@@ -11,6 +11,8 @@
  */
 package it.matjaz.numerus.core;
 
+import java.util.Objects;
+
 /**
  * Container for a RomanNumeral and its Integer value tied toghether.
  * <p>
@@ -71,13 +73,44 @@ public class RomanInteger {
     }
 
     public void setValue(int value) {
-        this.value = value;
         this.numeral = converter.integerToRomanNumeral(value);
+        this.value = value;
     }
 
     public void setNumeral(RomanNumeral numeral) {
+        if (!numeral.isInitialized()) {
+            throw new IllegalArgumentException("Could not set a RomanInteger with uninitialized RomanNumeral.");
+        }
         this.numeral = numeral;
         this.value = converter.romanNumeralToInteger(numeral);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + this.value;
+        hash = 29 * hash + Objects.hashCode(this.numeral);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final RomanInteger other = (RomanInteger) obj;
+        if (this.value != other.getValue()) {
+            return false;
+        }
+        return this.numeral.equals(other.getNumeral());
+    }
+
+    @Override
+    public String toString() {
+        return value + " " + numeral.toString();
     }
 
 }
