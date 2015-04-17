@@ -221,5 +221,22 @@ public class RomanNumeralTest {
             fail();
         }
     }
+    
+    @Test
+    public void charAtReturnsCorrectNumeral() {
+        roman.setSymbols("DLIV");
+        assertEquals('I', roman.charAt(2));
+    }
+    
+    @Test
+    public void lengthReturnsSymbolsLenghts() {
+        roman.setSymbols("III");
+        assertEquals(3, roman.length());
+    }
 
+    @Test
+    public void subSequenceWorks() {
+        roman.setSymbols("CCCXXXIII");
+        assertEquals("XXX", roman.subSequence(3, 6));
+    }
 }

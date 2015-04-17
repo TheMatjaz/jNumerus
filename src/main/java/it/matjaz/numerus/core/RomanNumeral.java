@@ -42,11 +42,11 @@ import java.util.regex.Pattern;
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">www.matjaz.it</a>
  */
-public class RomanNumeral implements Serializable, Cloneable {
+public class RomanNumeral implements Serializable, Cloneable, CharSequence {
 
     /**
      * The passed string representing the roman numeral with roman symbols.
-     * 
+     *
      * It is a serializable field.
      */
     private String symbols;
@@ -309,12 +309,30 @@ public class RomanNumeral implements Serializable, Cloneable {
      * <p>
      * Since the only field of RomanNumeral is a String, the
      * CloneNotSupportedException should never raise.
+     * <p>
+     * Delegates {@link Object#clone()}.
      *
      * @return a RomanNumeral with the same numeral.
      * @throws CloneNotSupportedException when super object is not cloneable.
+     * @see java.lang.Object#clone()
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
         return (RomanNumeral) super.clone();
+    }
+
+    @Override
+    public int length() {
+        return symbols.length();
+    }
+
+    @Override
+    public char charAt(int index) {
+        return symbols.charAt(index);
+    }
+
+    @Override
+    public CharSequence subSequence(int startIncluded, int endNotIncluded) {
+        return symbols.subSequence(startIncluded, endNotIncluded);
     }
 }
