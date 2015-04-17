@@ -321,16 +321,48 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
         return (RomanNumeral) super.clone();
     }
 
+    /**
+     * Returns the lenght of the roman numeral expressed as number of
+     * characters.
+     * <p>
+     * Delegates {@link String#length()}.
+     *
+     * @return number of characters in the roman numeral.
+     * @see java.lang.String#length()
+     */
     @Override
     public int length() {
         return symbols.length();
     }
 
+    /**
+     * Returns the character of the roman numeral at the given index.
+     * <p>
+     * Delegates {@link String#charAt(int)}.
+     *
+     * @param index of the wanted character in the roman numeral.
+     * @return the character at the given index.
+     * @see java.lang.String#charAt(int)
+     */
     @Override
     public char charAt(int index) {
         return symbols.charAt(index);
     }
 
+    /**
+     * Returns a CharSequence containing a part of the roman numeral.
+     * <p>
+     * The returned CharSequence contains the characters of the roman numeral
+     * from the start index (included) to the end index (exluded).
+     * <p>
+     * Delegates {@link String#subSequence(int, int)}.
+     *
+     * @param startIncluded index of the first character to be included.
+     * @param endNotIncluded index of the first character after the end of the
+     * wanted part.
+     * @return a part of the roman numeral as CharSequence.
+     * @see java.lang.String#subSequence(int, int)
+     */
     @Override
     public CharSequence subSequence(int startIncluded, int endNotIncluded) {
         return symbols.subSequence(startIncluded, endNotIncluded);
