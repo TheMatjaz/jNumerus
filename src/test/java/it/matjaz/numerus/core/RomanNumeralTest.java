@@ -9,9 +9,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-
 package it.matjaz.numerus.core;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -120,26 +128,26 @@ public class RomanNumeralTest {
             assertTrue(ex.getMessage().contains("DXID"));
         }
     }
-    
+
     @Test
     public void syntaxCheckCanBePerformedWithoutInstantiation() {
         assertTrue(RomanNumeral.isCorrectRomanSyntax("CLXXII"));
         assertFalse(RomanNumeral.isCorrectRomanSyntax("LINUX RULES!"));
     }
-    
+
     @Test
     public void toStringDelegatesGetter() {
         roman.setSymbols("MCMLXIV");
         assertEquals(roman.getSymbols(), roman.toString());
     }
-    
+
     @Test
     public void equalsMethodWorksh() {
         RomanNumeral numeral1 = new RomanNumeral("MCMLXIV");
         RomanNumeral numeral2 = new RomanNumeral("MCMLXIV");
         assertTrue(numeral1.equals(numeral2));
     }
-    
+
     @Test
     public void defaultConstructorAndSetterIsTheSameAsInitializingConstructor() {
         RomanNumeral numeral1 = new RomanNumeral();
@@ -147,17 +155,47 @@ public class RomanNumeralTest {
         RomanNumeral numeral2 = new RomanNumeral("MCMLXIV");
         assertTrue(numeral1.equals(numeral2));
     }
-    
+
     @Test
     public void setterAfterDefaultConstructorReturnsEmptyString() {
         assertEquals(roman.getSymbols(), "");
     }
-    
+
     @Test
     public void whenDefaultConstructorIsCalledThenAnInitializationTestCanBeCalled() {
         assertFalse(roman.isInitialized());
         roman.setSymbols("C");
         assertTrue(roman.isInitialized());
     }
-    
+
+    @Test
+    public void serializabilityWorksBothWays() {
+        FileOutputStream outputFile = null;
+        try {
+            roman.setSymbols("MMXV");
+            File tempFile = new File("/tmp/numerals.ser");
+            outputFile = new FileOutputStream(tempFile);
+            ObjectOutputStream outputStream = new ObjectOutputStream(outputFile);
+            outputStream.writeObject(roman);
+            outputStream.close();
+            outputFile.close();
+            FileInputStream inputFile = new FileInputStream(tempFile);
+            ObjectInputStream inputStream = new ObjectInputStream(inputFile);
+            RomanNumeral deserializedRoman = (RomanNumeral) inputStream.readObject();
+            inputStream.close();
+            inputFile.close();
+            assertEquals(roman, deserializedRoman);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                outputFile.close();
+            } catch (IOException ex) {
+                Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
 }

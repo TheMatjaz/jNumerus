@@ -12,6 +12,7 @@
 
 package it.matjaz.numerus.core;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,7 +43,7 @@ import java.util.regex.Pattern;
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">www.matjaz.it</a>
  */
-public class RomanNumeral {
+public class RomanNumeral implements Serializable {
 
     /**
      * The passed string representing the roman numeral with roman symbols.
