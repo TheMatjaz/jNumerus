@@ -84,31 +84,6 @@ public class RomanIntegerTest {
         assertEquals("MMXV", roman.getNumeral().getSymbols());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void costructorWithBothParametersRejectsIncorrectPair() {
-        roman = new RomanInteger(2345, new RomanNumeral("C"));
-    }
-
-    @Test
-    public void constructorWithBothParametersAcceptsCorrectPairsAndStoresThem() {
-        roman = new RomanInteger(2345, new RomanNumeral("MMCCCXLV"));
-        assertEquals(2345, roman.getValue());
-        assertEquals(new RomanNumeral("MMCCCXLV"), roman.getNumeral());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void constructorWithBothParametersRejectsIllegalInts() {
-        // TODO: this works because the Exception is about the non-matching pair.
-        // At this point (2015-04-14, v0.3.0) we don't support negative or large
-        // Integers yet.
-        roman = new RomanInteger(-4, new RomanNumeral("III"));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void constructorWithBothParametersRejectsUninitializedRomanNumerals() {
-        roman = new RomanInteger(0, new RomanNumeral());
-    }
-
     @Test
     public void intSetterUpdatesInt() {
         roman = new RomanInteger();

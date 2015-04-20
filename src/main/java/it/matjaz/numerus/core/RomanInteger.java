@@ -52,18 +52,6 @@ public class RomanInteger {
         this.numeral = numeral;
     }
 
-    public RomanInteger(int value, RomanNumeral numeral) {
-        this.converter = new RomanConverter();
-        if (!numeral.isInitialized()) {
-            throw new IllegalArgumentException("Could not create a RomanInteger with uninitialized RomanNumeral.");
-        }
-        if (converter.romanNumeralToInteger(numeral) != value) {
-            throw new IllegalArgumentException("Not matching pair (Integer, RomanNumeral).");
-        }
-        this.value = value;
-        this.numeral = numeral;
-    }
-
     public int getValue() {
         return value;
     }
