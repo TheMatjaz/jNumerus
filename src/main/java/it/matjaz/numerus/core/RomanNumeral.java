@@ -113,9 +113,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * @param symbols the initial roman numeral to be stored.
      */
     public RomanNumeral(String symbols) {
-        String cleanSymbols = cleanSymbolsString(symbols);
-        checkRomanSyntax(cleanSymbols);
-        this.symbols = cleanSymbols;
+        this.symbols = cleanUpcaseAndSyntaxCheckString(symbols);;
     }
 
     /**
@@ -160,9 +158,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * @param symbols the new roman numerals to be stored
      */
     public void setSymbols(String symbols) {
-        String cleanSymbols = cleanSymbolsString(symbols);
-        checkRomanSyntax(cleanSymbols);
-        this.symbols = cleanSymbols;
+        this.symbols = cleanUpcaseAndSyntaxCheckString(symbols);;
     }
 
     /**
@@ -183,8 +179,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      */
     public static boolean isCorrectRomanSyntax(String numeralsToCheck) {
         try {
-            String cleanNumerals = cleanSymbolsString(numeralsToCheck);
-            new RomanNumeral().checkRomanSyntax(cleanNumerals);
+            new RomanNumeral().cleanUpcaseAndSyntaxCheckString(numeralsToCheck);
             return true;
         } catch (NumberFormatException ex) {
             return false;
@@ -192,14 +187,17 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     }
 
     /**
-     * Removes all whitespace characters from the given string and transforms
-     * all characters to uppercase.
+     * Removes all whitespace characters, upcases the String and verifies the Roman syntax.
+     * <p>
+     * If the syntax does not match, an exception is thrown.
      *
-     * @param symbols string to be cleaned and upcased.
+     * @param symbols string to be cleaned, upcased and checked.
      * @return given string without whitespaces and upcased.
      */
-    private static String cleanSymbolsString(String symbols) {
-        return symbols.replaceAll("\\s+", "").toUpperCase();
+    private String cleanUpcaseAndSyntaxCheckString(String symbols) {
+        String cleanSymbols = symbols.replaceAll("\\s+", "").toUpperCase();
+        checkRomanSyntax(cleanSymbols);
+        return cleanSymbols;
     }
 
     /**

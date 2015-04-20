@@ -67,8 +67,7 @@ public class RomanInteger {
      */
     public RomanInteger(int value) {
         this.converter = new RomanConverter();
-        this.numeral = converter.integerToRomanNumeral(value);
-        this.value = value;
+        setValueAndNumeral(value);
     }
 
     /**
@@ -86,8 +85,35 @@ public class RomanInteger {
             throw new IllegalArgumentException("Could not create a RomanInteger with uninitialized RomanNumeral.");
         }
         this.converter = new RomanConverter();
-        this.value = converter.romanNumeralToInteger(numeral);
+        setNumeralAndValue(numeral);
+    }
+
+    /**
+     * Private fields setter with int value used in constructors and setters.
+     * <p>
+     * Made for code reusal.
+     *
+     * @param value to be set along with its equivalent RomanNumeral.
+     * @see #setValue(int)
+     * @see #RomanInteger(int)
+     */
+    private void setValueAndNumeral(int value) {
+        this.numeral = converter.integerToRomanNumeral(value);
+        this.value = value;
+    }
+
+    /**
+     * Private fields setter with RomanNumeral used in constructors and setters.
+     * <p>
+     * Made for code reusal.
+     *
+     * @param numeral to be set along with its value.
+     * @see #setNumeral(it.matjaz.numerus.core.RomanNumeral)
+     * @see #RomanInteger(it.matjaz.numerus.core.RomanNumeral)
+     */
+    private void setNumeralAndValue(RomanNumeral numeral) {
         this.numeral = numeral;
+        this.value = converter.romanNumeralToInteger(numeral);
     }
 
     /**
@@ -118,8 +144,7 @@ public class RomanInteger {
      * @param value of this RomanInteger.
      */
     public void setValue(int value) {
-        this.numeral = converter.integerToRomanNumeral(value);
-        this.value = value;
+        setValueAndNumeral(value);
     }
 
     /**
@@ -136,8 +161,7 @@ public class RomanInteger {
         if (!numeral.isInitialized()) {
             throw new IllegalArgumentException("Could not set a RomanInteger with uninitialized RomanNumeral.");
         }
-        this.numeral = numeral;
-        this.value = converter.romanNumeralToInteger(numeral);
+        setNumeralAndValue(numeral);
     }
 
     /**
