@@ -250,12 +250,14 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     }
 
     /**
-     * Returns the hash of this object.
+     * Returns the hash of this RomanNumeral.
      * <p>
-     * Uses {@link Objects#hashCode(java.lang.Object)} and overrides
-     * {@link Object#hashCode()}.
+     * The hashcode is created using only the roman numerals string in this
+     * RomanNumeral. Uses {@link Objects#hashCode(java.lang.Object)} and
+     * overrides {@link Object#hashCode()}.
      *
-     * @return the hash of this object.
+     * @return the hash of this RomanNumeral.
+     * @see Object#hashCode()
      */
     @Override
     public int hashCode() {
@@ -266,33 +268,38 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
 
     /**
      * Verifies if the passed Object is equal to this.
-     *
-     * Returns <code>true</code> if the passed Object is the same as this, else
+     * <p>
+     * Returns <code>true</code> if the passed Object is a RomanNumeral and
+     * contains the same roman numerals String as this one, else
      * <code>false</code>.
      *
-     * @return a boolean telling if the two objects are equal.
+     * @param otherRomanNumeral to compare with this.
+     * @return a boolean telling if the two RomanNumerals are equal.
+     * @see Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object otherRomanNumeral) {
+        if (otherRomanNumeral == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != otherRomanNumeral.getClass()) {
             return false;
         }
-        final RomanNumeral other = (RomanNumeral) obj;
+        final RomanNumeral other = (RomanNumeral) otherRomanNumeral;
         return Objects.equals(this.symbols, other.getSymbols());
     }
 
     /**
-     * Returns a string representation of this object, which is the roman
-     * numeral stored in it.
+     * Returns a String representation of this RomanNumeral, which is the roman
+     * numeral String stored in it.
      * <p>
      * This method is a delegate method and just calls {@link #getSymbols()} so
      * the returned string is exactly the same for both. This method is here for
      * compatibility reasons.
      *
      * @return a String containing the roman numeral.
+     * @see #getSymbols() 
+     * @see Object#toString()
      */
     @Override
     public String toString() {
@@ -314,7 +321,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      *
      * @return a RomanNumeral with the same numeral.
      * @throws CloneNotSupportedException when super object is not cloneable.
-     * @see java.lang.Object#clone()
+     * @see Object#clone()
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -328,7 +335,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * Delegates {@link String#length()}.
      *
      * @return number of characters in the roman numeral.
-     * @see java.lang.String#length()
+     * @see String#length()
      */
     @Override
     public int length() {
@@ -342,7 +349,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      *
      * @param index of the wanted character in the roman numeral.
      * @return the character at the given index.
-     * @see java.lang.String#charAt(int)
+     * @see String#charAt(int)
      */
     @Override
     public char charAt(int index) {
@@ -361,7 +368,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * @param endNotIncluded index of the first character after the end of the
      * wanted part.
      * @return a part of the roman numeral as CharSequence.
-     * @see java.lang.String#subSequence(int, int)
+     * @see String#subSequence(int, int)
      */
     @Override
     public CharSequence subSequence(int startIncluded, int endNotIncluded) {
