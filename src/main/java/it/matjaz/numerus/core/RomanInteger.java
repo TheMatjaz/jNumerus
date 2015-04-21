@@ -27,7 +27,7 @@ import java.util.Objects;
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">matjaz.it</a>
  */
-public class RomanInteger {
+public class RomanInteger implements Cloneable {
 
     /**
      * The arabic value of the roman numeral.
@@ -219,6 +219,21 @@ public class RomanInteger {
     @Override
     public String toString() {
         return value + " " + numeral.toString();
+    }
+
+    /**
+     * Returns a {@link Object#clone() clone} of this object with the same
+     * RomanNumeral and int value.
+     * <p>
+     * Delegates {@link Object#clone()}.
+     *
+     * @return a RomanInteger with the same numeral and int value.
+     * @throws CloneNotSupportedException when super object is not cloneable.
+     * @see Object#clone()
+     */
+    @Override
+    public RomanInteger clone() throws CloneNotSupportedException {
+        return (RomanInteger) super.clone();
     }
 
 }

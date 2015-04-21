@@ -11,6 +11,8 @@
  */
 package it.matjaz.numerus.core;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -58,7 +60,7 @@ public class RomanIntegerTest {
     public void intConstructorKeepsCorrectConversionOfNumerals() {
         roman = new RomanInteger(2015);
         assertEquals(2015, roman.getValue());
-        assertEquals("MMXV", roman.getNumeral().getSymbols());
+        assertEquals("MMXV", roman.getNumeral().getNumeral());
     }
 
     @Test
@@ -81,7 +83,7 @@ public class RomanIntegerTest {
     public void numeralsConstructorKeepsACorrectCoversionOfInt() {
         roman = new RomanInteger(new RomanNumeral("MMXV"));
         assertEquals(2015, roman.getValue());
-        assertEquals("MMXV", roman.getNumeral().getSymbols());
+        assertEquals("MMXV", roman.getNumeral().getNumeral());
     }
 
     @Test
@@ -159,8 +161,31 @@ public class RomanIntegerTest {
     @Test
     public void toStringReturnsBothFields() {
         roman = new RomanInteger(14);
-        System.out.println(roman.toString());
         assertTrue(roman.toString().contains("XIV"));
         assertTrue(roman.toString().contains("14"));
+    }
+
+    @Test
+    public void romanIntegerIsCloneable() {
+        roman = new RomanInteger(101);
+        try {
+            RomanInteger otherRoman = roman.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail();
+        }
+    }
+
+    @Test
+    public void clonedRomanNumeralEqualsOriginalOne() {
+        roman = new RomanInteger(101);
+        RomanInteger otherRoman;
+        try {
+            otherRoman = roman.clone();
+            assertEquals(roman, otherRoman);
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail();
+        }
     }
 }

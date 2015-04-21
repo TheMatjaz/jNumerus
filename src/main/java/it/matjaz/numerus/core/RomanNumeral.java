@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  * message.
  * <p>
  * The structure of a syntactically roman numeral is composed of the following
- * symbols <i>in this order</i>:
+ * characters <i>in this order</i>:
  * <ol>
  * <ul>0-3 <b>M</b></ul>
  * <ul>0-1 <b>CM</b> or 0-1 <b>CD</b> or ( 0-1 <b>D</b> and 0-3 <b>C</b> )</ul>
@@ -45,18 +45,18 @@ import java.util.regex.Pattern;
 public class RomanNumeral implements Serializable, Cloneable, CharSequence {
 
     /**
-     * The passed string representing the roman numeral with roman symbols.
+     * The passed string representing the roman numeral.
      *
      * It is a serializable field.
      */
-    private String symbols;
+    private String numeral;
 
     /**
      * Big regex matching all syntactically correct roman numerals.
      * <p>
      * Contains all possible cases of roman numerals. If a string does not match
      * this regex, then is not a roman numeral. The structure of a syntactically
-     * roman numeral is composed of the following symbols <i>in this order</i>:
+     * roman numeral is composed of the following numeral <i>in this order</i>:
      * <ol>
      * <ul>0-3 <b>M</b></ul>
      * <ul>0-1 <b>CM</b> or 0-1 <b>CD</b> or ( 0-1 <b>D</b> and 0-3 <b>C</b>
@@ -91,18 +91,18 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     private final String TWO_SAME_FIVE_LIKE_CHARS_REGEX = "(D.*D|L.*L|V.*V)";
 
     /**
-     * Constructs an empty roman numeral.
+     * Constructs an empty RomanNumeral.
      * <p>
-     * Contains no value so {@link #setSymbols(java.lang.String) the setter}
+     * Contains no value so {@link #setNumeral(java.lang.String) the setter}
      * needs to be used before using the RomanNumeral. Calling this method and
      * then the setter leads to the same result.
      */
     public RomanNumeral() {
-        this.symbols = "";
+        this.numeral = "";
     }
 
     /**
-     * Constructs a roman numeral with initialized value.
+     * Constructs a RomanNumeral with initialized value.
      * <p>
      * The passed string gets checked for syntax correctness. If the syntax is
      * illegal, then a {@link NumberFormatException} is thrown.
@@ -113,7 +113,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * @param symbols the initial roman numeral to be stored.
      */
     public RomanNumeral(String symbols) {
-        this.symbols = cleanUpcaseAndSyntaxCheckString(symbols);;
+        this.numeral = cleanUpcaseAndSyntaxCheckString(symbols);
     }
 
     /**
@@ -123,27 +123,27 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      *
      * @return a String containing the roman numeral.
      */
-    public String getSymbols() {
-        return symbols;
+    public String getNumeral() {
+        return numeral;
     }
 
     /**
-     * Checks if the roman numeal is empty or not.
+     * Checks if this RomanNumeral contains a numeral or not.
      * <p>
      * Returns <code>true</code> if this RomanNumeal has a roman numeral stored
      * in it, else <code>false</code> if contains just an empty string. The
      * verification is done by confronting an empty String with the result of
-     * the {@link #getSymbols() getter}. The only way it can contain an empty
+     * the {@link #getNumeral() getter}. The only way it can contain an empty
      * string is to be initialized with the
      * {@link #RomanNumeral() default constructor} (the one without parameters)
      * without setting the value after that with the
-     * {@link #setSymbols(java.lang.String) setter}.
+     * {@link #setNumeral(java.lang.String) setter}.
      *
      * @return <code>true</code> has a roman numeral stored in it, else
      * <code>false</code> if it's empty.
      */
     public boolean isInitialized() {
-        return !"".equals(getSymbols());
+        return !"".equals(getNumeral());
     }
 
     /**
@@ -155,10 +155,10 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * Whitespace charactes in the passed String are removed and the characters
      * are upcased.
      *
-     * @param symbols the new roman numerals to be stored
+     * @param numeral the new roman numeral to be stored.
      */
-    public void setSymbols(String symbols) {
-        this.symbols = cleanUpcaseAndSyntaxCheckString(symbols);;
+    public void setNumeral(String numeral) {
+        this.numeral = cleanUpcaseAndSyntaxCheckString(numeral);
     }
 
     /**
@@ -171,7 +171,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * result is <code>true</code>, then the passed String can be successfully
      * stored in a RomanNumeral by
      * {@link #RomanNumeral(java.lang.String) constructor} or
-     * {@link #setSymbols(java.lang.String) setter}.
+     * {@link #setNumeral(java.lang.String) setter}.
      *
      * @param numeralsToCheck the String to check the roman syntax on.
      * @return <code>true</code> if the passed String is a roman numeral; else
@@ -187,7 +187,8 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     }
 
     /**
-     * Removes all whitespace characters, upcases the String and verifies the Roman syntax.
+     * Removes all whitespace characters, upcases the String and verifies the
+     * roman syntax.
      * <p>
      * If the syntax does not match, an exception is thrown.
      *
@@ -196,7 +197,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      */
     private String cleanUpcaseAndSyntaxCheckString(String symbols) {
         String cleanSymbols = symbols.replaceAll("\\s+", "").toUpperCase();
-        checkRomanSyntax(cleanSymbols);
+        throwExceptionIfIllegalRomanSyntax(cleanSymbols);
         return cleanSymbols;
     }
 
@@ -213,7 +214,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * @param regex to be searched in <code>textToParse</code>
      * @return a String containing all the matches.
      */
-    private static String findAllInternalMatches(String textToParse, String regex) {
+    private static String findAllRegexMatchingSubstrings(String textToParse, String regex) {
         StringBuilder matches = new StringBuilder();
         Matcher matcher = Pattern.compile(regex).matcher(textToParse);
         while (matcher.find()) {
@@ -222,7 +223,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
         return matches.toString();
     }
 
-    private void checkRomanSyntax(String symbols) {
+    private void throwExceptionIfIllegalRomanSyntax(String symbols) {
         if (symbols.isEmpty()) {
             throw new NumberFormatException("Empty roman numeral.");
         }
@@ -231,15 +232,15 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
         }
         if (!symbols.matches(CORRECT_ROMAN_SYNTAX_REGEX)) {
             String illegalChars;
-            illegalChars = findAllInternalMatches(symbols, NON_ROMAN_CHARS_REGEX);
+            illegalChars = findAllRegexMatchingSubstrings(symbols, NON_ROMAN_CHARS_REGEX);
             if (!illegalChars.isEmpty()) {
                 throw new NumberFormatException("Non roman characters: " + illegalChars);
             }
-            illegalChars = findAllInternalMatches(symbols, FOUR_CONSECUTIVE_TEN_LIKE_CHARS_REGEX);
+            illegalChars = findAllRegexMatchingSubstrings(symbols, FOUR_CONSECUTIVE_TEN_LIKE_CHARS_REGEX);
             if (!illegalChars.isEmpty()) {
                 throw new NumberFormatException("Four consecutive: " + illegalChars);
             }
-            illegalChars = findAllInternalMatches(symbols, TWO_SAME_FIVE_LIKE_CHARS_REGEX);
+            illegalChars = findAllRegexMatchingSubstrings(symbols, TWO_SAME_FIVE_LIKE_CHARS_REGEX);
             if (!illegalChars.isEmpty()) {
                 throw new NumberFormatException("Two D, L or V same characters: " + illegalChars);
             }
@@ -250,7 +251,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     /**
      * Returns the hash of this RomanNumeral.
      * <p>
-     * The hashcode is created using only the roman numerals string in this
+     * The hashcode is created using only the roman numeral String in this
      * RomanNumeral. Uses {@link Objects#hashCode(java.lang.Object)} and
      * overrides {@link Object#hashCode()}.
      *
@@ -260,7 +261,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.symbols);
+        hash = 71 * hash + Objects.hashCode(this.numeral);
         return hash;
     }
 
@@ -268,8 +269,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * Verifies if the passed Object is equal to this.
      * <p>
      * Returns <code>true</code> if the passed Object is a RomanNumeral and
-     * contains the same roman numerals String as this one, else
-     * <code>false</code>.
+     * contains the same roman numeral as this one, else <code>false</code>.
      *
      * @param otherRomanNumeral to compare with this.
      * @return a boolean telling if the two RomanNumerals are equal.
@@ -284,24 +284,24 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
             return false;
         }
         final RomanNumeral other = (RomanNumeral) otherRomanNumeral;
-        return Objects.equals(this.symbols, other.getSymbols());
+        return Objects.equals(this.numeral, other.getNumeral());
     }
 
     /**
      * Returns a String representation of this RomanNumeral, which is the roman
      * numeral String stored in it.
      * <p>
-     * This method is a delegate method and just calls {@link #getSymbols()} so
+     * This method is a delegate method and just calls {@link #getNumeral()} so
      * the returned string is exactly the same for both. This method is here for
      * compatibility reasons.
      *
      * @return a String containing the roman numeral.
-     * @see #getSymbols() 
+     * @see #getNumeral()
      * @see Object#toString()
      */
     @Override
     public String toString() {
-        return getSymbols();
+        return getNumeral();
     }
 
     /**
@@ -322,13 +322,13 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * @see Object#clone()
      */
     @Override
-    public Object clone() throws CloneNotSupportedException {
+    public RomanNumeral clone() throws CloneNotSupportedException {
         return (RomanNumeral) super.clone();
     }
 
     /**
-     * Returns the lenght of the roman numeral expressed as number of
-     * characters.
+     * Returns the lenght of the roman numeral contained in this RomanNumeral
+     * expressed as number of characters.
      * <p>
      * Delegates {@link String#length()}.
      *
@@ -337,7 +337,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      */
     @Override
     public int length() {
-        return symbols.length();
+        return numeral.length();
     }
 
     /**
@@ -351,11 +351,11 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      */
     @Override
     public char charAt(int index) {
-        return symbols.charAt(index);
+        return numeral.charAt(index);
     }
 
     /**
-     * Returns a CharSequence containing a part of the roman numeral.
+     * Returns a CharSequence containing a part of this RomanNumeral.
      * <p>
      * The returned CharSequence contains the characters of the roman numeral
      * from the start index (included) to the end index (exluded).
@@ -370,6 +370,6 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      */
     @Override
     public CharSequence subSequence(int startIncluded, int endNotIncluded) {
-        return symbols.subSequence(startIncluded, endNotIncluded);
+        return numeral.subSequence(startIncluded, endNotIncluded);
     }
 }
