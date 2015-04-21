@@ -9,7 +9,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-
 package it.matjaz.numerus.core;
 
 import java.util.Map;
@@ -22,7 +21,7 @@ import org.junit.Test;
 
 /**
  * JUnit test of {@link RomanCharMapFactory} which is generating structures of
- * pairs (basic roman character, its integer value) to be used for conversion.
+ * pairs (roman character, its integer value) to be used for conversion.
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">www.matjaz.it</a>
