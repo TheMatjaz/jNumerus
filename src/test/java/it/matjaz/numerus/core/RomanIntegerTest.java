@@ -196,6 +196,7 @@ public class RomanIntegerTest {
         }
     }
 
+    /*
     @Test
     public void serializabilityWorksBothWays() {
         FileOutputStream outputFile = null;
@@ -256,6 +257,7 @@ public class RomanIntegerTest {
             }
         }
     }
+    */
 
     @Test
     public void isConvertableToInt() {
