@@ -281,4 +281,32 @@ public class RomanIntegerTest {
         assertEquals(42.0, roman.doubleValue(), 0.000001);
     }
 
+    @Test
+    public void compareWithBigger() {
+        roman = new RomanInteger(10);
+        double other = 42.0;
+        assertTrue(roman.compareTo(other) < 0);
+    }
+
+    @Test
+    public void compareWithLesser() {
+        roman = new RomanInteger(10);
+        float other = (float) -4.24;
+        assertTrue(roman.compareTo(other) > 0);
+    }
+
+    @Test
+    public void compareWithEqual() {
+        roman = new RomanInteger(10);
+        long other = 10L;
+        assertTrue(roman.compareTo(other) == 0);
+    }
+
+    @Test
+    public void compareAndEqualsAreCompatibile() {
+        roman = new RomanInteger(10);
+        long other = 10L;
+        assertTrue(roman.equals(new RomanInteger((int) other)) == true);
+    }
+
 }

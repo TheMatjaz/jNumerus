@@ -28,7 +28,7 @@ import java.util.Objects;
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">matjaz.it</a>
  */
-public class RomanInteger extends Number implements Cloneable, Serializable {
+public class RomanInteger extends Number implements Cloneable, Serializable, Comparable<Number> {
 
     /**
      * The arabic value of the roman numeral.
@@ -303,6 +303,32 @@ public class RomanInteger extends Number implements Cloneable, Serializable {
     @Override
     public double doubleValue() {
         return (double) getValue();
+    }
+
+    /**
+     * Compares this {@code RomanInteger} with the passed Number, {@code other}.
+     * <p>
+     * The returned int value has the following meanings:
+     * <ol>
+     * <ul>positive if this RomanInteger is greater than {@code other}</ul>
+     * <ul>zero if this is equal to {@code other} (and
+     * {@link #equals(java.lang.Object) equals()} returns {@code true})</ul>
+     * <ul>negative if this is less than {@code other}</ul>
+     * </ol>
+     *
+     * @param other RomanInteger to be compared to this.
+     * @return positive in for this &gt; {@code other}, else negative. Zero if
+     * equal.
+     */
+    @Override
+    public int compareTo(Number other) {
+        if (this.intValue() < other.intValue()) {
+            return -1;
+        } else if (this.intValue() > other.intValue()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }
