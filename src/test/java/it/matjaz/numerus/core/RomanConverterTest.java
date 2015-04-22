@@ -9,7 +9,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-
 package it.matjaz.numerus.core;
 
 import java.util.HashMap;
@@ -34,55 +33,55 @@ public class RomanConverterTest {
     }
 
     @Test
-    public void whenRomanWithMultipleSameCharsIsGivenThenArabicIsReturned() {
-        assertEquals(3212, converter.romanStringToInteger("MMMCCXII"));
-    }
-
-    @Test
-    public void whenRomanWithSubtractiveFormIsGivenThenArabicIsreturned() {
-        assertEquals(1940, converter.romanStringToInteger("MCMXL"));
-    }
-
-    @Test
-    public void whenCorrectRomanIsGivenThenArabicIsReturned() {
-        assertEquals(1100, converter.romanStringToInteger("MC"));
-    }
-    
-    @Test
-    public void whenIntegerIsGivenThenRomanStringIsReturned() {
-        assertEquals("CXII", converter.integerToRomanString(112));
-    }
-
-    @Test
-    public void whenIntegerForRomanWithSubtractiveFormIsGivenThenRomanStringIsReturned() {
-        assertEquals("XCVI", converter.integerToRomanString(96));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void whenNegativeIntegerIsGivenThenExceptionIsThrown() {
-        converter.integerToRomanString(-2);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void whenTooBigIntegerIsGivenThenExceptionIsThrown() {
-        converter.integerToRomanString(4001);
-    }
-    
-    @Test
     public void romanNumeralsMayBeConvertedToIntegers() {
         assertEquals(21, converter.romanNumeralToInteger(new RomanNumeral("XXI")));
     }
-    
+
     @Test
     public void romanNumeralsAreReturnedFromIntConversion() {
         assertEquals(new RomanNumeral("LXI"), converter.integerToRomanNumeral(61));
     }
-    
+
+    @Test
+    public void whenRomanWithMultipleSameCharsIsGivenThenArabicIsReturned() {
+        assertEquals(3212, converter.romanNumeralToInteger(new RomanNumeral("MMMCCXII")));
+    }
+
+    @Test
+    public void whenRomanWithSubtractiveFormIsGivenThenArabicIsreturned() {
+        assertEquals(1940, converter.romanNumeralToInteger(new RomanNumeral("MCMXL")));
+    }
+
+    @Test
+    public void whenCorrectRomanIsGivenThenArabicIsReturned() {
+        assertEquals(1100, converter.romanNumeralToInteger(new RomanNumeral("MC")));
+    }
+
+    @Test
+    public void whenIntegerIsGivenThenRomanStringIsReturned() {
+        assertEquals(new RomanNumeral("CXII"), converter.integerToRomanNumeral(112));
+    }
+
+    @Test
+    public void whenIntegerForRomanWithSubtractiveFormIsGivenThenRomanStringIsReturned() {
+        assertEquals(new RomanNumeral("XCVI"), converter.integerToRomanNumeral(96));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNegativeIntegerIsGivenThenExceptionIsThrown() {
+        converter.integerToRomanNumeral(-2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenTooBigIntegerIsGivenThenExceptionIsThrown() {
+        converter.integerToRomanNumeral(4001);
+    }
+
     @Test
     public void whenUninitializedRomanNumeralIsConvertedReturnsZero() {
         assertEquals(0, converter.romanNumeralToInteger(new RomanNumeral()));
     }
-    
+
     @Test
     public void everyIntegerIsConvertedToASyntacticallyCorrectRomanNumeral() {
         for (int i = 1; i <= 3999; i++) {
@@ -94,16 +93,16 @@ public class RomanConverterTest {
             }
         }
     }
-    
+
     @Test
     public void conversionIsBijective() {
-        HashMap<Integer, String> allNumerals = new HashMap<>();
+        HashMap<Integer, RomanNumeral> intsAndNumerals = new HashMap<>();
         for (int i = 1; i <= 3999; i++) {
-           allNumerals.put(i, converter.integerToRomanString(i));
+            intsAndNumerals.put(i, converter.integerToRomanNumeral(i));
         }
-        allNumerals.keySet().stream().forEach((i) -> {
-            assertTrue(i == converter.romanStringToInteger(allNumerals.get(i)));
+        intsAndNumerals.keySet().stream().forEach((i) -> {
+            assertTrue(i == converter.romanNumeralToInteger(intsAndNumerals.get(i)));
         });
     }
-    
+
 }
