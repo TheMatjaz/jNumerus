@@ -1,12 +1,10 @@
 _All notable changes to the [Numerus project](http://matjaz.it/numerus) will be documented in this file._
 
-*******
+*******************
 v0.3.0
 ======
 Codename: **Tres**
 Build day: 41
-ISO/UTC: 2015-04-12T13:36:03+00:00
-Unix time: 1428838563
 
 Added
 -----
@@ -16,25 +14,21 @@ Added
 - Jar-with-dependencies build
 - Project info in `pom.xml` and `manifest`
 
-*******
+*******************
 v0.2.0
 ======
 Codename: **Duo**
 Build day: 39
-ISO/UTC: 2015-04-10T23:25:36+00:00
-Unix time: 1428701136
 
 Added
 -----
 - Bidirectional conversions roman numeral <-> arabic integer, performed by `RomanConverter`
 
-*******
+*******************
 v0.1.0
 ======
 Codename: **Unus**
 Build day: 38
-ISO/UTC: 2015-04-09T18:28:18+00:00
-Unix time: 1428604098
 
 Added
 -----
