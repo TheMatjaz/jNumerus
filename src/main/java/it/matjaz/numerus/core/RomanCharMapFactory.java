@@ -9,7 +9,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-
 package it.matjaz.numerus.core;
 
 import java.util.Collections;
@@ -21,15 +20,16 @@ import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
 
 /**
- * Factory generating structures of pairs (basic roman character, its integer
- * value) to be used for conversion.
+ * Factory generating structures of pairs (roman character, its integer value)
+ * to be used for conversion.
  *
  * This class offers four static constructors of collections keeping a reference
- * between basic roman characters and character pairs that are used for
- * conversions of whole strings of roman numerals. The scructures offered are:
+ * between roman characters and character pairs that are used for conversions of
+ * whole strings of roman numerals. The structures offered are:
  * <ul>
  * <li>Array of Pairs(String, Integer)</li>
- * <li>HashMap&lt;String, Integer&gt;, {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.</li>
+ * <li>HashMap&lt;String, Integer&gt;,
+ * {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.</li>
  * <li>HashMap&lt;Integer, String&gt;, the exact opposite of the above one,
  * {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.</li>
  * <li>DualHashBidiMap, bidirectional map, unmodifiable, from
@@ -76,9 +76,14 @@ public class RomanCharMapFactory {
      * Constructs an array of 13 Pairs(roman character, its integer value).
      * <p>
      * Those characters are used for conversions of whole strings of roman
-     * numerals. A representation of the content is the followind table:
+     * numerals.
+     * <p>
+     * The followind table offers a representation of the content of the
+     * generated structure:
+     *
      * <pre>
      * i rom  int
+     * ----------
      * 0   M 1000
      * 1  CM  900
      * 2   D  500
@@ -96,8 +101,8 @@ public class RomanCharMapFactory {
      *
      * The pairs are <b>hardcoded</b> since they are constants.
      *
-     * @return Pair[] containing Pairs of basic roman characters and the
-     * respecitve integer values.
+     * @return Pair[] containing Pairs of roman characters and the respecitve
+     * integer values.
      */
     public static Pair[] generateCharPairsArray() {
         Pair[] pairsArray = new Pair[]{
@@ -122,9 +127,9 @@ public class RomanCharMapFactory {
      * Constructs an unmodifiable HashMap with 13 entries &lt;roman character,
      * its integer value&gt;.
      * <p>
-     * The Map's keys are basic roman characters stored as strings and they
-     * point to their integer values. Those entries are used for conversions of
-     * whole strings of roman numerals. The Map is
+     * The Map's keys are roman characters stored as strings and they point to
+     * their integer values. Those entries are used for conversions of whole
+     * strings of roman numerals. The Map is
      * {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.
      * <p>
      * The map returned by this method is the exact opposite of the one returned
@@ -132,7 +137,8 @@ public class RomanCharMapFactory {
      * Map is filled by inserting values from the
      * {@link #generateCharPairsArray() }.
      * <p>
-     * A representation of the content is the followind table:
+     * The followind table offers a representation of the content of the
+     * generated structure:
      *
      * <pre>
      * rom int
@@ -152,8 +158,8 @@ public class RomanCharMapFactory {
      *  I    1
      * </pre>
      *
-     * @return HashMap&lt;String, Integer&gt; containing basic roman characters
-     * as keys and the respective integer values.
+     * @return HashMap&lt;String, Integer&gt; containing roman characters as
+     * keys and the respective integer values.
      */
     public static Map<String, Integer> generateCharMap() {
         Map<String, Integer> charMap = new HashMap();
@@ -167,8 +173,8 @@ public class RomanCharMapFactory {
      * Constructs a HashMap with 13 entries &lt;integer value, equivalent roman
      * character&gt;.
      * <p>
-     * The Map's values are basic roman characters stored as strings and they
-     * are references by their integer values. Those entries are used for
+     * The Map's values are roman characters stored as strings and they are
+     * references by their integer values. Those entries are used for
      * conversions of whole strings of roman numerals. The Map is
      * {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.
      * <p>
@@ -176,8 +182,8 @@ public class RomanCharMapFactory {
      * by {@link #generateCharMap() } (keys and values are switched). The Map is
      * filled by inserting values from the {@link #generateCharPairsArray() }.
      * <p>
-     * A
-     * representation of the content is the followind table:
+     * The followind table offers a representation of the content of the
+     * generated structure:
      *
      * <pre>
      * int rom
@@ -197,8 +203,8 @@ public class RomanCharMapFactory {
      *    1  I
      * </pre>
      *
-     * @return HashMap&lt;Integer, String&gt; containing basic roman characters
-     * as values and the respective integers as keys.
+     * @return HashMap&lt;Integer, String&gt; containing roman characters as
+     * values and the respective integers as keys.
      */
     public static Map<Integer, String> generateInverseCharMap() {
         Map<Integer, String> inverseCharMap = new HashMap();
@@ -212,7 +218,7 @@ public class RomanCharMapFactory {
      * Constructs a DualHashBidiMap with 13 entries &lt;roman character, its
      * integer value&gt;.
      * <p>
-     * The BidiMap correlates basic roman characters stored as strings and their
+     * The BidiMap correlates roman characters stored as strings and their
      * integer values. Those entries are used for conversions of whole strings
      * of roman numerals. The Map is unmodifiable.
      * <p>
@@ -222,7 +228,10 @@ public class RomanCharMapFactory {
      * with <code>get(Object)</code> or by its values with
      * <code>getKey(Object)</code>. The Map is filled by inserting values from
      * the {@link #generateCharMap()
-     * }. A representation of the content is the followind table:
+     * }.
+     * <p>
+     * * The followind table offers a representation of the content of the
+     * generated structure:
      *
      * <pre>
      * rom int
@@ -242,7 +251,7 @@ public class RomanCharMapFactory {
      *  I    1
      * </pre>
      *
-     * @return DualHashBidiMap&lt;String, Integer&gt; containing basic roman
+     * @return DualHashBidiMap&lt;String, Integer&gt; containing roman
      * characters as and the respective integer values.
      * @see org.apache.commons.collections4.bidimap
      */

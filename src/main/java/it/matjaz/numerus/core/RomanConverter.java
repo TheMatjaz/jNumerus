@@ -42,7 +42,7 @@ public class RomanConverter {
      * <p>
      * This method performs no checks on the correctness of the roman numeral
      * String so the correct result is <b>not</b> guaranteed if the input is
-     * incorrect. Use
+     * incorrect - this is the reason for it to be private. Use
      * {@link #romanNumeralToInteger(it.matjaz.numerus.core.RomanNumeral) romanNumeralToInteger(RomanNumeral)}
      * to force correct inputs.
      * <p>
@@ -57,7 +57,7 @@ public class RomanConverter {
      * numeral to be converted.
      * @return int value of the given String.
      */
-    public int romanStringToInteger(String romanString) {
+    private int romanStringToInteger(String romanString) {
         int arabicValue = 0;
         int romanStringIndex = 0;
         int romanCharIndex = 0;
@@ -75,13 +75,10 @@ public class RomanConverter {
     }
 
     /**
-     * Converts the given RomanNumeratl its int value.
+     * Converts the given RomanNumeral its int value.
      * <p>
-     * This method extracts the numerals string from the passed RomanNumeral and
-     * calls
-     * {@link #romanStringToInteger(java.lang.String) romanStringToInteger(String)}
-     * for the conversion. This method is syntactically secure, since a
-     * RomanNumeral may not have a wrong syntax.
+     * Extracts the numerals string from the passed RomanNumeral and converts it
+     * to its int value.
      * <p>
      * Returns 0 for an {@link RomanNumeral#RomanNumeral() unitialized}
      * RomanNumeral.
@@ -90,7 +87,7 @@ public class RomanConverter {
      * @return int value of the RomanNumeral.
      */
     public int romanNumeralToInteger(RomanNumeral roman) {
-        return romanStringToInteger(roman.getSymbols());
+        return romanStringToInteger(roman.getNumeral());
     }
 
     /**
@@ -114,7 +111,7 @@ public class RomanConverter {
      * @throws IllegalArgumentException if the arabic int is not in [1, 3999]
      * range.
      */
-    public String integerToRomanString(int arabic) {
+    private String integerToRomanString(int arabic) {
         if (arabic < 1 || arabic > 3999) {
             throw new IllegalArgumentException("Arabic numeral should be an integer in [1, 3999].");
         }
@@ -134,8 +131,7 @@ public class RomanConverter {
     /**
      * Converts the given int value to its RomanNumeral representation.
      * <p>
-     * This method calls {@link #integerToRomanString(int)} for the conversion
-     * and encapsulates the result String in a RomanNumeral, assuring correct
+     * Encapsulates the result String in a RomanNumeral, assuring correct
      * syntax.
      * <p>
      * Throws an exception if the given int is not positve or is bigger than

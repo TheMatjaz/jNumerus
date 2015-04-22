@@ -1,25 +1,47 @@
 _All notable changes to the [Numerus project](http://matjaz.it/numerus) will be documented in this file._
 
-*******************
+
+v0.4.0
+======
+Codename: **Quattuor**
+Build day: 
+
+Added
+-----
+- RomanInteger container of paired RomanNumeral and its Integer value.
+  Extends Number, is Comparable and Cloneable.
+- RomanNumeral is now Cloneable, Serializable and CharSequence
+
+Removed
+-------
+- Conversions passing Strings are not possible anymore. Only with
+  RomanNumerals to ensure syntax correcteness
+
+Fixed
+-----
+- Various JavaDoc fixes
+
+
 v0.3.1
 ======
-Codename: **Tres Uncia**
+Codename: **Tres Uncia**  
 Build day: 51
 
 Added
 -----
 - This changelog file
-- Library logo in .svg and .png
-- Much much more Trello documentation, board background and picures
+- Library logo in `.svg` and `.png`
+- Much much more [Trello](https://trello.com/b/WtjZ94R3/numerus) 
+  documentation, board background and picures
 
 Fixed
 -----
-- Missing or errors-containing license header in some files
+- Missing or error-containing license headers in some files
 
-*******************
+
 v0.3.0
 ======
-Codename: **Tres**
+Codename: **Tres**  
 Build day: 41
 
 Added
@@ -30,20 +52,20 @@ Added
 - Jar-with-dependencies build
 - Project info in `pom.xml` and `manifest`
 
-*******************
+
 v0.2.0
 ======
-Codename: **Duo**
+Codename: **Duo**  
 Build day: 39
 
 Added
 -----
 - Bidirectional conversions roman numeral <-> arabic integer, performed by `RomanConverter`
 
-*******************
+
 v0.1.0
 ======
-Codename: **Unus**
+Codename: **Unus**  
 Build day: 38
 
 Added
