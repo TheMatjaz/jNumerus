@@ -225,7 +225,7 @@ public class RomanIntegerTest {
             }
         }
     }
-    
+
     @Test
     public void deserializedRomanIntegerHasAConverter() {
         FileOutputStream outputFile = null;
@@ -256,4 +256,29 @@ public class RomanIntegerTest {
             }
         }
     }
+
+    @Test
+    public void isConvertableToInt() {
+        roman = new RomanInteger(300);
+        assertEquals(300, roman.intValue());
+    }
+
+    @Test
+    public void isConvertableToLong() {
+        roman = new RomanInteger(123);
+        assertEquals(123L, roman.longValue());
+    }
+
+    @Test
+    public void isConvertableToFloat() {
+        roman = new RomanInteger(42);
+        assertEquals(42.0, roman.floatValue(), 0.000001);
+    }
+
+    @Test
+    public void isConvertableToDouble() {
+        roman = new RomanInteger(42);
+        assertEquals(42.0, roman.doubleValue(), 0.000001);
+    }
+
 }

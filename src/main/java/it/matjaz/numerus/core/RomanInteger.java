@@ -28,7 +28,7 @@ import java.util.Objects;
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">matjaz.it</a>
  */
-public class RomanInteger implements Cloneable, Serializable {
+public class RomanInteger extends Number implements Cloneable, Serializable {
 
     /**
      * The arabic value of the roman numeral.
@@ -251,6 +251,58 @@ public class RomanInteger implements Cloneable, Serializable {
     @Override
     public RomanInteger clone() throws CloneNotSupportedException {
         return (RomanInteger) super.clone();
+    }
+
+    /**
+     * Returns the value of this RomanInteger as an int by delegating the
+     * {@link #getValue() getter}.
+     * <p>
+     * This method is inherited by the abstract class {@link Number}.
+     *
+     * @return the int value of this RomanInteger.
+     */
+    @Override
+    public int intValue() {
+        return getValue();
+    }
+
+    /**
+     * Returns the value of this RomanInteger as a long after a widening
+     * primitive conversion of the {@link #getValue() getter} return value.
+     * <p>
+     * This method is inherited by the abstract class {@link Number}.
+     *
+     * @return the long value of this RomanInteger.
+     */
+    @Override
+    public long longValue() {
+        return (long) getValue();
+    }
+
+    /**
+     * Returns the value of this RomanInteger as a float after a widening
+     * primitive conversion of the {@link #getValue() getter} return value.
+     * <p>
+     * This method is inherited by the abstract class {@link Number}.
+     *
+     * @return the float value of this RomanInteger.
+     */
+    @Override
+    public float floatValue() {
+        return (float) getValue();
+    }
+
+    /**
+     * Returns the value of this RomanInteger as a double after a widening
+     * primitive conversion of the {@link #getValue() getter} return value.
+     * <p>
+     * This method is inherited by the abstract class {@link Number}.
+     *
+     * @return the double value of this RomanInteger.
+     */
+    @Override
+    public double doubleValue() {
+        return (double) getValue();
     }
 
 }
