@@ -91,6 +91,22 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     private final String TWO_SAME_FIVE_LIKE_CHARS_REGEX = "(D.*D|L.*L|V.*V)";
 
     /**
+     * Serializable class version number.
+     * <p>
+     * It is used during deserialization to verify that the sender and receiver
+     * of a serialized object have loaded classes for that object that are
+     * compatible with respect to serialization.
+     * <p>
+     * This UID is a date and all objects stored before this date won't be
+     * compatible with older ones.
+     * [<a href="http://c2.com/ppr/wiki/JavaIdioms/AlwaysDeclareSerialVersionUid.html">Source
+     * of the idea</a>]
+     *
+     * @see Serializable
+     */
+    private static final long serialVersionUID = 20150422L;
+
+    /**
      * Constructs an empty RomanNumeral.
      * <p>
      * Contains no value so {@link #setNumeral(java.lang.String) the setter}
