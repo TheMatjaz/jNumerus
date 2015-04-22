@@ -11,6 +11,13 @@
  */
 package it.matjaz.numerus.core;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
@@ -186,6 +193,67 @@ public class RomanIntegerTest {
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
             fail();
+        }
+    }
+
+    @Test
+    public void serializabilityWorksBothWays() {
+        FileOutputStream outputFile = null;
+        try {
+            roman = new RomanInteger(new RomanNumeral("MMXV"));
+            File tempFile = new File("/tmp/romaninteger.ser");
+            outputFile = new FileOutputStream(tempFile);
+            ObjectOutputStream outputStream = new ObjectOutputStream(outputFile);
+            outputStream.writeObject(roman);
+            outputStream.close();
+            outputFile.close();
+            FileInputStream inputFile = new FileInputStream(tempFile);
+            ObjectInputStream inputStream = new ObjectInputStream(inputFile);
+            RomanInteger deserializedRoman = (RomanInteger) inputStream.readObject();
+            inputStream.close();
+            inputFile.close();
+            assertEquals(roman, deserializedRoman);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                outputFile.close();
+            } catch (IOException ex) {
+                Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    @Test
+    public void deserializedRomanIntegerHasAConverter() {
+        FileOutputStream outputFile = null;
+        try {
+            roman = new RomanInteger(new RomanNumeral("MMXV"));
+            File tempFile = new File("/tmp/romaninteger.ser");
+            outputFile = new FileOutputStream(tempFile);
+            ObjectOutputStream outputStream = new ObjectOutputStream(outputFile);
+            outputStream.writeObject(roman);
+            outputStream.close();
+            outputFile.close();
+            FileInputStream inputFile = new FileInputStream(tempFile);
+            ObjectInputStream inputStream = new ObjectInputStream(inputFile);
+            RomanInteger deserializedRoman = (RomanInteger) inputStream.readObject();
+            inputStream.close();
+            inputFile.close();
+            deserializedRoman.setValue(4);
+            assertEquals(deserializedRoman.getNumeral(), new RomanNumeral("IV"));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                outputFile.close();
+            } catch (IOException ex) {
+                Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

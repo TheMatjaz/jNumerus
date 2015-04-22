@@ -11,6 +11,7 @@
  */
 package it.matjaz.numerus.core;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -27,7 +28,7 @@ import java.util.Objects;
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">matjaz.it</a>
  */
-public class RomanInteger implements Cloneable {
+public class RomanInteger implements Cloneable, Serializable {
 
     /**
      * The arabic value of the roman numeral.
@@ -43,6 +44,22 @@ public class RomanInteger implements Cloneable {
      * The converter used to switch from roman numerals to integers.
      */
     private final RomanConverter converter;
+
+    /**
+     * Serializable class version number.
+     * <p>
+     * It is used during deserialization to verify that the sender and receiver
+     * of a serialized object have loaded classes for that object that are
+     * compatible with respect to serialization.
+     * <p>
+     * This UID is a date and all objects stored before this date won't be
+     * compatible with older ones.
+     * [<a href="http://c2.com/ppr/wiki/JavaIdioms/AlwaysDeclareSerialVersionUid.html">Source
+     * of the idea</a>]
+     *
+     * @see Serializable
+     */
+    private static final long serialVersionUID = 20150421L;
 
     /**
      * Creates an uninitialized RomanInteger.
