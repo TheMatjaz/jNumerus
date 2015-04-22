@@ -90,7 +90,7 @@ public class RomanConverter {
      * @return int value of the RomanNumeral.
      */
     public int romanNumeralToInteger(RomanNumeral roman) {
-        return romanStringToInteger(roman.getSymbols());
+        return romanStringToInteger(roman.getNumeral());
     }
 
     /**
