@@ -1,6 +1,22 @@
 _All notable changes to the [Numerus project](http://matjaz.it/numerus) will be documented in this file._
 
 *******************
+v0.3.1
+======
+Codename: **Tres Uncia**
+Build day: 51
+
+Added
+-----
+- This changelog file
+- Library logo in .svg and .png
+- Much much more Trello documentation, board background and picures
+
+Fixed
+-----
+- Missing or errors-containing license header in some files
+
+*******************
 v0.3.0
 ======
 Codename: **Tres**
