@@ -1,5 +1,27 @@
 _All notable changes to the [Numerus project](http://matjaz.it/numerus) will be documented in this file._
 
+
+v0.4.0
+======
+Codename: **Quattuor**
+Build day: 
+
+Added
+-----
+- RomanInteger container of paired RomanNumeral and its Integer value.
+  Extends Number, is Comparable and Cloneable.
+- RomanNumeral is now Cloneable, Serializable and CharSequence
+
+Removed
+-------
+- Conversions passing Strings are not possible anymore. Only with
+  RomanNumerals to ensure syntax correcteness
+
+Fixed
+-----
+- Various JavaDoc fixes
+
+
 v0.3.1
 ======
 Codename: **Tres Uncia**  
