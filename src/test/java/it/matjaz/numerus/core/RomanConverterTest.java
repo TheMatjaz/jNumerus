@@ -1,10 +1,9 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
- * All rights reserved.
  *
  * This Source Code Form is part of the project Numerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/matjazdev/Numerus and http://matjaz.it/numerus
+ * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,6 +12,7 @@
 
 package it.matjaz.numerus.core;
 
+import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -67,5 +67,43 @@ public class RomanConverterTest {
     public void whenTooBigIntegerIsGivenThenExceptionIsThrown() {
         converter.integerToRomanString(4001);
     }
-
+    
+    @Test
+    public void romanNumeralsMayBeConvertedToIntegers() {
+        assertEquals(21, converter.romanNumeralToInteger(new RomanNumeral("XXI")));
+    }
+    
+    @Test
+    public void romanNumeralsAreReturnedFromIntConversion() {
+        assertEquals(new RomanNumeral("LXI"), converter.integerToRomanNumeral(61));
+    }
+    
+    @Test
+    public void whenUninitializedRomanNumeralIsConvertedReturnsZero() {
+        assertEquals(0, converter.romanNumeralToInteger(new RomanNumeral()));
+    }
+    
+    @Test
+    public void everyIntegerIsConvertedToASyntacticallyCorrectRomanNumeral() {
+        for (int i = 1; i <= 3999; i++) {
+            try {
+                converter.integerToRomanNumeral(i);
+            } catch (NumberFormatException ex) {
+                System.out.println(ex.getMessage());
+                fail("Failed to convert " + i);
+            }
+        }
+    }
+    
+    @Test
+    public void conversionIsBijective() {
+        HashMap<Integer, String> allNumerals = new HashMap<>();
+        for (int i = 1; i <= 3999; i++) {
+           allNumerals.put(i, converter.integerToRomanString(i));
+        }
+        allNumerals.keySet().stream().forEach((i) -> {
+            assertTrue(i == converter.romanStringToInteger(allNumerals.get(i)));
+        });
+    }
+    
 }
