@@ -28,7 +28,7 @@ import java.util.Objects;
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">matjaz.it</a>
  */
-public class RomanInteger extends Number implements Cloneable, Comparable<Number> {
+public class RomanInteger extends Number implements Cloneable, Comparable<Number>, Serializable {
 
     /**
      * The arabic value of the roman numeral.
@@ -59,7 +59,7 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      *
      * @see Serializable
      */
-    private static final long serialVersionUID = 20150421L;
+    private static final long serialVersionUID = 20150428L;
 
     /**
      * Creates an uninitialized RomanInteger.
