@@ -78,13 +78,18 @@ public class RomanConverterTest {
     }
 
     @Test
-    public void whenUninitializedRomanNumeralIsConvertedReturnsZero() {
+    public void whenNullaRomanNumeralIsConvertedReturnsZero() {
         assertEquals(0, converter.romanNumeralToInteger(new RomanNumeral()));
+    }
+    
+    @Test
+    public void whenZeroIsConvertedReturnsNullaRomanNumeral() {
+        assertEquals(new RomanNumeral(), converter.integerToRomanNumeral(0));
     }
 
     @Test
     public void everyIntegerIsConvertedToASyntacticallyCorrectRomanNumeral() {
-        for (int i = 1; i <= 3999; i++) {
+        for (int i = 0; i <= 3999; i++) {
             try {
                 converter.integerToRomanNumeral(i);
             } catch (NumberFormatException ex) {
@@ -97,7 +102,7 @@ public class RomanConverterTest {
     @Test
     public void conversionIsBijective() {
         HashMap<Integer, RomanNumeral> intsAndNumerals = new HashMap<>();
-        for (int i = 1; i <= 3999; i++) {
+        for (int i = 0; i <= 3999; i++) {
             intsAndNumerals.put(i, converter.integerToRomanNumeral(i));
         }
         intsAndNumerals.keySet().stream().forEach((i) -> {
