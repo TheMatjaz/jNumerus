@@ -11,13 +11,6 @@
  */
 package it.matjaz.numerus.core;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
@@ -81,9 +74,10 @@ public class RomanIntegerTest {
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void numeralsConstructorRejectsUninitializedRomanNumerals() {
+    @Test
+    public void numeralsConstructorAcceptsNullaRomanNumerals() {
         roman = new RomanInteger(new RomanNumeral());
+        assertEquals(new RomanNumeral("NULLA"), roman.getNumeral());
     }
 
     @Test
@@ -152,10 +146,11 @@ public class RomanIntegerTest {
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void numeralSetterRejectUninitializedRomanNumerals() {
+    @Test
+    public void numeralSetterAcceptsNullaRomanNumerals() {
         roman = new RomanInteger(10);
         roman.setNumeral(new RomanNumeral());
+        assertEquals(0, roman.getValue());
     }
 
     @Test

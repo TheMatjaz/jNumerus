@@ -58,6 +58,9 @@ public class RomanConverter {
      * @return int value of the given String.
      */
     private int romanStringToInteger(String romanString) {
+        if (romanString.equals("NULLA")) {
+            return 0;
+        }
         int arabicValue = 0;
         int romanStringIndex = 0;
         int romanCharIndex = 0;
@@ -108,12 +111,15 @@ public class RomanConverter {
      * @param arabic int to be converted to a roman numeral as String.
      * @return a string representing a sytactically correct roman numeral with
      * the given value.
-     * @throws IllegalArgumentException if the arabic int is not in [1, 3999]
+     * @throws IllegalArgumentException if the arabic int is not in [0, 3999]
      * range.
      */
     private String integerToRomanString(int arabic) {
-        if (arabic < 1 || arabic > 3999) {
-            throw new IllegalArgumentException("Arabic numeral should be an integer in [1, 3999].");
+        if (arabic < 0 || arabic > 3999) {
+            throw new IllegalArgumentException("Arabic numeral should be an integer in [0, 3999].");
+        }
+        if (arabic == 0) {
+            return "NULLA";
         }
         String romanString = "";
         for (Pair charAndValue : charValues) {
@@ -140,7 +146,7 @@ public class RomanConverter {
      *
      * @param arabic int to be converted to a RomanNumeral.
      * @return a RomanNumeral representing the passed value.
-     * @throws IllegalArgumentException if the arabic int is not in [1, 3999]
+     * @throws IllegalArgumentException if the arabic int is not in [0, 3999]
      * range.
      */
     public RomanNumeral integerToRomanNumeral(int arabic) {
