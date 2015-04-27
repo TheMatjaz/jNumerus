@@ -3,15 +3,15 @@
  *
  * This Source Code Form is part of the project Numerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus
+ * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-
 package it.matjaz.numerus.core;
 
+import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -33,38 +33,81 @@ public class RomanConverterTest {
     }
 
     @Test
+    public void romanNumeralsMayBeConvertedToIntegers() {
+        assertEquals(21, converter.romanNumeralToInteger(new RomanNumeral("XXI")));
+    }
+
+    @Test
+    public void romanNumeralsAreReturnedFromIntConversion() {
+        assertEquals(new RomanNumeral("LXI"), converter.integerToRomanNumeral(61));
+    }
+
+    @Test
     public void whenRomanWithMultipleSameCharsIsGivenThenArabicIsReturned() {
-        assertEquals(3212, converter.romanStringToInteger("MMMCCXII"));
+        assertEquals(3212, converter.romanNumeralToInteger(new RomanNumeral("MMMCCXII")));
     }
 
     @Test
     public void whenRomanWithSubtractiveFormIsGivenThenArabicIsreturned() {
-        assertEquals(1940, converter.romanStringToInteger("MCMXL"));
+        assertEquals(1940, converter.romanNumeralToInteger(new RomanNumeral("MCMXL")));
     }
 
     @Test
     public void whenCorrectRomanIsGivenThenArabicIsReturned() {
-        assertEquals(1100, converter.romanStringToInteger("MC"));
+        assertEquals(1100, converter.romanNumeralToInteger(new RomanNumeral("MC")));
     }
-    
+
     @Test
     public void whenIntegerIsGivenThenRomanStringIsReturned() {
-        assertEquals("CXII", converter.integerToRomanString(112));
+        assertEquals(new RomanNumeral("CXII"), converter.integerToRomanNumeral(112));
     }
 
     @Test
     public void whenIntegerForRomanWithSubtractiveFormIsGivenThenRomanStringIsReturned() {
-        assertEquals("XCVI", converter.integerToRomanString(96));
+        assertEquals(new RomanNumeral("XCVI"), converter.integerToRomanNumeral(96));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void whenNegativeIntegerIsGivenThenExceptionIsThrown() {
-        converter.integerToRomanString(-2);
+        converter.integerToRomanNumeral(-2);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void whenTooBigIntegerIsGivenThenExceptionIsThrown() {
-        converter.integerToRomanString(4001);
+        converter.integerToRomanNumeral(4001);
+    }
+
+    @Test
+    public void whenNullaRomanNumeralIsConvertedReturnsZero() {
+        assertEquals(0, converter.romanNumeralToInteger(new RomanNumeral()));
+    }
+    
+    @Test
+    public void whenZeroIsConvertedReturnsNullaRomanNumeral() {
+        assertEquals(new RomanNumeral(), converter.integerToRomanNumeral(0));
+    }
+
+    @Test
+    public void everyIntegerIsConvertedToASyntacticallyCorrectRomanNumeral() {
+        for (int i = 0; i <= 3999; i++) {
+            try {
+                converter.integerToRomanNumeral(i);
+            } catch (NumberFormatException ex) {
+                System.out.println(ex.getMessage());
+                fail("Failed to convert " + i);
+            }
+        }
+    }
+
+    @Test
+    public void conversionIsBijective() {
+        HashMap<Integer, RomanNumeral> intsAndNumerals = new HashMap<>();
+        for (int i = 0; i <= 3999; i++) {
+            intsAndNumerals.put(i, converter.integerToRomanNumeral(i));
+        }
+        intsAndNumerals.keySet().stream().forEach((i) -> {
+            assertTrue(i == converter.romanNumeralToInteger(intsAndNumerals.get(i)));
+        });
     }
 
 }
