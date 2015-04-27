@@ -43,7 +43,7 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
     /**
      * The converter used to switch from roman numerals to integers.
      */
-    private final RomanConverter converter;
+    private static final RomanConverter converter = new RomanConverter();
 
     /**
      * Serializable class version number.
@@ -68,7 +68,6 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * the default {@link RomanNumeral} constructor.
      */
     public RomanInteger() {
-        this.converter = new RomanConverter();
         this.value = 0;
         this.numeral = new RomanNumeral();
     }
@@ -83,7 +82,6 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * @param value of the RomanInteger
      */
     public RomanInteger(int value) {
-        this.converter = new RomanConverter();
         setValueAndNumeral(value);
     }
 
@@ -98,7 +96,6 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * @param numeral in roman numerals of the RomanInteger
      */
     public RomanInteger(RomanNumeral numeral) {
-        this.converter = new RomanConverter();
         setNumeralAndValue(numeral);
     }
 
