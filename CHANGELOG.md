@@ -1,25 +1,30 @@
 _All notable changes to the [Numerus project](http://matjaz.it/numerus/) 
 will be documented in this file._
 
+***************
+
 v0.4.1
 ======
 Codename: **Quattuor Uncia**  
-Build day:
+Build day: 
 
 Added
 -----
-- `RomanInteger` is now `Serializable` (this is also a bugfix, since it 
-  was experimental)
+- `RomanInteger` is now `Serializable`
 
 Changed
 -------
-- Default `RomanNumeral` now stores `NULLA` as numeral, meaning `zero`.
+- Default `RomanNumeral` now stores `NULLA` as numeral, meaning _zero_.
   Default `RomanInteger` also stores (`NULLA`, 0).
-- This change log format, improved readme file
+- Optimized integer to roman conversion
+- Set regex fields in RomanNumeral and converter fields in RomanInteger
+  static for memory optimization
+- This changelog format
+- Improved readme file
+- Improved project website
 
 Fixed
 -----
-- Wrong `RomanInteger` serialization
 - Missing trailing slash `/` in links to project web page in all sources
 
 v0.4.0
