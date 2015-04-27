@@ -72,7 +72,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * <a href="http://stackoverflow.com/a/267405">Source of the idea</a> of
      * this regex with a great explanation.
      */
-    public final String CORRECT_ROMAN_SYNTAX_REGEX = "^(NULLA)|((M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))$";
+    public static final String CORRECT_ROMAN_SYNTAX_REGEX = "^(NULLA)|((M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))$";
 
     /**
      * Regex matching any non roman characters.
@@ -80,17 +80,17 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * If a string contains any character matching with this regex, then is not
      * a roman numeral, because contains illegal characters.
      */
-    public final String NON_ROMAN_CHARS_REGEX = "[^MDCLXVI]";
+    public static final String NON_ROMAN_CHARS_REGEX = "[^MDCLXVI]";
 
     /**
      * Regex matching four consecutive characters M or C or X or I.
      */
-    private final String FOUR_CONSECUTIVE_TEN_LIKE_CHARS_REGEX = "(MMMM|CCCC|XXXX|IIII)";
+    private static final String FOUR_CONSECUTIVE_TEN_LIKE_CHARS_REGEX = "(MMMM|CCCC|XXXX|IIII)";
 
     /**
      * Regex matching two characters D or L or V in the same string.
      */
-    private final String TWO_SAME_FIVE_LIKE_CHARS_REGEX = "(D.*D|L.*L|V.*V)";
+    private static final String TWO_SAME_FIVE_LIKE_CHARS_REGEX = "(D.*D|L.*L|V.*V)";
 
     /**
      * Serializable class version number.

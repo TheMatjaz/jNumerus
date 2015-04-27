@@ -121,17 +121,16 @@ public class RomanConverter {
         if (arabic == 0) {
             return "NULLA";
         }
-        String romanString = "";
+        StringBuilder romanString = new StringBuilder();
         for (Pair charAndValue : charValues) {
-            // Remove as many of this value as possible (maybe none).
             int romanCharValue = (int) charAndValue.getValue();
             String romanChar = (String) charAndValue.getKey();
             while (arabic >= romanCharValue) {
-                romanString += romanChar;
+                romanString.append(romanChar);
                 arabic -= romanCharValue;
             }
         }
-        return romanString;
+        return romanString.toString();
     }
 
     /**
