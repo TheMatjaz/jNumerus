@@ -35,6 +35,7 @@ import java.util.regex.Pattern;
  * <ul>0-1 <b>CM</b> or 0-1 <b>CD</b> or ( 0-1 <b>D</b> and 0-3 <b>C</b> )</ul>
  * <ul>0-1 <b>XC</b> or 0-1 <b>XL</b> or ( 0-1 <b>L</b> and 0-3 <b>X</b> )</ul>
  * <ul>0-1 <b>IX</b> or 0-1 <b>IV</b> or ( 0-1 <b>V</b> and 0-3 <b>I</b> )</ul>
+ * <ul>only <b>NULLA</b> instead of any other symbol.</ul>
  * </ol>
  * <p>
  * For the integer values of the symbols, see {@link RomanCharMapFactory}.
@@ -65,12 +66,13 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * )</ul>
      * <ul>0-1 <b>IX</b> or 0-1 <b>IV</b> or ( 0-1 <b>V</b> and 0-3 <b>I</b>
      * )</ul>
+     * <ul>only <b>NULLA</b> instead of any other symbol.</ul>
      * </ol>
      * <p>
      * <a href="http://stackoverflow.com/a/267405">Source of the idea</a> of
      * this regex with a great explanation.
      */
-    public final String CORRECT_ROMAN_SYNTAX_REGEX = "^(M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$";
+    public final String CORRECT_ROMAN_SYNTAX_REGEX = "^(NULLA)|((M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))$";
 
     /**
      * Regex matching any non roman characters.
@@ -107,18 +109,16 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     private static final long serialVersionUID = 20150422L;
 
     /**
-     * Constructs an empty RomanNumeral.
+     * Constructs a RomanNumeral initialized to "NULLA".
      * <p>
-     * Contains no value so {@link #setNumeral(java.lang.String) the setter}
-     * needs to be used before using the RomanNumeral. Calling this method and
-     * then the setter leads to the same result.
+     * Contains <b>"NULLA"</b> numerals indicating zero value.
      */
     public RomanNumeral() {
-        this.numeral = "";
+        this.numeral = "NULLA";
     }
 
     /**
-     * Constructs a RomanNumeral with initialized value.
+     * Constructs a RomanNumeral initialized with the given value.
      * <p>
      * The passed string gets checked for syntax correctness. If the syntax is
      * illegal, then a {@link NumberFormatException} is thrown.
@@ -134,8 +134,6 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
 
     /**
      * Getter of the roman numerals String.
-     * <p>
-     * If RomanNumeral is not initialized, the returned String is <b>empty</b>.
      *
      * @return a String containing the roman numeral.
      */
@@ -144,22 +142,20 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     }
 
     /**
-     * Checks if this RomanNumeral contains a numeral or not.
+     * Checks if this RomanNumeral contains a numeral other than NULLA.
      * <p>
      * Returns <code>true</code> if this RomanNumeal has a roman numeral stored
-     * in it, else <code>false</code> if contains just an empty string. The
-     * verification is done by confronting an empty String with the result of
-     * the {@link #getNumeral() getter}. The only way it can contain an empty
-     * string is to be initialized with the
-     * {@link #RomanNumeral() default constructor} (the one without parameters)
-     * without setting the value after that with the
-     * {@link #setNumeral(java.lang.String) setter}.
+     * in it that indicates a non-zero value, that is a non-NULLA numeral. Else
+     * <code>false</code> if contains a NULLA string.
+     * <p>
+     * Immediatly after calling the {@link #RomanNumeral() default constructor}
+     * (the one without parameters), this method will return <code>true</code>.
      *
-     * @return <code>true</code> has a roman numeral stored in it, else
-     * <code>false</code> if it's empty.
+     * @return <code>true</code> has a NULLA numeral stored in it, else
+     * <code>false</code>.
      */
-    public boolean isInitialized() {
-        return !"".equals(getNumeral());
+    public boolean isNulla() {
+        return "NULLA".equals(getNumeral());
     }
 
     /**
