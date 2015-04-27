@@ -1,16 +1,14 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
- * All rights reserved.
  *
  * This Source Code Form is part of the project Numerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/matjazdev/Numerus and http://matjaz.it/numerus
+ * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-
 package it.matjaz.numerus.core;
 
 import javafx.util.Pair;
@@ -44,7 +42,9 @@ public class RomanConverter {
      * <p>
      * This method performs no checks on the correctness of the roman numeral
      * String so the correct result is <b>not</b> guaranteed if the input is
-     * incorrect.
+     * incorrect - this is the reason for it to be private. Use
+     * {@link #romanNumeralToInteger(it.matjaz.numerus.core.RomanNumeral) romanNumeralToInteger(RomanNumeral)}
+     * to force correct inputs.
      * <p>
      * Works with 2 indexes: one is iterating through the given romanString, the
      * other through the reference array of Pairs
@@ -57,7 +57,10 @@ public class RomanConverter {
      * numeral to be converted.
      * @return int value of the given String.
      */
-    public int romanStringToInteger(String romanString) {
+    private int romanStringToInteger(String romanString) {
+        if (romanString.equals("NULLA")) {
+            return 0;
+        }
         int arabicValue = 0;
         int romanStringIndex = 0;
         int romanCharIndex = 0;
@@ -72,6 +75,22 @@ public class RomanConverter {
             }
         }
         return arabicValue;
+    }
+
+    /**
+     * Converts the given RomanNumeral its int value.
+     * <p>
+     * Extracts the numerals string from the passed RomanNumeral and converts it
+     * to its int value.
+     * <p>
+     * Returns 0 for an {@link RomanNumeral#RomanNumeral() unitialized}
+     * RomanNumeral.
+     *
+     * @param roman a RomanNumeral to be converted.
+     * @return int value of the RomanNumeral.
+     */
+    public int romanNumeralToInteger(RomanNumeral roman) {
+        return romanStringToInteger(roman.getNumeral());
     }
 
     /**
@@ -92,24 +111,44 @@ public class RomanConverter {
      * @param arabic int to be converted to a roman numeral as String.
      * @return a string representing a sytactically correct roman numeral with
      * the given value.
-     * @throws IllegalArgumentException if the arabic int is not in [1, 3999]
+     * @throws IllegalArgumentException if the arabic int is not in [0, 3999]
      * range.
      */
-    public String integerToRomanString(int arabic) {
-        if (arabic < 1 || arabic > 3999) {
-            throw new IllegalArgumentException("Arabic numeral should be an integer in [1, 3999].");
+    private String integerToRomanString(int arabic) {
+        if (arabic < 0 || arabic > 3999) {
+            throw new IllegalArgumentException("Arabic numeral should be an integer in [0, 3999].");
         }
-        String romanString = "";
+        if (arabic == 0) {
+            return "NULLA";
+        }
+        StringBuilder romanString = new StringBuilder();
         for (Pair charAndValue : charValues) {
-            // Remove as many of this value as possible (maybe none).
             int romanCharValue = (int) charAndValue.getValue();
             String romanChar = (String) charAndValue.getKey();
             while (arabic >= romanCharValue) {
-                romanString += romanChar;
+                romanString.append(romanChar);
                 arabic -= romanCharValue;
             }
         }
-        //RomanNumeral roman = new RomanNumeral(romanString);
-        return romanString;
+        return romanString.toString();
+    }
+
+    /**
+     * Converts the given int value to its RomanNumeral representation.
+     * <p>
+     * Encapsulates the result String in a RomanNumeral, assuring correct
+     * syntax.
+     * <p>
+     * Throws an exception if the given int is not positve or is bigger than
+     * 3999, which are the extremes of the roman numerals range of
+     * representation.
+     *
+     * @param arabic int to be converted to a RomanNumeral.
+     * @return a RomanNumeral representing the passed value.
+     * @throws IllegalArgumentException if the arabic int is not in [0, 3999]
+     * range.
+     */
+    public RomanNumeral integerToRomanNumeral(int arabic) {
+        return new RomanNumeral(integerToRomanString(arabic));
     }
 }

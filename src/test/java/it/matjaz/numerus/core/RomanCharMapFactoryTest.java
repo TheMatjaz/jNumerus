@@ -1,29 +1,27 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
- * All rights reserved.
  *
  * This Source Code Form is part of the project Numerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/matjazdev/Numerus and http://matjaz.it/numerus
+ * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-
 package it.matjaz.numerus.core;
 
 import java.util.Map;
 import javafx.util.Pair;
 import org.apache.commons.collections4.BidiMap;
 import static org.hamcrest.CoreMatchers.instanceOf;
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  * JUnit test of {@link RomanCharMapFactory} which is generating structures of
- * pairs (basic roman character, its integer value) to be used for conversion.
+ * pairs (roman character, its integer value) to be used for conversion.
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">www.matjaz.it</a>
@@ -45,68 +43,68 @@ public class RomanCharMapFactoryTest {
 
     @Test
     public void staticConstructorCreatesAMap() {
-        Assert.assertThat(charMap, instanceOf(Map.class));
+        assertThat(charMap, instanceOf(Map.class));
     }
 
     @Test
     public void staticConstructorCreatesNonEmptyMap() {
-        Assert.assertFalse(charMap.isEmpty());
+        assertFalse(charMap.isEmpty());
     }
 
     @Test
     public void charMapKeysAreStrings() {
-        Assert.assertThat(charMap.keySet().iterator().next(), instanceOf(String.class));
+        assertThat(charMap.keySet().iterator().next(), instanceOf(String.class));
     }
 
     @Test
     public void charMapValuesAreIntegers() {
-        Assert.assertThat(charMap.values().iterator().next(), instanceOf(Integer.class));
+        assertThat(charMap.values().iterator().next(), instanceOf(Integer.class));
     }
 
     @Test
     public void charMapKeysAreOnlyRomanChars() {
         charMap.keySet().stream().forEach((romanChar) -> {
-            Assert.assertTrue(romanChar.matches("[MDCLXVI]+"));
+            assertTrue(romanChar.matches("[MDCLXVI]+"));
         });
     }
 
     @Test
     public void charMapKeysAreAllTheRomanChars() {
-        Assert.assertTrue(charMap.containsKey("M"));
-        Assert.assertTrue(charMap.containsKey("CM"));
-        Assert.assertTrue(charMap.containsKey("D"));
-        Assert.assertTrue(charMap.containsKey("CD"));
-        Assert.assertTrue(charMap.containsKey("C"));
-        Assert.assertTrue(charMap.containsKey("XC"));
-        Assert.assertTrue(charMap.containsKey("L"));
-        Assert.assertTrue(charMap.containsKey("XL"));
-        Assert.assertTrue(charMap.containsKey("X"));
-        Assert.assertTrue(charMap.containsKey("IX"));
-        Assert.assertTrue(charMap.containsKey("V"));
-        Assert.assertTrue(charMap.containsKey("IV"));
-        Assert.assertTrue(charMap.containsKey("I"));
+        assertTrue(charMap.containsKey("M"));
+        assertTrue(charMap.containsKey("CM"));
+        assertTrue(charMap.containsKey("D"));
+        assertTrue(charMap.containsKey("CD"));
+        assertTrue(charMap.containsKey("C"));
+        assertTrue(charMap.containsKey("XC"));
+        assertTrue(charMap.containsKey("L"));
+        assertTrue(charMap.containsKey("XL"));
+        assertTrue(charMap.containsKey("X"));
+        assertTrue(charMap.containsKey("IX"));
+        assertTrue(charMap.containsKey("V"));
+        assertTrue(charMap.containsKey("IV"));
+        assertTrue(charMap.containsKey("I"));
     }
 
     @Test
     public void charMapContainsNoOtherEntries() {
-        Assert.assertTrue(charMap.size() == 13);
+        assertTrue(charMap.size() == 13);
     }
 
     @Test
     public void charMapValuesMatchRomanChars() {
-        Assert.assertTrue(charMap.get("M") == 1000);
-        Assert.assertTrue(charMap.get("CM") == 900);
-        Assert.assertTrue(charMap.get("D") == 500);
-        Assert.assertTrue(charMap.get("CD") == 400);
-        Assert.assertTrue(charMap.get("C") == 100);
-        Assert.assertTrue(charMap.get("XC") == 90);
-        Assert.assertTrue(charMap.get("L") == 50);
-        Assert.assertTrue(charMap.get("XL") == 40);
-        Assert.assertTrue(charMap.get("X") == 10);
-        Assert.assertTrue(charMap.get("IX") == 9);
-        Assert.assertTrue(charMap.get("V") == 5);
-        Assert.assertTrue(charMap.get("IV") == 4);
-        Assert.assertTrue(charMap.get("I") == 1);
+        assertTrue(charMap.get("M") == 1000);
+        assertTrue(charMap.get("CM") == 900);
+        assertTrue(charMap.get("D") == 500);
+        assertTrue(charMap.get("CD") == 400);
+        assertTrue(charMap.get("C") == 100);
+        assertTrue(charMap.get("XC") == 90);
+        assertTrue(charMap.get("L") == 50);
+        assertTrue(charMap.get("XL") == 40);
+        assertTrue(charMap.get("X") == 10);
+        assertTrue(charMap.get("IX") == 9);
+        assertTrue(charMap.get("V") == 5);
+        assertTrue(charMap.get("IV") == 4);
+        assertTrue(charMap.get("I") == 1);
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -116,44 +114,44 @@ public class RomanCharMapFactoryTest {
 
     @Test
     public void staticConstructorCreatesAInverseMap() {
-        Assert.assertThat(inverseCharMap, instanceOf(Map.class));
+        assertThat(inverseCharMap, instanceOf(Map.class));
     }
 
     @Test
     public void staticConstructorCreatesNonEmptyInverseMap() {
-        Assert.assertFalse(inverseCharMap.isEmpty());
+        assertFalse(inverseCharMap.isEmpty());
     }
 
     @Test
     public void inverseCharMapKeysAreIntegers() {
-        Assert.assertThat(inverseCharMap.keySet().iterator().next(), instanceOf(Integer.class));
+        assertThat(inverseCharMap.keySet().iterator().next(), instanceOf(Integer.class));
     }
 
     @Test
     public void inverseCharMapValuesAreStrings() {
-        Assert.assertThat(inverseCharMap.values().iterator().next(), instanceOf(String.class));
+        assertThat(inverseCharMap.values().iterator().next(), instanceOf(String.class));
     }
 
     @Test
     public void inverseCharMapContainsNoOtherEntries() {
-        Assert.assertTrue(inverseCharMap.size() == 13);
+        assertTrue(inverseCharMap.size() == 13);
     }
 
     @Test
     public void inverseCharMapIsExactOppositeOfTheCharMap() {
-        Assert.assertTrue("M".equals(inverseCharMap.get(1000)));
-        Assert.assertTrue("CM".equals(inverseCharMap.get(900)));
-        Assert.assertTrue("D".equals(inverseCharMap.get(500)));
-        Assert.assertTrue("CD".equals(inverseCharMap.get(400)));
-        Assert.assertTrue("C".equals(inverseCharMap.get(100)));
-        Assert.assertTrue("XC".equals(inverseCharMap.get(90)));
-        Assert.assertTrue("L".equals(inverseCharMap.get(50)));
-        Assert.assertTrue("XL".equals(inverseCharMap.get(40)));
-        Assert.assertTrue("X".equals(inverseCharMap.get(10)));
-        Assert.assertTrue("IX".equals(inverseCharMap.get(9)));
-        Assert.assertTrue("V".equals(inverseCharMap.get(5)));
-        Assert.assertTrue("IV".equals(inverseCharMap.get(4)));
-        Assert.assertTrue("I".equals(inverseCharMap.get(1)));
+        assertTrue("M".equals(inverseCharMap.get(1000)));
+        assertTrue("CM".equals(inverseCharMap.get(900)));
+        assertTrue("D".equals(inverseCharMap.get(500)));
+        assertTrue("CD".equals(inverseCharMap.get(400)));
+        assertTrue("C".equals(inverseCharMap.get(100)));
+        assertTrue("XC".equals(inverseCharMap.get(90)));
+        assertTrue("L".equals(inverseCharMap.get(50)));
+        assertTrue("XL".equals(inverseCharMap.get(40)));
+        assertTrue("X".equals(inverseCharMap.get(10)));
+        assertTrue("IX".equals(inverseCharMap.get(9)));
+        assertTrue("V".equals(inverseCharMap.get(5)));
+        assertTrue("IV".equals(inverseCharMap.get(4)));
+        assertTrue("I".equals(inverseCharMap.get(1)));
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -163,47 +161,47 @@ public class RomanCharMapFactoryTest {
 
     @Test
     public void staticConstructorCreatesBidiMap() {
-        Assert.assertThat(bidiCharMap, instanceOf(BidiMap.class));
+        assertThat(bidiCharMap, instanceOf(BidiMap.class));
     }
 
     @Test
     public void staticConstructorCreatesNonEmptyBidiMap() {
-        Assert.assertFalse(bidiCharMap.isEmpty());
+        assertFalse(bidiCharMap.isEmpty());
     }
 
     @Test
     public void bidiCharMapContainsNoOtherEntries() {
-        Assert.assertTrue(charMap.size() == 13);
+        assertTrue(charMap.size() == 13);
     }
 
     @Test
     public void bidiCharMapEntriesMatchRomanChars() {
-        Assert.assertTrue(bidiCharMap.get("M").equals(1000));
-        Assert.assertTrue(bidiCharMap.get("CM").equals(900));
-        Assert.assertTrue(bidiCharMap.get("D").equals(500));
-        Assert.assertTrue(bidiCharMap.get("CD").equals(400));
-        Assert.assertTrue(bidiCharMap.get("C").equals(100));
-        Assert.assertTrue(bidiCharMap.get("XC").equals(90));
-        Assert.assertTrue(bidiCharMap.get("L").equals(50));
-        Assert.assertTrue(bidiCharMap.get("XL").equals(40));
-        Assert.assertTrue(bidiCharMap.get("X").equals(10));
-        Assert.assertTrue(bidiCharMap.get("IX").equals(9));
-        Assert.assertTrue(bidiCharMap.get("V").equals(5));
-        Assert.assertTrue(bidiCharMap.get("IV").equals(4));
-        Assert.assertTrue(bidiCharMap.get("I").equals(1));
-        Assert.assertTrue("M".equals(bidiCharMap.getKey(1000)));
-        Assert.assertTrue("CM".equals(bidiCharMap.getKey(900)));
-        Assert.assertTrue("D".equals(bidiCharMap.getKey(500)));
-        Assert.assertTrue("CD".equals(bidiCharMap.getKey(400)));
-        Assert.assertTrue("C".equals(bidiCharMap.getKey(100)));
-        Assert.assertTrue("XC".equals(bidiCharMap.getKey(90)));
-        Assert.assertTrue("L".equals(bidiCharMap.getKey(50)));
-        Assert.assertTrue("XL".equals(bidiCharMap.getKey(40)));
-        Assert.assertTrue("X".equals(bidiCharMap.getKey(10)));
-        Assert.assertTrue("IX".equals(bidiCharMap.getKey(9)));
-        Assert.assertTrue("V".equals(bidiCharMap.getKey(5)));
-        Assert.assertTrue("IV".equals(bidiCharMap.getKey(4)));
-        Assert.assertTrue("I".equals(bidiCharMap.getKey(1)));
+        assertTrue(bidiCharMap.get("M").equals(1000));
+        assertTrue(bidiCharMap.get("CM").equals(900));
+        assertTrue(bidiCharMap.get("D").equals(500));
+        assertTrue(bidiCharMap.get("CD").equals(400));
+        assertTrue(bidiCharMap.get("C").equals(100));
+        assertTrue(bidiCharMap.get("XC").equals(90));
+        assertTrue(bidiCharMap.get("L").equals(50));
+        assertTrue(bidiCharMap.get("XL").equals(40));
+        assertTrue(bidiCharMap.get("X").equals(10));
+        assertTrue(bidiCharMap.get("IX").equals(9));
+        assertTrue(bidiCharMap.get("V").equals(5));
+        assertTrue(bidiCharMap.get("IV").equals(4));
+        assertTrue(bidiCharMap.get("I").equals(1));
+        assertTrue("M".equals(bidiCharMap.getKey(1000)));
+        assertTrue("CM".equals(bidiCharMap.getKey(900)));
+        assertTrue("D".equals(bidiCharMap.getKey(500)));
+        assertTrue("CD".equals(bidiCharMap.getKey(400)));
+        assertTrue("C".equals(bidiCharMap.getKey(100)));
+        assertTrue("XC".equals(bidiCharMap.getKey(90)));
+        assertTrue("L".equals(bidiCharMap.getKey(50)));
+        assertTrue("XL".equals(bidiCharMap.getKey(40)));
+        assertTrue("X".equals(bidiCharMap.getKey(10)));
+        assertTrue("IX".equals(bidiCharMap.getKey(9)));
+        assertTrue("V".equals(bidiCharMap.getKey(5)));
+        assertTrue("IV".equals(bidiCharMap.getKey(4)));
+        assertTrue("I".equals(bidiCharMap.getKey(1)));
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -213,12 +211,12 @@ public class RomanCharMapFactoryTest {
 
     @Test
     public void staticConstructorCreatesPairsArray() {
-        Assert.assertThat(charPairs, instanceOf(Pair[].class));
+        assertThat(charPairs, instanceOf(Pair[].class));
     }
 
     @Test
     public void staticConstructorCreatesPairsArrayWithSpecificLenght13() {
-        Assert.assertTrue(charPairs.length == 13);
+        assertTrue(charPairs.length == 13);
     }
 
     @Test
@@ -238,6 +236,6 @@ public class RomanCharMapFactoryTest {
             new Pair("IV", 4),
             new Pair("I", 1)
         };
-        Assert.assertArrayEquals(charPairs, pairsArray);
+        assertArrayEquals(charPairs, pairsArray);
     }
 }
