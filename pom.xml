@@ -88,8 +88,8 @@
                     <!--
                     The following command completely removes the checks of the
                     JavaDoc syntax. It's extreme, use carefully.
-                    <additionalparam>-Xdoclint:none</additionalparam>
                     -->
+                    <additionalparam>-Xdoclint:none</additionalparam>
                 </configuration>
             </plugin>
             <plugin>
