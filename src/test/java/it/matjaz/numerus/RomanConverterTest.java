@@ -3,13 +3,13 @@
  *
  * This Source Code Form is part of the project Numerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus
+ * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus.core;
+package it.matjaz.numerus;
 
 import java.util.HashMap;
 import org.junit.Before;
@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  * integers and vice-versa by using RomanCharMapFactory generated structures.
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
- * <a href="http://matjaz.it">www.matjaz.it</a>
+ * <a href="http://matjaz.it">matjaz.it</a>
  */
 public class RomanConverterTest {
 
@@ -78,13 +78,18 @@ public class RomanConverterTest {
     }
 
     @Test
-    public void whenUninitializedRomanNumeralIsConvertedReturnsZero() {
+    public void whenNullaRomanNumeralIsConvertedReturnsZero() {
         assertEquals(0, converter.romanNumeralToInteger(new RomanNumeral()));
+    }
+    
+    @Test
+    public void whenZeroIsConvertedReturnsNullaRomanNumeral() {
+        assertEquals(new RomanNumeral(), converter.integerToRomanNumeral(0));
     }
 
     @Test
     public void everyIntegerIsConvertedToASyntacticallyCorrectRomanNumeral() {
-        for (int i = 1; i <= 3999; i++) {
+        for (int i = 0; i <= 3999; i++) {
             try {
                 converter.integerToRomanNumeral(i);
             } catch (NumberFormatException ex) {
@@ -97,7 +102,7 @@ public class RomanConverterTest {
     @Test
     public void conversionIsBijective() {
         HashMap<Integer, RomanNumeral> intsAndNumerals = new HashMap<>();
-        for (int i = 1; i <= 3999; i++) {
+        for (int i = 0; i <= 3999; i++) {
             intsAndNumerals.put(i, converter.integerToRomanNumeral(i));
         }
         intsAndNumerals.keySet().stream().forEach((i) -> {

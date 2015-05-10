@@ -3,13 +3,13 @@
  *
  * This Source Code Form is part of the project Numerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus
+ * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus.core;
+package it.matjaz.numerus;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,7 +29,7 @@ import static org.junit.Assert.*;
  * correct roman numerals.
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
- * <a href="http://matjaz.it">www.matjaz.it</a>
+ * <a href="http://matjaz.it">matjaz.it</a>
  */
 public class RomanNumeralTest {
 
@@ -41,8 +41,8 @@ public class RomanNumeralTest {
     }
 
     @Test
-    public void whenDefaultConstructorIsCalledThenSymbolsAreEmptyString() {
-        assertEquals(roman.getNumeral(), "");
+    public void whenDefaultConstructorIsCalledThenSymbolsAreNullaString() {
+        assertEquals(roman.getNumeral(), "NULLA");
     }
 
     @Test
@@ -130,6 +130,26 @@ public class RomanNumeralTest {
     }
 
     @Test
+    public void nullaStringIsAcceptedByParamtericConstructor() {
+        roman = new RomanNumeral("NULLA");
+        assertEquals(roman.getNumeral(), "NULLA");
+    }
+
+    @Test
+    public void nullaStringIsAcceptedByGetter() {
+        roman.setNumeral("NULLA");
+        assertEquals(roman.getNumeral(), "NULLA");
+    }
+
+    @Test
+    public void nullaStringGetsUpcased() {
+        roman.setNumeral("nullA");
+        assertEquals(roman.getNumeral(), "NULLA");
+        roman = new RomanNumeral("nUlla");
+        assertEquals(roman.getNumeral(), "NULLA");
+    }
+
+    @Test
     public void syntaxCheckCanBePerformedWithoutInstantiation() {
         assertTrue(RomanNumeral.isCorrectRomanSyntax("CLXXII"));
         assertFalse(RomanNumeral.isCorrectRomanSyntax("LINUX RULES!"));
@@ -158,14 +178,18 @@ public class RomanNumeralTest {
 
     @Test
     public void setterAfterDefaultConstructorReturnsEmptyString() {
-        assertEquals(roman.getNumeral(), "");
+        assertEquals(roman.getNumeral(), "NULLA");
     }
 
     @Test
-    public void whenDefaultConstructorIsCalledThenAnInitializationTestCanBeCalled() {
-        assertFalse(roman.isInitialized());
+    public void isNullaReturnsTrueIfIsNotInitialized() {
+        assertTrue(roman.isNulla());
+    }
+
+    @Test
+    public void isNullaReturnsFalseIfIsInitialized() {
         roman.setNumeral("C");
-        assertTrue(roman.isInitialized());
+        assertFalse(roman.isNulla());
     }
 
     @Test
@@ -197,7 +221,7 @@ public class RomanNumeralTest {
             }
         }
     }
-    
+
     @Test
     public void romanNumeralIsCloneable() {
         roman.setNumeral("DXI");
@@ -208,7 +232,7 @@ public class RomanNumeralTest {
             fail();
         }
     }
-    
+
     @Test
     public void clonedRomanNumeralEqualsOriginalOne() {
         roman.setNumeral("DXI");
@@ -221,13 +245,13 @@ public class RomanNumeralTest {
             fail();
         }
     }
-    
+
     @Test
     public void charAtReturnsCorrectNumeral() {
         roman.setNumeral("DLIV");
         assertEquals('I', roman.charAt(2));
     }
-    
+
     @Test
     public void lengthReturnsSymbolsLenghts() {
         roman.setNumeral("III");

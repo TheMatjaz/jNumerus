@@ -3,13 +3,13 @@
  *
  * This Source Code Form is part of the project Numerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus
+ * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus.core;
+package it.matjaz.numerus;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -81,9 +81,10 @@ public class RomanIntegerTest {
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void numeralsConstructorRejectsUninitializedRomanNumerals() {
+    @Test
+    public void numeralsConstructorAcceptsNullaRomanNumerals() {
         roman = new RomanInteger(new RomanNumeral());
+        assertEquals(new RomanNumeral("NULLA"), roman.getNumeral());
     }
 
     @Test
@@ -152,10 +153,11 @@ public class RomanIntegerTest {
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void numeralSetterRejectUninitializedRomanNumerals() {
+    @Test
+    public void numeralSetterAcceptsNullaRomanNumerals() {
         roman = new RomanInteger(10);
         roman.setNumeral(new RomanNumeral());
+        assertEquals(0, roman.getValue());
     }
 
     @Test
@@ -196,7 +198,6 @@ public class RomanIntegerTest {
         }
     }
 
-    /*
     @Test
     public void serializabilityWorksBothWays() {
         FileOutputStream outputFile = null;
@@ -257,7 +258,6 @@ public class RomanIntegerTest {
             }
         }
     }
-    */
 
     @Test
     public void isConvertableToInt() {
