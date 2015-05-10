@@ -24,7 +24,7 @@ import org.junit.Test;
  * pairs (roman character, its integer value) to be used for conversion.
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
- * <a href="http://matjaz.it">www.matjaz.it</a>
+ * <a href="http://matjaz.it">matjaz.it</a>
  */
 public class RomanCharMapFactoryTest {
 

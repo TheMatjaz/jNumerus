@@ -29,7 +29,7 @@ import static org.junit.Assert.*;
  * correct roman numerals.
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
- * <a href="http://matjaz.it">www.matjaz.it</a>
+ * <a href="http://matjaz.it">matjaz.it</a>
  */
 public class RomanNumeralTest {
 
