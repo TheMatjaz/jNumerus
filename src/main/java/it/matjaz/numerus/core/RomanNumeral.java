@@ -40,7 +40,7 @@ import java.util.regex.Pattern;
  * For the integer values of the symbols, see {@link RomanCharMapFactory}.
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
- * <a href="http://matjaz.it">www.matjaz.it</a>
+ * <a href="http://matjaz.it">matjaz.it</a>
  */
 public class RomanNumeral implements Serializable, Cloneable, CharSequence {
 

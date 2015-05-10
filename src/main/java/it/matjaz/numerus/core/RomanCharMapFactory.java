@@ -61,7 +61,7 @@ import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
  * </table>
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
- * <a href="http://matjaz.it">www.matjaz.it</a>
+ * <a href="http://matjaz.it">matjaz.it</a>
  */
 public class RomanCharMapFactory {
 
