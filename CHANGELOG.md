@@ -3,10 +3,10 @@ will be documented in this file._
 
 ***************
 
-v0.4.1
+v0.5.0
 ======
-Codename: **Quattuor Uncia**  
-Build day: 
+Codename: **Quinque**  
+Build day: 69
 
 Added
 -----
@@ -20,12 +20,15 @@ Changed
 - Set regex fields in RomanNumeral and converter fields in RomanInteger
   static for memory optimization
 - This changelog format
-- Improved readme file
-- Improved project website
+
+Removed
+-------
+- Package `core`: all contained classes moved to `it.matjaz.numerus`
 
 Fixed
 -----
-- Missing trailing slash `/` in links to project web page in all sources
+- Missing trailing slash `/` in links to project web page in all 
+  sources and removed `www` from urls
 
 v0.4.0
 ======
