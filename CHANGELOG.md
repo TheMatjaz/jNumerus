@@ -15,11 +15,12 @@ Added
 Changed
 -------
 - Default `RomanNumeral` now stores `NULLA` as numeral, meaning _zero_.
-  Default `RomanInteger` also stores (`NULLA`, 0).
+  Default `RomanInteger` also stores `(NULLA, 0)`.
 - Optimized integer to roman conversion
-- Set regex fields in RomanNumeral and converter fields in RomanInteger
-  static for memory optimization
+- Set regex fields in `RomanNumeral` and converter fields in 
+  `RomanInteger` static for memory optimization
 - This changelog format
+- Images and sections in readme file
 
 Removed
 -------
