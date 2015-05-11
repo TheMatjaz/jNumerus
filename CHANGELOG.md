@@ -14,12 +14,14 @@ Added
 
 Changed
 -------
-- Default `RomanNumeral` now stores `NULLA` as numeral, meaning _zero_.
-  Default `RomanInteger` also stores `(NULLA, 0)`.
-- Optimized integer to roman conversion
-- Set regex fields in `RomanNumeral` and converter fields in 
-  `RomanInteger` static for memory optimization
-- This changelog format
+- Default `RomanNumeral` now stores `NULLA` as numeral, meaning _zero_,
+  instead of an empty string.
+- As a consequence, default `RomanInteger` stores the `(NULLA, 0)` pair.
+- Optimized conversion function integer --> roman
+- Set regex fields as static in `RomanNumeral` for memeory optimization
+- Set `RomanConverter` field as static in `RomanInteger` for memory 
+  optimization
+- This changelog file format
 - Images and sections in readme file
 
 Removed
