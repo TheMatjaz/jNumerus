@@ -62,13 +62,13 @@ Build day: 51
 Added
 -----
 - This changelog file
-- Library logo in `.svg` and `.png`
+- Library logo in `.svg` and `.png` with CC SA-4.0 license
 - Much much more [Trello](https://trello.com/b/WtjZ94R3/numerus) 
   documentation, board background and picures
 
 Fixed
 -----
-- Missing or error-containing license headers in some files
+- Missing or error-containing license headers in some source files
 
 
 v0.3.0
@@ -78,7 +78,7 @@ Build day: 41
 
 Added
 -----
-- Mozilla Public License v2.0 to project and files
+- Mozilla Public License v2.0 to project and source files
 - Readme file
 - Container of syntactically correct roman numerals `RomanNumeral`
 - Jar-with-dependencies build
@@ -92,7 +92,7 @@ Build day: 39
 
 Added
 -----
-- Bidirectional conversions roman numeral <-> arabic integer, performed 
+- Bidirectional conversions roman numeral <--> arabic integer, performed 
   by `RomanConverter`
 
 
