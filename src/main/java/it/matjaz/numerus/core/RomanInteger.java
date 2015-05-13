@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numeral
+ * This Source Code Form is part of the project Numerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus
+ * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -28,7 +28,7 @@ import java.util.Objects;
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">matjaz.it</a>
  */
-public class RomanInteger extends Number implements Cloneable, Comparable<Number> {
+public class RomanInteger extends Number implements Cloneable, Comparable<Number>, Serializable {
 
     /**
      * The arabic value of the roman numeral.
@@ -43,7 +43,7 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
     /**
      * The converter used to switch from roman numerals to integers.
      */
-    private final RomanConverter converter;
+    private static final RomanConverter converter = new RomanConverter();
 
     /**
      * Serializable class version number.
@@ -59,7 +59,7 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      *
      * @see Serializable
      */
-    private static final long serialVersionUID = 20150421L;
+    private static final long serialVersionUID = 20150428L;
 
     /**
      * Creates an uninitialized RomanInteger.
@@ -68,7 +68,6 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * the default {@link RomanNumeral} constructor.
      */
     public RomanInteger() {
-        this.converter = new RomanConverter();
         this.value = 0;
         this.numeral = new RomanNumeral();
     }
@@ -83,7 +82,6 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * @param value of the RomanInteger
      */
     public RomanInteger(int value) {
-        this.converter = new RomanConverter();
         setValueAndNumeral(value);
     }
 
@@ -98,10 +96,6 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * @param numeral in roman numerals of the RomanInteger
      */
     public RomanInteger(RomanNumeral numeral) {
-        if (!numeral.isInitialized()) {
-            throw new IllegalArgumentException("Could not create a RomanInteger with uninitialized RomanNumeral.");
-        }
-        this.converter = new RomanConverter();
         setNumeralAndValue(numeral);
     }
 
@@ -129,8 +123,8 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * @see #RomanInteger(it.matjaz.numerus.core.RomanNumeral)
      */
     private void setNumeralAndValue(RomanNumeral numeral) {
-        this.numeral = numeral;
         this.value = converter.romanNumeralToInteger(numeral);
+        this.numeral = numeral;
     }
 
     /**
@@ -175,9 +169,6 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * @param numeral in roman numerals of this RomanInteger.
      */
     public void setNumeral(RomanNumeral numeral) {
-        if (!numeral.isInitialized()) {
-            throw new IllegalArgumentException("Could not set a RomanInteger with uninitialized RomanNumeral.");
-        }
         setNumeralAndValue(numeral);
     }
 
