@@ -21,25 +21,28 @@ import org.apache.commons.collections4.bidimap.UnmodifiableBidiMap;
 
 /**
  * Factory generating structures of pairs (roman character, its integer value)
- * to be used for conversion.
+ * to be used in {@link RomanConverter}.
  *
  * This class offers four static constructors of collections keeping a reference
- * between roman characters and character pairs that are used for conversions of
- * whole strings of roman numerals. The structures offered are:
+ * between single roman characters and character pairs that are used for
+ * conversions of whole Strings of roman numerals. It does <b>not</b> offer a
+ * complete list of all roman numerals and their conversions, just methods for
+ * {@link RomanConverter}. The structures offered are:
  * <ul>
- * <li>Array of Pairs(String, Integer)</li>
- * <li>HashMap&lt;String, Integer&gt;,
+ * <li>Array of {@link javafx.util.Pair Pairs}(String, Integer)</li>
+ * <li>{@link HashMap}&lt;String, Integer&gt;,
  * {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.</li>
- * <li>HashMap&lt;Integer, String&gt;, the exact opposite of the above one,
- * {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.</li>
- * <li>DualHashBidiMap, bidirectional map, unmodifiable, from
+ * <li>{@link HashMap}&lt;Integer, String&gt;, the exact opposite of the above
+ * one, {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.</li>
+ * <li><a href="http://commons.apache.org/proper/commons-collections/javadocs/api-release/org/apache/commons/collections4/bidimap/package-summary.html">DualHashBidiMap</a>,
+ * bidirectional map, unmodifiable, from
  * <a href="http://commons.apache.org/proper/commons-collections/">Apache
  * Commons Collection 4.0</a></li>
  * </ul>
  * <p>
- * The array of Pairs is <b>hardcoded</b>, while the other three Maps are filled
- * using its Pairs. The structure of the array is based on the example of roman
- * numerals convertion from
+ * The array of {@link javafx.util.Pair Pairs} is <b>hardcoded</b>, while the
+ * other three Maps are filled using its Pairs. The structure of the array is
+ * based on the example of roman numerals convertion from
  * <a href="http://www.fredosaurus.com/notes-java/examples/components/romanNumerals/romanNumeral.html">fredosaurus.com</a>.
  * The pairs of values contained are:
  * <p>
@@ -73,33 +76,36 @@ public class RomanCharMapFactory {
     }
 
     /**
-     * Constructs an array of 13 Pairs(roman character, its integer value).
+     * Constructs an array of 13 {@link javafx.util.Pair Pairs}(roman character,
+     * its Integer value).
      * <p>
-     * Those characters are used for conversions of whole strings of roman
-     * numerals.
+     * Those pairs are used for conversions of whole Strings of roman numerals
+     * and vice versa. The pairs are <b>hardcoded</b> since they are constants.
+     *
      * <p>
      * The followind table offers a representation of the content of the
      * generated structure:
      *
      * <pre>
-     * i rom  int
-     * ----------
-     * 0   M 1000
-     * 1  CM  900
-     * 2   D  500
-     * 3  CD  400
-     * 4   C  100
-     * 5  XC   90
-     * 6   L   50
-     * 7  XL   40
-     * 8   X   10
-     * 9  IX    9
-     * 10  V    5
-     * 11 IV    4
-     * 12  I    1
+     *       Pair
+     *      __||__
+     *     /      \
+     *  i |rom  int
+     * ------------
+     *  0 |  M 1000
+     *  1 | CM  900
+     *  2 |  D  500
+     *  3 | CD  400
+     *  4 |  C  100
+     *  5 | XC   90
+     *  6 |  L   50
+     *  7 | XL   40
+     *  8 |  X   10
+     *  9 | IX    9
+     * 10 |  V    5
+     * 11 | IV    4
+     * 12 |  I    1
      * </pre>
-     *
-     * The pairs are <b>hardcoded</b> since they are constants.
      *
      * @return Pair[] containing Pairs of roman characters and the respecitve
      * integer values.
@@ -127,9 +133,9 @@ public class RomanCharMapFactory {
      * Constructs an unmodifiable HashMap with 13 entries &lt;roman character,
      * its integer value&gt;.
      * <p>
-     * The Map's keys are roman characters stored as strings and they point to
+     * The Map's keys are roman characters stored as Strings and they point to
      * their integer values. Those entries are used for conversions of whole
-     * strings of roman numerals. The Map is
+     * Strings of roman numerals. The Map is
      * {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.
      * <p>
      * The map returned by this method is the exact opposite of the one returned
@@ -141,6 +147,7 @@ public class RomanCharMapFactory {
      * generated structure:
      *
      * <pre>
+     * key val
      * rom int
      * -------
      *  M 1000
@@ -173,9 +180,9 @@ public class RomanCharMapFactory {
      * Constructs a HashMap with 13 entries &lt;integer value, equivalent roman
      * character&gt;.
      * <p>
-     * The Map's values are roman characters stored as strings and they are
+     * The Map's values are roman characters stored as Strings and they are
      * references by their integer values. Those entries are used for
-     * conversions of whole strings of roman numerals. The Map is
+     * conversions of whole Strings of roman numerals. The Map is
      * {@link Collections#unmodifiableMap(java.util.Map) unmodifiable}.
      * <p>
      * The map returned by this method is the exact opposite of the one returned
@@ -186,6 +193,7 @@ public class RomanCharMapFactory {
      * generated structure:
      *
      * <pre>
+     * key val
      * int rom
      * -------
      * 1000  M
@@ -215,25 +223,27 @@ public class RomanCharMapFactory {
     }
 
     /**
-     * Constructs a DualHashBidiMap with 13 entries &lt;roman character, its
-     * integer value&gt;.
+     * Constructs an unmodifiable DualHashBidiMap with 13 entries &lt;roman
+     * character, its integer value&gt;.
      * <p>
-     * The BidiMap correlates roman characters stored as strings and their
-     * integer values. Those entries are used for conversions of whole strings
+     * The BidiMap correlates roman characters stored as Strings and their
+     * integer values. Those entries are used for conversions of whole Strings
      * of roman numerals. The Map is unmodifiable.
      * <p>
-     * The map returned by this method is a {@link BidiMap} from the
+     * The map returned by this method is a
+     * <a href="http://commons.apache.org/proper/commons-collections/javadocs/api-release/org/apache/commons/collections4/bidimap/package-summary.html">BidiMap</a>
+     * from the
      * <a href="http://commons.apache.org/proper/commons-collections/">Apache
      * Commons Collection 4.0</a>, which means it can be accessed by its keys
-     * with <code>get(Object)</code> or by its values with
-     * <code>getKey(Object)</code>. The Map is filled by inserting values from
-     * the {@link #generateCharMap()
+     * with {@code get(Object)} or by its values with {@code getKey(Object)}.
+     * The Map is filled by inserting values from the {@link #generateCharMap()
      * }.
      * <p>
-     * * The followind table offers a representation of the content of the
+     * The followind table offers a representation of the content of the
      * generated structure:
      *
      * <pre>
+     * key val
      * rom int
      * -------
      *  M 1000
@@ -253,7 +263,9 @@ public class RomanCharMapFactory {
      *
      * @return DualHashBidiMap&lt;String, Integer&gt; containing roman
      * characters as and the respective integer values.
-     * @see org.apache.commons.collections4.bidimap
+     * @see
+     * <a href="http://commons.apache.org/proper/commons-collections/javadocs/api-release/org/apache/commons/collections4/bidimap/package-summary.html">
+     * org.apache.commons.collections4.bidimap</a>
      */
     public static BidiMap generateBidiCharMap() {
         DualHashBidiMap bidiMap = new DualHashBidiMap(generateCharMap());
