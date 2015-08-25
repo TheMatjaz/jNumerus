@@ -2,6 +2,17 @@ _All notable changes to the [Numerus project](http://matjaz.it/numerus/)
 will be documented in this file._
 
 ***************
+v0.6.0
+======
+Codename: **Sex**  
+Build day: 
+
+
+Git repository changes
+----------------------
+- Removed all feature git branches: from now on they will have short 
+  lives only until the completion of the feature
+- Removed `.gitignore` file
 
 v0.5.0
 ======
