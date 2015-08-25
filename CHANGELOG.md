@@ -13,6 +13,10 @@ Git repository changes
 - Removed all feature git branches: from now on they will have short 
   lives only until the completion of the feature
 - Removed `.gitignore` file
+- Changed GitHub username from `MatjazDev` to `TheMatjaz` making the URL of the
+  Numerus repository become <https://github.com/TheMatjaz/Numerus> - there are
+  **no redirects** from the old URL
+
 
 v0.5.0
 ======
