@@ -263,4 +263,65 @@ public class RomanNumeralTest {
         roman.setNumeral("CCCXXXIII");
         assertEquals("XXX", roman.subSequence(3, 6));
     }
+    
+    @Test(expected = RomanFormatException.class)
+    public void whenEmptyStringIsGivenThenRomanExceptionIsThrown() {
+        roman.setNumeral("");
+    }
+
+    @Test(expected = RomanFormatException.class)
+    public void whenWhitespaceStringIsGivenThenRomanExceptionIsThrown() {
+        roman.setNumeral("  \t\n\r  ");
+    }
+
+    @Test(expected = RomanFormatException.class)
+    public void whenImpossiblyLongStringIsGivenThenRomanExceptionIsThrown() {
+        roman.setNumeral("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+    }
+
+    @Test(expected = RomanFormatException.class)
+    public void whenStringContainsNonRomanCharactersThenRomanExceptionIsThrown() {
+        roman.setNumeral("pFXC-");
+    }
+
+    @Test
+    public void whenStringContainsNonRomanCharactersThenRomanExceptionMessageShowsThem() {
+        try {
+            roman.setNumeral("pPFXC-");
+        } catch (RomanFormatException ex) {
+            assertTrue(ex.getMessage().contains("pPF-".toUpperCase()));
+        }
+    }
+
+    @Test(expected = RomanFormatException.class)
+    public void whenStringWithIncorrectTomanSyntaxIsGivenThenRomanExceptionIsThrown() {
+        roman.setNumeral("MMCMIIIX");
+    }
+
+    @Test
+    public void whenStringContainsMoreThanThreeConsecutiveTenLikeSymbolsThenRomanExceptionMessageShowsThem() {
+        try {
+            roman.setNumeral("CCCC");
+        } catch (RomanFormatException ex) {
+            assertTrue(ex.getMessage().contains("CCCC"));
+        }
+    }
+
+    @Test
+    public void whenStringContainsMoreThanOneConsecutiveFiveLikeSymbolThenRomanExceptionMessageShowsThem() {
+        try {
+            roman.setNumeral("DDXII");
+        } catch (RomanFormatException ex) {
+            assertTrue(ex.getMessage().contains("DD"));
+        }
+    }
+
+    @Test
+    public void whenStringContainsMoreThanOneConsecutiveFiveLikeSymbolThenRomanExceptionMessageShowsThem2() {
+        try {
+            roman.setNumeral("DXID");
+        } catch (RomanFormatException ex) {
+            assertTrue(ex.getMessage().contains("DXID"));
+        }
+    }
 }

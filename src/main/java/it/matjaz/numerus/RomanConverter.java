@@ -148,7 +148,7 @@ public class RomanConverter {
      * @throws IllegalArgumentException if the arabic int is not in [0, 3999]
      * range.
      */
-    public RomanNumeral integerToRomanNumeral(int arabic) {
+    public RomanNumeral integerToRomanNumeral(int arabic) throws RomanFormatException {
         return new RomanNumeral(integerToRomanString(arabic));
     }
 }
