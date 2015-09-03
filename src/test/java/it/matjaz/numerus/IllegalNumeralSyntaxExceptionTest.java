@@ -15,20 +15,31 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * JUnit test of {@link RomanFormatException} which is an exception thrown if a
- * string is not matching the roman numeral syntax.
+ * JUnit test of {@link IllegalNumeralSyntaxException} which is an exception
+ * thrown if a string is not matching the roman numeral syntax.
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">matjaz.it</a>
  */
-public class RomanFormatExceptionTest {
+public class IllegalNumeralSyntaxExceptionTest {
 
-    private RomanFormatException ex;
+    private IllegalNumeralSyntaxException ex;
 
     @Test
     public void whenExIsCreatedStringIsStoredInTheMessage() {
-        ex = new RomanFormatException("Test message");
+        ex = new IllegalNumeralSyntaxException("Test message");
         assertEquals("Test message", ex.getMessage());
     }
 
+    @Test
+    public void IllegalNumeralSyntaxExceptionExtendsRomanException() {
+        ex = new IllegalNumeralSyntaxException("Hello!");
+        boolean catched = false;
+        try {
+            throw ex;
+        } catch (RomanException e) {
+            catched = true;
+        }
+        assertTrue(catched);
+    }
 }

@@ -12,20 +12,18 @@
 package it.matjaz.numerus;
 
 /**
- * Checked exception thrown to indicate that the string parsed by the 
- * application does not contain a syntactically correct roman numeral.
+ * Checked exception thrown to indicate that the string parsed by
+ * {@link RomanNumeral} does not contain a syntactically correct roman numeral.
  *
  * The correct syntax regex may be found at {@link RomanNumeral#CORRECT_ROMAN_SYNTAX_REGEX
  * }.
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">matjaz.it</a>
- * @see RomanNumeral
  * @see RomanNumeral#CORRECT_ROMAN_SYNTAX_REGEX
- * @see NumberFormatException
- *
+ * @see RomanException
  */
-public class RomanFormatException extends Exception {
+public class IllegalNumeralSyntaxException extends RomanException {
 
     /**
      * Serializable class version number.
@@ -43,8 +41,35 @@ public class RomanFormatException extends Exception {
      */
     private static final long serialVersionUID = 20150903L;
 
-    public RomanFormatException(String s) {
-        super(s);
+    /**
+     * Simply delegates the correspondent {@link RomanException} constructor.
+     *
+     * @param message
+     * @see RomanException#RomanException(java.lang.String, java.lang.Throwable)
+     */
+    public IllegalNumeralSyntaxException(String message) {
+        super(message);
+    }
+
+    /**
+     * Simply delegates the correspondent {@link RomanException} constructor.
+     *
+     * @param message
+     * @param cause
+     * @see RomanException#RomanException(java.lang.String, java.lang.Throwable)
+     */
+    public IllegalNumeralSyntaxException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    /**
+     * Simply delegates the correspondent {@link RomanException} constructor.
+     *
+     * @param cause
+     * @see RomanException#RomanException(java.lang.String, java.lang.Throwable)
+     */
+    public IllegalNumeralSyntaxException(Throwable cause) {
+        super(cause);
     }
 
 }
