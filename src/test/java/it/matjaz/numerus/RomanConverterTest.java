@@ -3,7 +3,7 @@
  *
  * This Source Code Form is part of the project Numerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,9 +12,11 @@
 package it.matjaz.numerus;
 
 import java.util.HashMap;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * JUnit test of {@link RomanConverter} which is converting roman numerals to
@@ -33,47 +35,47 @@ public class RomanConverterTest {
     }
 
     @Test
-    public void romanNumeralsMayBeConvertedToIntegers() {
+    public void romanNumeralsMayBeConvertedToIntegers() throws IllegalNumeralSyntaxException {
         assertEquals(21, converter.romanNumeralToInteger(new RomanNumeral("XXI")));
     }
 
     @Test
-    public void romanNumeralsAreReturnedFromIntConversion() {
+    public void romanNumeralsAreReturnedFromIntConversion() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         assertEquals(new RomanNumeral("LXI"), converter.integerToRomanNumeral(61));
     }
 
     @Test
-    public void whenRomanWithMultipleSameCharsIsGivenThenArabicIsReturned() {
+    public void whenRomanWithMultipleSameCharsIsGivenThenArabicIsReturned() throws IllegalNumeralSyntaxException {
         assertEquals(3212, converter.romanNumeralToInteger(new RomanNumeral("MMMCCXII")));
     }
 
     @Test
-    public void whenRomanWithSubtractiveFormIsGivenThenArabicIsreturned() {
+    public void whenRomanWithSubtractiveFormIsGivenThenArabicIsreturned() throws IllegalNumeralSyntaxException {
         assertEquals(1940, converter.romanNumeralToInteger(new RomanNumeral("MCMXL")));
     }
 
     @Test
-    public void whenCorrectRomanIsGivenThenArabicIsReturned() {
+    public void whenCorrectRomanIsGivenThenArabicIsReturned() throws IllegalNumeralSyntaxException {
         assertEquals(1100, converter.romanNumeralToInteger(new RomanNumeral("MC")));
     }
 
     @Test
-    public void whenIntegerIsGivenThenRomanStringIsReturned() {
+    public void whenIntegerIsGivenThenRomanStringIsReturned() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         assertEquals(new RomanNumeral("CXII"), converter.integerToRomanNumeral(112));
     }
 
     @Test
-    public void whenIntegerForRomanWithSubtractiveFormIsGivenThenRomanStringIsReturned() {
+    public void whenIntegerForRomanWithSubtractiveFormIsGivenThenRomanStringIsReturned() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         assertEquals(new RomanNumeral("XCVI"), converter.integerToRomanNumeral(96));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenNegativeIntegerIsGivenThenExceptionIsThrown() {
+    @Test(expected = IllegalArabicValueException.class)
+    public void whenNegativeIntegerIsGivenThenExceptionIsThrown() throws IllegalArabicValueException {
         converter.integerToRomanNumeral(-2);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenTooBigIntegerIsGivenThenExceptionIsThrown() {
+    @Test(expected = IllegalArabicValueException.class)
+    public void whenTooBigIntegerIsGivenThenExceptionIsThrown() throws IllegalArabicValueException {
         converter.integerToRomanNumeral(4001);
     }
 
@@ -83,12 +85,12 @@ public class RomanConverterTest {
     }
     
     @Test
-    public void whenZeroIsConvertedReturnsNullaRomanNumeral() {
+    public void whenZeroIsConvertedReturnsNullaRomanNumeral() throws IllegalArabicValueException {
         assertEquals(new RomanNumeral(), converter.integerToRomanNumeral(0));
     }
 
     @Test
-    public void everyIntegerIsConvertedToASyntacticallyCorrectRomanNumeral() {
+    public void everyIntegerIsConvertedToASyntacticallyCorrectRomanNumeral() throws IllegalArabicValueException {
         for (int i = 0; i <= 3999; i++) {
             try {
                 converter.integerToRomanNumeral(i);
@@ -100,7 +102,7 @@ public class RomanConverterTest {
     }
 
     @Test
-    public void conversionIsBijective() {
+    public void conversionIsBijective() throws IllegalArabicValueException {
         HashMap<Integer, RomanNumeral> intsAndNumerals = new HashMap<>();
         for (int i = 0; i <= 3999; i++) {
             intsAndNumerals.put(i, converter.integerToRomanNumeral(i));

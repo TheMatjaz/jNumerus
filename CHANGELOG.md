@@ -2,6 +2,36 @@ _All notable changes to the [Numerus project](http://matjaz.it/numerus/)
 will be documented in this file._
 
 ***************
+v0.6.0
+======
+Codename: **Sex**  
+Build day: 185
+
+> Note: the codename is not a joke, it means "six" in latin.
+
+Added
+-----
+- `RomanException` for generic exceptions in the Numerus package.
+- `IllegalNumeralSyntaxException` for strings with wrong roman syntax when they
+   are inserted into `RomanNumeral` objects.
+- `IllegalArabicValueException` for conversion of integers that are not in the 
+   suitable range of [0, 3999], as with the standard syntax.
+-  Package info JavaDoc.
+
+Changed
+-------
+- `NULLA` is now defined as a static final variable in `RomanNumeral`.
+-  Cleanup of this changelog
+
+Git repository changes
+----------------------
+- Changed GitHub username from `MatjazDev` to `TheMatjaz` making the URL of the
+  Numerus repository become <https://github.com/TheMatjaz/Numerus> - there are
+  **no redirects** from the old URL
+- Removed all feature git branches: from now on they will have short 
+  lives only until the completion of the feature
+- Removed `.gitignore` file
+
 
 v0.5.0
 ======
@@ -14,12 +44,15 @@ Added
 
 Changed
 -------
-- Default `RomanNumeral` now stores `NULLA` as numeral, meaning _zero_.
-  Default `RomanInteger` also stores (`NULLA`, 0).
-- Optimized integer to roman conversion
-- Set regex fields in RomanNumeral and converter fields in RomanInteger
-  static for memory optimization
-- This changelog format
+- Default `RomanNumeral` now stores `NULLA` as numeral, meaning _zero_,
+  instead of an empty string.
+- As a consequence, default `RomanInteger` stores the `(NULLA, 0)` pair.
+- Optimized conversion function integer --> roman
+- Set regex fields as static in `RomanNumeral` for memeory optimization
+- Set `RomanConverter` field as static in `RomanInteger` for memory 
+  optimization
+- This changelog file format
+- Images and sections in readme file
 
 Removed
 -------
@@ -59,13 +92,13 @@ Build day: 51
 Added
 -----
 - This changelog file
-- Library logo in `.svg` and `.png`
+- Library logo in `.svg` and `.png` with CC SA-4.0 license
 - Much much more [Trello](https://trello.com/b/WtjZ94R3/numerus) 
   documentation, board background and picures
 
 Fixed
 -----
-- Missing or error-containing license headers in some files
+- Missing or error-containing license headers in some source files
 
 
 v0.3.0
@@ -75,7 +108,7 @@ Build day: 41
 
 Added
 -----
-- Mozilla Public License v2.0 to project and files
+- Mozilla Public License v2.0 to project and source files
 - Readme file
 - Container of syntactically correct roman numerals `RomanNumeral`
 - Jar-with-dependencies build
@@ -89,7 +122,7 @@ Build day: 39
 
 Added
 -----
-- Bidirectional conversions roman numeral <-> arabic integer, performed 
+- Bidirectional conversions roman numeral <--> arabic integer, performed 
   by `RomanConverter`
 
 

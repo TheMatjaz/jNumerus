@@ -3,7 +3,7 @@
  *
  * This Source Code Form is part of the project Numerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -31,16 +31,6 @@ import java.util.Objects;
 public class RomanInteger extends Number implements Cloneable, Comparable<Number>, Serializable {
 
     /**
-     * The arabic value of the roman numeral.
-     */
-    private int value;
-
-    /**
-     * The representation of the value in roman numerals.
-     */
-    private RomanNumeral numeral;
-
-    /**
      * The converter used to switch from roman numerals to integers.
      */
     private static final RomanConverter converter = new RomanConverter();
@@ -62,6 +52,16 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
     private static final long serialVersionUID = 20150428L;
 
     /**
+     * The arabic value of the roman numeral.
+     */
+    private int value;
+
+    /**
+     * The representation of the value in roman numerals.
+     */
+    private RomanNumeral numeral;
+
+    /**
      * Creates an uninitialized RomanInteger.
      * <p>
      * The int values is set to zero and the roman numeral is costructed with
@@ -76,12 +76,14 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * Creates a RomanInteger using the given int value.
      * <p>
      * The value gets immediatly converted to its equivalent
-     * {@link RomanNumeral}. If its out of range, and exception is thrown by the
-     * {@link RomanConverter} and the object is not constructed.
+     * {@link RomanNumeral}. If its out of range, and
+     * IllegalArabicValueException is thrown by the {@link RomanConverter} and
+     * the object is not constructed.
      *
      * @param value of the RomanInteger
+     * @throws IllegalArabicValueException if the values is not in [0, 3999].
      */
-    public RomanInteger(int value) {
+    public RomanInteger(int value) throws IllegalArabicValueException {
         setValueAndNumeral(value);
     }
 
@@ -89,9 +91,7 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * Creates a RomanInteger using the given {@link RomanNumeral}.
      * <p>
      * The {@link RomanNumeral} gets immediatly converted to its equivalent int
-     * values. If the {@link RomanNumeral} is not initialized, an
-     * {@link IllegalArgumentException} is thrown and the object is not
-     * constructed.
+     * values.
      *
      * @param numeral in roman numerals of the RomanInteger
      */
@@ -108,7 +108,7 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * @see #setValue(int)
      * @see #RomanInteger(int)
      */
-    private void setValueAndNumeral(int value) {
+    private void setValueAndNumeral(int value) throws IllegalArabicValueException {
         this.numeral = converter.integerToRomanNumeral(value);
         this.value = value;
     }
@@ -153,8 +153,9 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * {@link RomanConverter} and the object is not modified.
      *
      * @param value of this RomanInteger.
+     * @throws IllegalArabicValueException if values is not in [0, 3999].
      */
-    public void setValue(int value) {
+    public void setValue(int value) throws IllegalArabicValueException {
         setValueAndNumeral(value);
     }
 
@@ -162,9 +163,7 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * Setter of this RomanInteger using the given {@link RomanNumeral}.
      * <p>
      * The {@link RomanNumeral} gets immediatly converted to its equivalent int
-     * values. If the {@link RomanNumeral} is not initialized, an
-     * {@link IllegalArgumentException} is thrown and the object is not
-     * modified.
+     * values.
      *
      * @param numeral in roman numerals of this RomanInteger.
      */
@@ -267,7 +266,7 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      */
     @Override
     public long longValue() {
-        return (long) getValue();
+        return getValue();
     }
 
     /**
@@ -280,7 +279,7 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      */
     @Override
     public float floatValue() {
-        return (float) getValue();
+        return getValue();
     }
 
     /**
@@ -293,7 +292,7 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      */
     @Override
     public double doubleValue() {
-        return (double) getValue();
+        return getValue();
     }
 
     /**
