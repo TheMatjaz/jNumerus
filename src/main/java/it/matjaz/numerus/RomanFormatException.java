@@ -12,8 +12,8 @@
 package it.matjaz.numerus;
 
 /**
- * Exception thrown to indicate that the string parsed by the application does
- * not contain a syntactically correct roman numeral.
+ * Checked exception thrown to indicate that the string parsed by the 
+ * application does not contain a syntactically correct roman numeral.
  *
  * The correct syntax regex may be found at {@link RomanNumeral#CORRECT_ROMAN_SYNTAX_REGEX
  * }.
@@ -25,7 +25,7 @@ package it.matjaz.numerus;
  * @see NumberFormatException
  *
  */
-public class RomanFormatException extends NumberFormatException {
+public class RomanFormatException extends Exception {
 
     /**
      * Serializable class version number.
@@ -41,7 +41,7 @@ public class RomanFormatException extends NumberFormatException {
      *
      * @see Serializable
      */
-    private static final long serialVersionUID = 20150901L;
+    private static final long serialVersionUID = 20150903L;
 
     public RomanFormatException(String s) {
         super(s);

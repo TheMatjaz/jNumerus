@@ -46,45 +46,45 @@ public class RomanNumeralTest {
     }
 
     @Test
-    public void whenCorrectStringIsGivenThenNoExceptionIsThrown() {
+    public void whenCorrectStringIsGivenThenNoExceptionIsThrown() throws RomanFormatException {
         roman.setNumeral("XLII");
         assertEquals("XLII", roman.getNumeral());
     }
 
     @Test(expected = NullPointerException.class)
-    public void whenNullStringIsGivenThenExceptionIsThrown() {
+    public void whenNullStringIsGivenThenExceptionIsThrown() throws RomanFormatException {
         roman.setNumeral(null);
     }
 
     @Test
-    public void givenStringGetsStrippedAndUpcased() {
+    public void givenStringGetsStrippedAndUpcased() throws RomanFormatException {
         roman.setNumeral("  \t\n\r   xliI ");
         assertEquals("XLII", roman.getNumeral());
     }
 
     @Test
-    public void givenStringGetsStrippedOfInnerWhiteSpaceChars() {
+    public void givenStringGetsStrippedOfInnerWhiteSpaceChars() throws RomanFormatException {
         roman.setNumeral("  XL I  II");
         assertEquals("XLIII", roman.getNumeral());
     }
 
-    @Test(expected = NumberFormatException.class)
-    public void whenEmptyStringIsGivenThenExceptionIsThrown() {
+    @Test(expected = RomanFormatException.class)
+    public void whenEmptyStringIsGivenThenExceptionIsThrown() throws RomanFormatException {
         roman.setNumeral("");
     }
 
-    @Test(expected = NumberFormatException.class)
-    public void whenWhitespaceStringIsGivenThenExceptionIsThrown() {
+    @Test(expected = RomanFormatException.class)
+    public void whenWhitespaceStringIsGivenThenExceptionIsThrown() throws RomanFormatException {
         roman.setNumeral("  \t\n\r  ");
     }
 
-    @Test(expected = NumberFormatException.class)
-    public void whenImpossiblyLongStringIsGivenThenExceptionIsThrown() {
+    @Test(expected = RomanFormatException.class)
+    public void whenImpossiblyLongStringIsGivenThenExceptionIsThrown() throws RomanFormatException {
         roman.setNumeral("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
     }
 
-    @Test(expected = NumberFormatException.class)
-    public void whenStringContainsNonRomanCharactersThenExceptionIsThrown() {
+    @Test(expected = RomanFormatException.class)
+    public void whenStringContainsNonRomanCharactersThenExceptionIsThrown() throws RomanFormatException {
         roman.setNumeral("pFXC-");
     }
 
@@ -92,13 +92,13 @@ public class RomanNumeralTest {
     public void whenStringContainsNonRomanCharactersThenExceptionMessageShowsThem() {
         try {
             roman.setNumeral("pPFXC-");
-        } catch (NumberFormatException ex) {
+        } catch (RomanFormatException ex) {
             assertTrue(ex.getMessage().contains("pPF-".toUpperCase()));
         }
     }
 
-    @Test(expected = NumberFormatException.class)
-    public void whenStringWithIncorrectTomanSyntaxIsGivenThenExceptionIsThrown() {
+    @Test(expected = RomanFormatException.class)
+    public void whenStringWithIncorrectTomanSyntaxIsGivenThenExceptionIsThrown() throws RomanFormatException {
         roman.setNumeral("MMCMIIIX");
     }
 
@@ -106,7 +106,7 @@ public class RomanNumeralTest {
     public void whenStringContainsMoreThanThreeConsecutiveTenLikeSymbolsThenThenExceptionMessageShowsThem() {
         try {
             roman.setNumeral("CCCC");
-        } catch (NumberFormatException ex) {
+        } catch (RomanFormatException ex) {
             assertTrue(ex.getMessage().contains("CCCC"));
         }
     }
@@ -115,7 +115,7 @@ public class RomanNumeralTest {
     public void whenStringContainsMoreThanOneConsecutiveFiveLikeSymbolThenExceptionMessageShowsThem() {
         try {
             roman.setNumeral("DDXII");
-        } catch (NumberFormatException ex) {
+        } catch (RomanFormatException ex) {
             assertTrue(ex.getMessage().contains("DD"));
         }
     }
@@ -124,25 +124,25 @@ public class RomanNumeralTest {
     public void whenStringContainsMoreThanOneConsecutiveFiveLikeSymbolThenExceptionMessageShowsThem2() {
         try {
             roman.setNumeral("DXID");
-        } catch (NumberFormatException ex) {
+        } catch (RomanFormatException ex) {
             assertTrue(ex.getMessage().contains("DXID"));
         }
     }
 
     @Test
-    public void nullaStringIsAcceptedByParamtericConstructor() {
+    public void nullaStringIsAcceptedByParamtericConstructor() throws RomanFormatException {
         roman = new RomanNumeral("NULLA");
         assertEquals(roman.getNumeral(), "NULLA");
     }
 
     @Test
-    public void nullaStringIsAcceptedByGetter() {
+    public void nullaStringIsAcceptedByGetter() throws RomanFormatException {
         roman.setNumeral("NULLA");
         assertEquals(roman.getNumeral(), "NULLA");
     }
 
     @Test
-    public void nullaStringGetsUpcased() {
+    public void nullaStringGetsUpcased() throws RomanFormatException {
         roman.setNumeral("nullA");
         assertEquals(roman.getNumeral(), "NULLA");
         roman = new RomanNumeral("nUlla");
@@ -156,20 +156,20 @@ public class RomanNumeralTest {
     }
 
     @Test
-    public void toStringDelegatesGetter() {
+    public void toStringDelegatesGetter() throws RomanFormatException {
         roman.setNumeral("MCMLXIV");
         assertEquals(roman.getNumeral(), roman.toString());
     }
 
     @Test
-    public void equalsMethodWorksh() {
+    public void equalsMethodWorksh() throws RomanFormatException {
         RomanNumeral numeral1 = new RomanNumeral("MCMLXIV");
         RomanNumeral numeral2 = new RomanNumeral("MCMLXIV");
         assertTrue(numeral1.equals(numeral2));
     }
 
     @Test
-    public void defaultConstructorAndSetterIsTheSameAsInitializingConstructor() {
+    public void defaultConstructorAndSetterIsTheSameAsInitializingConstructor() throws RomanFormatException {
         RomanNumeral numeral1 = new RomanNumeral();
         numeral1.setNumeral("MCMLXIV");
         RomanNumeral numeral2 = new RomanNumeral("MCMLXIV");
@@ -187,13 +187,13 @@ public class RomanNumeralTest {
     }
 
     @Test
-    public void isNullaReturnsFalseIfIsInitialized() {
+    public void isNullaReturnsFalseIfIsInitialized() throws RomanFormatException {
         roman.setNumeral("C");
         assertFalse(roman.isNulla());
     }
 
     @Test
-    public void serializabilityWorksBothWays() {
+    public void serializabilityWorksBothWays() throws RomanFormatException {
         FileOutputStream outputFile = null;
         try {
             roman.setNumeral("MMXV");
@@ -223,7 +223,7 @@ public class RomanNumeralTest {
     }
 
     @Test
-    public void romanNumeralIsCloneable() {
+    public void romanNumeralIsCloneable() throws RomanFormatException {
         roman.setNumeral("DXI");
         try {
             RomanNumeral otherRoman = (RomanNumeral) roman.clone();
@@ -234,7 +234,7 @@ public class RomanNumeralTest {
     }
 
     @Test
-    public void clonedRomanNumeralEqualsOriginalOne() {
+    public void clonedRomanNumeralEqualsOriginalOne() throws RomanFormatException {
         roman.setNumeral("DXI");
         RomanNumeral otherRoman;
         try {
@@ -247,40 +247,40 @@ public class RomanNumeralTest {
     }
 
     @Test
-    public void charAtReturnsCorrectNumeral() {
+    public void charAtReturnsCorrectNumeral() throws RomanFormatException {
         roman.setNumeral("DLIV");
         assertEquals('I', roman.charAt(2));
     }
 
     @Test
-    public void lengthReturnsSymbolsLenghts() {
+    public void lengthReturnsSymbolsLenghts() throws RomanFormatException {
         roman.setNumeral("III");
         assertEquals(3, roman.length());
     }
 
     @Test
-    public void subSequenceWorks() {
+    public void subSequenceWorks() throws RomanFormatException {
         roman.setNumeral("CCCXXXIII");
         assertEquals("XXX", roman.subSequence(3, 6));
     }
     
     @Test(expected = RomanFormatException.class)
-    public void whenEmptyStringIsGivenThenRomanExceptionIsThrown() {
+    public void whenEmptyStringIsGivenThenRomanExceptionIsThrown() throws RomanFormatException {
         roman.setNumeral("");
     }
 
     @Test(expected = RomanFormatException.class)
-    public void whenWhitespaceStringIsGivenThenRomanExceptionIsThrown() {
+    public void whenWhitespaceStringIsGivenThenRomanExceptionIsThrown() throws RomanFormatException {
         roman.setNumeral("  \t\n\r  ");
     }
 
     @Test(expected = RomanFormatException.class)
-    public void whenImpossiblyLongStringIsGivenThenRomanExceptionIsThrown() {
+    public void whenImpossiblyLongStringIsGivenThenRomanExceptionIsThrown() throws RomanFormatException {
         roman.setNumeral("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
     }
 
     @Test(expected = RomanFormatException.class)
-    public void whenStringContainsNonRomanCharactersThenRomanExceptionIsThrown() {
+    public void whenStringContainsNonRomanCharactersThenRomanExceptionIsThrown() throws RomanFormatException {
         roman.setNumeral("pFXC-");
     }
 
@@ -294,7 +294,7 @@ public class RomanNumeralTest {
     }
 
     @Test(expected = RomanFormatException.class)
-    public void whenStringWithIncorrectTomanSyntaxIsGivenThenRomanExceptionIsThrown() {
+    public void whenStringWithIncorrectTomanSyntaxIsGivenThenRomanExceptionIsThrown() throws RomanFormatException {
         roman.setNumeral("MMCMIIIX");
     }
 

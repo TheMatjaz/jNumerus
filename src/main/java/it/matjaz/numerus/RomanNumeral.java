@@ -106,7 +106,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      *
      * @see Serializable
      */
-    private static final long serialVersionUID = 20150422L;
+    private static final long serialVersionUID = 20150903L;
 
     /**
      * Constructs a RomanNumeral initialized to "NULLA".
@@ -210,7 +210,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * @param symbols string to be cleaned, upcased and checked.
      * @return given string without whitespaces and upcased.
      */
-    private String cleanUpcaseAndSyntaxCheckString(String symbols) {
+    private String cleanUpcaseAndSyntaxCheckString(String symbols) throws RomanFormatException {
         String cleanSymbols = symbols.replaceAll("\\s+", "").toUpperCase();
         throwExceptionIfIllegalRomanSyntax(cleanSymbols);
         return cleanSymbols;
@@ -247,7 +247,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      *
      * @param symbols
      */
-    private void throwExceptionIfIllegalRomanSyntax(String symbols) {
+    private void throwExceptionIfIllegalRomanSyntax(String symbols) throws RomanFormatException {
         if (symbols.isEmpty()) {
             throw new RomanFormatException("Empty roman numeral.");
         }
