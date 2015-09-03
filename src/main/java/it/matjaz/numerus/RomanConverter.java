@@ -99,9 +99,9 @@ public class RomanConverter {
      * Converts the given int value to its representation in roman numerals as
      * String.
      * <p>
-     * Throws an exception if the given int is not positve or is bigger than
-     * 3999, which are the extremes of the roman numerals range of
-     * representation.
+     * Throws an IllegalArabicValueException if the given int is not positve or
+     * is bigger than 3999, which are the extremes of the roman numerals range
+     * of representation.
      * <p>
      * The algorithm is based on the
      * <a href="http://www.fredosaurus.com/notes-java/examples/components/romanNumerals/romanNumeral.html">fredosaurus.com</a>
@@ -113,12 +113,12 @@ public class RomanConverter {
      * @param arabic int to be converted to a roman numeral as String.
      * @return a string representing a sytactically correct roman numeral with
      * the given value.
-     * @throws IllegalArgumentException if the arabic int is not in [0, 3999]
+     * @throws IllegalArabicValueException if the arabic int is not in [0, 3999]
      * range.
      */
-    private String integerToRomanString(int arabic) {
+    private String integerToRomanString(int arabic) throws IllegalArabicValueException {
         if (arabic < 0 || arabic > 3999) {
-            throw new IllegalArgumentException("Arabic numeral should be an integer in [0, 3999].");
+            throw new IllegalArabicValueException("Arabic numeral should be an integer in [0, 3999].");
         }
         if (arabic == 0) {
             return "NULLA";
@@ -141,17 +141,19 @@ public class RomanConverter {
      * Encapsulates the result String in a RomanNumeral, assuring correct
      * syntax.
      * <p>
-     * Throws an exception if the given int is not positve or is bigger than
-     * 3999, which are the extremes of the roman numerals range of
-     * representation.
+     * Throws an IllegalArabicValueException if the given int is not positve or
+     * is bigger than 3999, which are the extremes of the roman numerals range
+     * of representation.
      *
      * @param arabic int to be converted to a RomanNumeral.
      * @return a RomanNumeral representing the passed value.
+     * @throws it.matjaz.numerus.IllegalArabicValueException if arabic is not in
+     * [0, 3999].
      */
-    public RomanNumeral integerToRomanNumeral(int arabic) {
+    public RomanNumeral integerToRomanNumeral(int arabic) throws IllegalArabicValueException {
         try {
             return new RomanNumeral(integerToRomanString(arabic));
-        } catch (RomanFormatException ex) {
+        } catch (IllegalNumeralSyntaxException ex) {
             Logger.getLogger(RomanConverter.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("RomanConverter could not convert " + arabic + " to a syntactically correct RomanNumeral: " + ex.getMessage());
         }

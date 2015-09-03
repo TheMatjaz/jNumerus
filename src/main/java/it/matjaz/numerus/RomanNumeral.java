@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  * matches the {@link #CORRECT_ROMAN_SYNTAX_REGEX}.
  * <p>
  * Any string with other characters, different order, too many characters or
- * anyhow incorrect syntax gets refused with {@link RomanFormatException},
+ * anyhow incorrect syntax gets refused with {@link IllegalNumeralSyntaxException},
  * which may contain some indication of the syntax error in the Exception
  * message.
  * <p>
@@ -121,15 +121,15 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * Constructs a RomanNumeral initialized with the given value.
      * <p>
      * The passed string gets checked for syntax correctness. If the syntax is
-     * illegal, then a {@link RomanFormatException} is thrown.
+     * illegal, then a {@link IllegalNumeralSyntaxException} is thrown.
      * <p>
      * Whitespace charactes in the passed String are removed and the characters
      * are upcased.
      *
      * @param symbols the initial roman numeral to be stored.
-     * @throws RomanFormatException when string has illegal roman syntax.
+     * @throws IllegalNumeralSyntaxException when string has illegal roman syntax.
      */
-    public RomanNumeral(String symbols) throws RomanFormatException {
+    public RomanNumeral(String symbols) throws IllegalNumeralSyntaxException {
         this.numeral = cleanUpcaseAndSyntaxCheckString(symbols);
     }
 
@@ -163,16 +163,16 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * Setter of the roman numerals String.
      * <p>
      * The passed string gets checked for syntax correctness. If the syntax is
-     * illegal, then a {@link RomanFormatException} is thrown.
+     * illegal, then a {@link IllegalNumeralSyntaxException} is thrown.
      * <p>
      * Whitespace charactes in the passed String are removed and the characters
      * are upcased.
      *
      * @param numeral the new roman numeral to be stored.
-     * @throws RomanFormatException when the passed string has illegal roman
+     * @throws IllegalNumeralSyntaxException when the passed string has illegal roman
      * syntax.
      */
-    public void setNumeral(String numeral) throws RomanFormatException {
+    public void setNumeral(String numeral) throws IllegalNumeralSyntaxException {
         this.numeral = cleanUpcaseAndSyntaxCheckString(numeral);
     }
 
@@ -196,7 +196,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
         try {
             new RomanNumeral().cleanUpcaseAndSyntaxCheckString(numeralsToCheck);
             return true;
-        } catch (RomanFormatException ex) {
+        } catch (IllegalNumeralSyntaxException ex) {
             return false;
         }
     }
@@ -205,12 +205,12 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * Removes all whitespace characters, upcases the String and verifies the
      * roman syntax.
      * <p>
-     * If the syntax does not match, a {@link RomanFormatException} is thrown.
+     * If the syntax does not match, a {@link IllegalNumeralSyntaxException} is thrown.
      *
      * @param symbols string to be cleaned, upcased and checked.
      * @return given string without whitespaces and upcased.
      */
-    private String cleanUpcaseAndSyntaxCheckString(String symbols) throws RomanFormatException {
+    private String cleanUpcaseAndSyntaxCheckString(String symbols) throws IllegalNumeralSyntaxException {
         String cleanSymbols = symbols.replaceAll("\\s+", "").toUpperCase();
         throwExceptionIfIllegalRomanSyntax(cleanSymbols);
         return cleanSymbols;
@@ -241,34 +241,34 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     /**
      * Performs a check of the roman syntax of the given string.
      *
-     * If the syntax is not correct, a {@link RomanFormatException} is thrown
+     * If the syntax is not correct, a {@link IllegalNumeralSyntaxException} is thrown
      * with some specification about the error. The syntax is indicated in
      * {@link RomanNumeral#CORRECT_ROMAN_SYNTAX_REGEX}.
      *
      * @param symbols
      */
-    private void throwExceptionIfIllegalRomanSyntax(String symbols) throws RomanFormatException {
+    private void throwExceptionIfIllegalRomanSyntax(String symbols) throws IllegalNumeralSyntaxException {
         if (symbols.isEmpty()) {
-            throw new RomanFormatException("Empty roman numeral.");
+            throw new IllegalNumeralSyntaxException("Empty roman numeral.");
         }
         if (symbols.length() >= 20) {
-            throw new RomanFormatException("Impossibly long roman numeral.");
+            throw new IllegalNumeralSyntaxException("Impossibly long roman numeral.");
         }
         if (!symbols.matches(CORRECT_ROMAN_SYNTAX_REGEX)) {
             String illegalChars;
             illegalChars = findAllRegexMatchingSubstrings(symbols, NON_ROMAN_CHARS_REGEX);
             if (!illegalChars.isEmpty()) {
-                throw new RomanFormatException("Non roman characters: " + illegalChars);
+                throw new IllegalNumeralSyntaxException("Non roman characters: " + illegalChars);
             }
             illegalChars = findAllRegexMatchingSubstrings(symbols, FOUR_CONSECUTIVE_TEN_LIKE_CHARS_REGEX);
             if (!illegalChars.isEmpty()) {
-                throw new RomanFormatException("Four consecutive: " + illegalChars);
+                throw new IllegalNumeralSyntaxException("Four consecutive: " + illegalChars);
             }
             illegalChars = findAllRegexMatchingSubstrings(symbols, TWO_SAME_FIVE_LIKE_CHARS_REGEX);
             if (!illegalChars.isEmpty()) {
-                throw new RomanFormatException("Two D, L or V same characters: " + illegalChars);
+                throw new IllegalNumeralSyntaxException("Two D, L or V same characters: " + illegalChars);
             }
-            throw new RomanFormatException("Generic roman numeral syntax error.");
+            throw new IllegalNumeralSyntaxException("Generic roman numeral syntax error.");
         }
     }
 
