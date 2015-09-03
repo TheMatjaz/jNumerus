@@ -5,7 +5,7 @@ will be documented in this file._
 v0.6.0
 ======
 Codename: **Sex**  
-Build day: 
+Build day: 185
 
 > Note: the codename is not a joke, it means "six" in latin.
 
