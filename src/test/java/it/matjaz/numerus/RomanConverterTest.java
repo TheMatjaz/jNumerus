@@ -33,37 +33,37 @@ public class RomanConverterTest {
     }
 
     @Test
-    public void romanNumeralsMayBeConvertedToIntegers() {
+    public void romanNumeralsMayBeConvertedToIntegers() throws RomanFormatException {
         assertEquals(21, converter.romanNumeralToInteger(new RomanNumeral("XXI")));
     }
 
     @Test
-    public void romanNumeralsAreReturnedFromIntConversion() {
+    public void romanNumeralsAreReturnedFromIntConversion() throws RomanFormatException {
         assertEquals(new RomanNumeral("LXI"), converter.integerToRomanNumeral(61));
     }
 
     @Test
-    public void whenRomanWithMultipleSameCharsIsGivenThenArabicIsReturned() {
+    public void whenRomanWithMultipleSameCharsIsGivenThenArabicIsReturned() throws RomanFormatException {
         assertEquals(3212, converter.romanNumeralToInteger(new RomanNumeral("MMMCCXII")));
     }
 
     @Test
-    public void whenRomanWithSubtractiveFormIsGivenThenArabicIsreturned() {
+    public void whenRomanWithSubtractiveFormIsGivenThenArabicIsreturned() throws RomanFormatException {
         assertEquals(1940, converter.romanNumeralToInteger(new RomanNumeral("MCMXL")));
     }
 
     @Test
-    public void whenCorrectRomanIsGivenThenArabicIsReturned() {
+    public void whenCorrectRomanIsGivenThenArabicIsReturned() throws RomanFormatException {
         assertEquals(1100, converter.romanNumeralToInteger(new RomanNumeral("MC")));
     }
 
     @Test
-    public void whenIntegerIsGivenThenRomanStringIsReturned() {
+    public void whenIntegerIsGivenThenRomanStringIsReturned() throws RomanFormatException {
         assertEquals(new RomanNumeral("CXII"), converter.integerToRomanNumeral(112));
     }
 
     @Test
-    public void whenIntegerForRomanWithSubtractiveFormIsGivenThenRomanStringIsReturned() {
+    public void whenIntegerForRomanWithSubtractiveFormIsGivenThenRomanStringIsReturned() throws RomanFormatException {
         assertEquals(new RomanNumeral("XCVI"), converter.integerToRomanNumeral(96));
     }
 

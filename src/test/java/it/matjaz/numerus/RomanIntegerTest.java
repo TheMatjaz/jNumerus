@@ -71,7 +71,7 @@ public class RomanIntegerTest {
     }
 
     @Test
-    public void intConstructorWithIllegalIntDoesNotSetRomanNumeral() {
+    public void intConstructorWithIllegalIntDoesNotSetRomanNumeral() throws RomanFormatException {
         try {
             roman = new RomanInteger(40);
             roman = new RomanInteger(20150853);
@@ -82,13 +82,13 @@ public class RomanIntegerTest {
     }
 
     @Test
-    public void numeralsConstructorAcceptsNullaRomanNumerals() {
+    public void numeralsConstructorAcceptsNullaRomanNumerals() throws RomanFormatException {
         roman = new RomanInteger(new RomanNumeral());
         assertEquals(new RomanNumeral("NULLA"), roman.getNumeral());
     }
 
     @Test
-    public void numeralsConstructorKeepsACorrectCoversionOfInt() {
+    public void numeralsConstructorKeepsACorrectCoversionOfInt() throws RomanFormatException {
         roman = new RomanInteger(new RomanNumeral("MMXV"));
         assertEquals(2015, roman.getValue());
         assertEquals("MMXV", roman.getNumeral().getNumeral());
@@ -102,7 +102,7 @@ public class RomanIntegerTest {
     }
 
     @Test
-    public void intSetterUpdatesRomanNumeral() {
+    public void intSetterUpdatesRomanNumeral() throws RomanFormatException {
         roman = new RomanInteger();
         roman.setValue(42);
         assertEquals(new RomanNumeral("XLII"), roman.getNumeral());
@@ -115,7 +115,7 @@ public class RomanIntegerTest {
     }
 
     @Test
-    public void intSetterWithIllegalIntDoesNotSetRomanNumeral() {
+    public void intSetterWithIllegalIntDoesNotSetRomanNumeral() throws RomanFormatException {
         try {
             roman = new RomanInteger(40);
             roman.setValue(20150853);
@@ -126,28 +126,28 @@ public class RomanIntegerTest {
     }
 
     @Test
-    public void romanNumeralSetterUpdatesRomanNumeral() {
+    public void romanNumeralSetterUpdatesRomanNumeral() throws RomanFormatException {
         roman = new RomanInteger(2345);
         roman.setNumeral(new RomanNumeral("MMM"));
         assertEquals(new RomanNumeral("MMM"), roman.getNumeral());
     }
 
     @Test
-    public void romanNumeralSetterUpdatesInt() {
+    public void romanNumeralSetterUpdatesInt() throws RomanFormatException {
         roman = new RomanInteger(2345);
         roman.setNumeral(new RomanNumeral("CC"));
         assertEquals(200, roman.getValue());
     }
 
     @Test
-    public void numeralSetterWithIllegalNumeralDoesNotSetInt() {
+    public void numeralSetterWithIllegalNumeralDoesNotSetInt() throws RomanFormatException {
         // kind of stupid test, because the exception is thrown by RomanNumeral
         // not by RomanInteger and a RomanNumeral with illegal syntax can not be
         // even constructed.
         try {
             roman = new RomanInteger(40);
             roman.setNumeral(new RomanNumeral("ABCD"));
-        } catch (NumberFormatException ex) {
+        } catch (RomanFormatException ex) {
             assertEquals(40, roman.getValue());
             assertEquals(new RomanNumeral("XL"), roman.getNumeral());
         }
@@ -161,7 +161,7 @@ public class RomanIntegerTest {
     }
 
     @Test
-    public void equalsChecksBothFields() {
+    public void equalsChecksBothFields() throws RomanFormatException {
         roman = new RomanInteger(20);
         RomanInteger otherRoman = new RomanInteger(new RomanNumeral("XX"));
         assertTrue(roman.equals(otherRoman));
@@ -199,7 +199,7 @@ public class RomanIntegerTest {
     }
 
     @Test
-    public void serializabilityWorksBothWays() {
+    public void serializabilityWorksBothWays() throws RomanFormatException {
         FileOutputStream outputFile = null;
         try {
             roman = new RomanInteger(new RomanNumeral("MMXV"));
@@ -229,7 +229,7 @@ public class RomanIntegerTest {
     }
 
     @Test
-    public void deserializedRomanIntegerHasAConverter() {
+    public void deserializedRomanIntegerHasAConverter() throws RomanFormatException {
         FileOutputStream outputFile = null;
         try {
             roman = new RomanInteger(new RomanNumeral("MMXV"));

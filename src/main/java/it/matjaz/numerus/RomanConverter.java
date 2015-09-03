@@ -11,6 +11,8 @@
  */
 package it.matjaz.numerus;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.util.Pair;
 
 /**
@@ -145,10 +147,13 @@ public class RomanConverter {
      *
      * @param arabic int to be converted to a RomanNumeral.
      * @return a RomanNumeral representing the passed value.
-     * @throws IllegalArgumentException if the arabic int is not in [0, 3999]
-     * range.
      */
-    public RomanNumeral integerToRomanNumeral(int arabic) throws RomanFormatException {
-        return new RomanNumeral(integerToRomanString(arabic));
+    public RomanNumeral integerToRomanNumeral(int arabic) {
+        try {
+            return new RomanNumeral(integerToRomanString(arabic));
+        } catch (RomanFormatException ex) {
+            Logger.getLogger(RomanConverter.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("RomanConverter could not convert " + arabic + " to a syntactically correct RomanNumeral: " + ex.getMessage());
+        }
     }
 }
