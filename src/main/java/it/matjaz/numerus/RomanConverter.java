@@ -28,11 +28,15 @@ import javafx.util.Pair;
  */
 public class RomanConverter {
 
+    /**
+     * Array of references for translating roman characters into numeric values
+     * and vice-versa.
+     */
     private final Pair[] charValues;
 
     /**
      * Constructs the converter by preparing its reference for translating roman
-     * character into numeric values.
+     * character into numeric values and vice-versa.
      */
     public RomanConverter() {
         this.charValues = RomanCharMapFactory.generateCharPairsArray();
@@ -60,7 +64,7 @@ public class RomanConverter {
      * @return int value of the given String.
      */
     private int romanStringToInteger(String romanString) {
-        if (romanString.equals("NULLA")) {
+        if (romanString.equals(RomanNumeral.NULLA)) {
             return 0;
         }
         int arabicValue = 0;
@@ -121,7 +125,7 @@ public class RomanConverter {
             throw new IllegalArabicValueException("Arabic numeral should be an integer in [0, 3999].");
         }
         if (arabic == 0) {
-            return "NULLA";
+            return RomanNumeral.NULLA;
         }
         StringBuilder romanString = new StringBuilder();
         for (Pair charAndValue : charValues) {

@@ -93,6 +93,11 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     private static final String TWO_SAME_FIVE_LIKE_CHARS_REGEX = "(D.*D|L.*L|V.*V)";
 
     /**
+     * String indicating the roman numeral with value zero, 0.
+     */
+    public static final String NULLA = "NULLA";
+
+    /**
      * Serializable class version number.
      * <p>
      * It is used during deserialization to verify that the sender and receiver
@@ -109,12 +114,12 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     private static final long serialVersionUID = 20150903L;
 
     /**
-     * Constructs a RomanNumeral initialized to "NULLA".
+     * Constructs a RomanNumeral initialized to NULLA.
      * <p>
      * Contains <b>"NULLA"</b> numerals indicating zero value.
      */
     public RomanNumeral() {
-        this.numeral = "NULLA";
+        this.numeral = NULLA;
     }
 
     /**
@@ -156,7 +161,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * <code>false</code>.
      */
     public boolean isNulla() {
-        return "NULLA".equals(getNumeral());
+        return NULLA.equals(getNumeral());
     }
 
     /**
