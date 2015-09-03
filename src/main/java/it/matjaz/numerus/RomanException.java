@@ -44,7 +44,7 @@ public class RomanException extends Exception {
     /**
      * Simply delegates the correspondent {@link Exception} constructor.
      *
-     * @param message 
+     * @param message
      * @see Exception#Exception(java.lang.String)
      */
     public RomanException(String message) {

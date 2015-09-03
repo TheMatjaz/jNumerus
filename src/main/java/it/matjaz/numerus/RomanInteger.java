@@ -31,16 +31,6 @@ import java.util.Objects;
 public class RomanInteger extends Number implements Cloneable, Comparable<Number>, Serializable {
 
     /**
-     * The arabic value of the roman numeral.
-     */
-    private int value;
-
-    /**
-     * The representation of the value in roman numerals.
-     */
-    private RomanNumeral numeral;
-
-    /**
      * The converter used to switch from roman numerals to integers.
      */
     private static final RomanConverter converter = new RomanConverter();
@@ -60,6 +50,16 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * @see Serializable
      */
     private static final long serialVersionUID = 20150428L;
+
+    /**
+     * The arabic value of the roman numeral.
+     */
+    private int value;
+
+    /**
+     * The representation of the value in roman numerals.
+     */
+    private RomanNumeral numeral;
 
     /**
      * Creates an uninitialized RomanInteger.
@@ -266,7 +266,7 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      */
     @Override
     public long longValue() {
-        return (long) getValue();
+        return getValue();
     }
 
     /**
@@ -279,7 +279,7 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      */
     @Override
     public float floatValue() {
-        return (float) getValue();
+        return getValue();
     }
 
     /**
@@ -292,7 +292,7 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      */
     @Override
     public double doubleValue() {
-        return (double) getValue();
+        return getValue();
     }
 
     /**

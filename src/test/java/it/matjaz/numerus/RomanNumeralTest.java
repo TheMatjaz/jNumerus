@@ -20,9 +20,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * JUnit test of {@link RomanNumeral} which is a container for syntactically
@@ -226,7 +229,7 @@ public class RomanNumeralTest {
     public void romanNumeralIsCloneable() throws IllegalNumeralSyntaxException {
         roman.setNumeral("DXI");
         try {
-            RomanNumeral otherRoman = (RomanNumeral) roman.clone();
+            RomanNumeral otherRoman = roman.clone();
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
             fail();
@@ -238,7 +241,7 @@ public class RomanNumeralTest {
         roman.setNumeral("DXI");
         RomanNumeral otherRoman;
         try {
-            otherRoman = (RomanNumeral) roman.clone();
+            otherRoman = roman.clone();
             assertEquals(roman, otherRoman);
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);

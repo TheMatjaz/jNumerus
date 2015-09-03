@@ -24,9 +24,9 @@ import java.util.regex.Pattern;
  * matches the {@link #CORRECT_ROMAN_SYNTAX_REGEX}.
  * <p>
  * Any string with other characters, different order, too many characters or
- * anyhow incorrect syntax gets refused with {@link IllegalNumeralSyntaxException},
- * which may contain some indication of the syntax error in the Exception
- * message.
+ * anyhow incorrect syntax gets refused with
+ * {@link IllegalNumeralSyntaxException}, which may contain some indication of
+ * the syntax error in the Exception message.
  * <p>
  * The structure of a syntactically roman numeral is composed of the following
  * characters <i>in this order</i>:
@@ -132,7 +132,8 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * are upcased.
      *
      * @param symbols the initial roman numeral to be stored.
-     * @throws IllegalNumeralSyntaxException when string has illegal roman syntax.
+     * @throws IllegalNumeralSyntaxException when string has illegal roman
+     * syntax.
      */
     public RomanNumeral(String symbols) throws IllegalNumeralSyntaxException {
         this.numeral = cleanUpcaseAndSyntaxCheckString(symbols);
@@ -174,8 +175,8 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * are upcased.
      *
      * @param numeral the new roman numeral to be stored.
-     * @throws IllegalNumeralSyntaxException when the passed string has illegal roman
-     * syntax.
+     * @throws IllegalNumeralSyntaxException when the passed string has illegal
+     * roman syntax.
      */
     public void setNumeral(String numeral) throws IllegalNumeralSyntaxException {
         this.numeral = cleanUpcaseAndSyntaxCheckString(numeral);
@@ -210,7 +211,8 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * Removes all whitespace characters, upcases the String and verifies the
      * roman syntax.
      * <p>
-     * If the syntax does not match, a {@link IllegalNumeralSyntaxException} is thrown.
+     * If the syntax does not match, a {@link IllegalNumeralSyntaxException} is
+     * thrown.
      *
      * @param symbols string to be cleaned, upcased and checked.
      * @return given string without whitespaces and upcased.
@@ -246,9 +248,9 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     /**
      * Performs a check of the roman syntax of the given string.
      *
-     * If the syntax is not correct, a {@link IllegalNumeralSyntaxException} is thrown
-     * with some specification about the error. The syntax is indicated in
-     * {@link RomanNumeral#CORRECT_ROMAN_SYNTAX_REGEX}.
+     * If the syntax is not correct, a {@link IllegalNumeralSyntaxException} is
+     * thrown with some specification about the error. The syntax is indicated
+     * in {@link RomanNumeral#CORRECT_ROMAN_SYNTAX_REGEX}.
      *
      * @param symbols
      */

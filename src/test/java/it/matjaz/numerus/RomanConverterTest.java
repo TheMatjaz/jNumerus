@@ -12,9 +12,11 @@
 package it.matjaz.numerus;
 
 import java.util.HashMap;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * JUnit test of {@link RomanConverter} which is converting roman numerals to

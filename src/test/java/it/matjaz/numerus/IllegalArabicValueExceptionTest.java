@@ -11,8 +11,9 @@
  */
 package it.matjaz.numerus;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * JUnit test of {@link IllegalArabicValueException} which is an exception
