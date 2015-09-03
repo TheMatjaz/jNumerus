@@ -47,135 +47,135 @@ public class RomanIntegerTest {
     }
 
     @Test
-    public void intConstructorInitializedBothFields() {
+    public void intConstructorInitializedBothFields() throws IllegalArabicValueException {
         roman = new RomanInteger(42);
         assertNotEquals(0, roman.getValue());
         assertNotNull(roman.getNumeral());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void intConstructorRejectTooBigInts() {
+    @Test(expected = IllegalArabicValueException.class)
+    public void intConstructorRejectTooBigInts() throws IllegalArabicValueException {
         roman = new RomanInteger(90909090);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void intConstructorRejectNegativeInts() {
+    @Test(expected = IllegalArabicValueException.class)
+    public void intConstructorRejectNegativeInts() throws IllegalArabicValueException {
         roman = new RomanInteger(-1);
     }
 
     @Test
-    public void intConstructorKeepsCorrectConversionOfNumerals() {
+    public void intConstructorKeepsCorrectConversionOfNumerals() throws IllegalArabicValueException {
         roman = new RomanInteger(2015);
         assertEquals(2015, roman.getValue());
         assertEquals("MMXV", roman.getNumeral().getNumeral());
     }
 
     @Test
-    public void intConstructorWithIllegalIntDoesNotSetRomanNumeral() {
+    public void intConstructorWithIllegalIntDoesNotSetRomanNumeral() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         try {
             roman = new RomanInteger(40);
             roman = new RomanInteger(20150853);
-        } catch (IllegalArgumentException ex) {
+        } catch (IllegalArabicValueException ex) {
             assertEquals(40, roman.getValue());
             assertEquals(new RomanNumeral("XL"), roman.getNumeral());
         }
     }
 
     @Test
-    public void numeralsConstructorAcceptsNullaRomanNumerals() {
+    public void numeralsConstructorAcceptsNullaRomanNumerals() throws IllegalNumeralSyntaxException {
         roman = new RomanInteger(new RomanNumeral());
         assertEquals(new RomanNumeral("NULLA"), roman.getNumeral());
     }
 
     @Test
-    public void numeralsConstructorKeepsACorrectCoversionOfInt() {
+    public void numeralsConstructorKeepsACorrectCoversionOfInt() throws IllegalNumeralSyntaxException {
         roman = new RomanInteger(new RomanNumeral("MMXV"));
         assertEquals(2015, roman.getValue());
         assertEquals("MMXV", roman.getNumeral().getNumeral());
     }
 
     @Test
-    public void intSetterUpdatesInt() {
+    public void intSetterUpdatesInt() throws IllegalArabicValueException {
         roman = new RomanInteger();
         roman.setValue(123);
         assertEquals(123, roman.getValue());
     }
 
     @Test
-    public void intSetterUpdatesRomanNumeral() {
+    public void intSetterUpdatesRomanNumeral() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         roman = new RomanInteger();
         roman.setValue(42);
         assertEquals(new RomanNumeral("XLII"), roman.getNumeral());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void intSetterRejectIllegalValues() {
+    @Test(expected = IllegalArabicValueException.class)
+    public void intSetterRejectIllegalValues() throws IllegalArabicValueException {
         roman = new RomanInteger();
         roman.setValue(900000);
     }
 
     @Test
-    public void intSetterWithIllegalIntDoesNotSetRomanNumeral() {
+    public void intSetterWithIllegalIntDoesNotSetRomanNumeral() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         try {
             roman = new RomanInteger(40);
             roman.setValue(20150853);
-        } catch (IllegalArgumentException ex) {
+        } catch (IllegalArabicValueException ex) {
             assertEquals(40, roman.getValue());
             assertEquals(new RomanNumeral("XL"), roman.getNumeral());
         }
     }
 
     @Test
-    public void romanNumeralSetterUpdatesRomanNumeral() {
+    public void romanNumeralSetterUpdatesRomanNumeral() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         roman = new RomanInteger(2345);
         roman.setNumeral(new RomanNumeral("MMM"));
         assertEquals(new RomanNumeral("MMM"), roman.getNumeral());
     }
 
     @Test
-    public void romanNumeralSetterUpdatesInt() {
+    public void romanNumeralSetterUpdatesInt() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         roman = new RomanInteger(2345);
         roman.setNumeral(new RomanNumeral("CC"));
         assertEquals(200, roman.getValue());
     }
 
     @Test
-    public void numeralSetterWithIllegalNumeralDoesNotSetInt() {
+    public void numeralSetterWithIllegalNumeralDoesNotSetInt() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         // kind of stupid test, because the exception is thrown by RomanNumeral
         // not by RomanInteger and a RomanNumeral with illegal syntax can not be
         // even constructed.
         try {
             roman = new RomanInteger(40);
             roman.setNumeral(new RomanNumeral("ABCD"));
-        } catch (NumberFormatException ex) {
+        } catch (IllegalNumeralSyntaxException ex) {
             assertEquals(40, roman.getValue());
             assertEquals(new RomanNumeral("XL"), roman.getNumeral());
         }
     }
 
     @Test
-    public void numeralSetterAcceptsNullaRomanNumerals() {
+    public void numeralSetterAcceptsNullaRomanNumerals() throws IllegalArabicValueException {
         roman = new RomanInteger(10);
         roman.setNumeral(new RomanNumeral());
         assertEquals(0, roman.getValue());
     }
 
     @Test
-    public void equalsChecksBothFields() {
+    public void equalsChecksBothFields() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         roman = new RomanInteger(20);
         RomanInteger otherRoman = new RomanInteger(new RomanNumeral("XX"));
         assertTrue(roman.equals(otherRoman));
     }
 
     @Test
-    public void toStringReturnsBothFields() {
+    public void toStringReturnsBothFields() throws IllegalArabicValueException {
         roman = new RomanInteger(14);
         assertTrue(roman.toString().contains("XIV"));
         assertTrue(roman.toString().contains("14"));
     }
 
     @Test
-    public void romanIntegerIsCloneable() {
+    public void romanIntegerIsCloneable() throws IllegalArabicValueException {
         roman = new RomanInteger(101);
         try {
             RomanInteger otherRoman = roman.clone();
@@ -186,7 +186,7 @@ public class RomanIntegerTest {
     }
 
     @Test
-    public void clonedRomanNumeralEqualsOriginalOne() {
+    public void clonedRomanNumeralEqualsOriginalOne() throws IllegalArabicValueException {
         roman = new RomanInteger(101);
         RomanInteger otherRoman;
         try {
@@ -199,7 +199,7 @@ public class RomanIntegerTest {
     }
 
     @Test
-    public void serializabilityWorksBothWays() {
+    public void serializabilityWorksBothWays() throws IllegalNumeralSyntaxException {
         FileOutputStream outputFile = null;
         try {
             roman = new RomanInteger(new RomanNumeral("MMXV"));
@@ -229,7 +229,7 @@ public class RomanIntegerTest {
     }
 
     @Test
-    public void deserializedRomanIntegerHasAConverter() {
+    public void deserializedRomanIntegerHasAConverter() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         FileOutputStream outputFile = null;
         try {
             roman = new RomanInteger(new RomanNumeral("MMXV"));
@@ -260,52 +260,52 @@ public class RomanIntegerTest {
     }
 
     @Test
-    public void isConvertableToInt() {
+    public void isConvertableToInt() throws IllegalArabicValueException {
         roman = new RomanInteger(300);
         assertEquals(300, roman.intValue());
     }
 
     @Test
-    public void isConvertableToLong() {
+    public void isConvertableToLong() throws IllegalArabicValueException {
         roman = new RomanInteger(123);
         assertEquals(123L, roman.longValue());
     }
 
     @Test
-    public void isConvertableToFloat() {
+    public void isConvertableToFloat() throws IllegalArabicValueException {
         roman = new RomanInteger(42);
         assertEquals(42.0, roman.floatValue(), 0.000001);
     }
 
     @Test
-    public void isConvertableToDouble() {
+    public void isConvertableToDouble() throws IllegalArabicValueException {
         roman = new RomanInteger(42);
         assertEquals(42.0, roman.doubleValue(), 0.000001);
     }
 
     @Test
-    public void compareWithBigger() {
+    public void compareWithBigger() throws IllegalArabicValueException {
         roman = new RomanInteger(10);
         double other = 42.0;
         assertTrue(roman.compareTo(other) < 0);
     }
 
     @Test
-    public void compareWithLesser() {
+    public void compareWithLesser() throws IllegalArabicValueException {
         roman = new RomanInteger(10);
         float other = (float) -4.24;
         assertTrue(roman.compareTo(other) > 0);
     }
 
     @Test
-    public void compareWithEqual() {
+    public void compareWithEqual() throws IllegalArabicValueException {
         roman = new RomanInteger(10);
         long other = 10L;
         assertTrue(roman.compareTo(other) == 0);
     }
 
     @Test
-    public void compareAndEqualsAreCompatibile() {
+    public void compareAndEqualsAreCompatibile() throws IllegalArabicValueException {
         roman = new RomanInteger(10);
         long other = 10L;
         assertTrue(roman.equals(new RomanInteger((int) other)) == true);

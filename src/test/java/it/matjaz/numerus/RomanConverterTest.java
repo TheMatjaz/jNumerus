@@ -33,47 +33,47 @@ public class RomanConverterTest {
     }
 
     @Test
-    public void romanNumeralsMayBeConvertedToIntegers() {
+    public void romanNumeralsMayBeConvertedToIntegers() throws IllegalNumeralSyntaxException {
         assertEquals(21, converter.romanNumeralToInteger(new RomanNumeral("XXI")));
     }
 
     @Test
-    public void romanNumeralsAreReturnedFromIntConversion() {
+    public void romanNumeralsAreReturnedFromIntConversion() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         assertEquals(new RomanNumeral("LXI"), converter.integerToRomanNumeral(61));
     }
 
     @Test
-    public void whenRomanWithMultipleSameCharsIsGivenThenArabicIsReturned() {
+    public void whenRomanWithMultipleSameCharsIsGivenThenArabicIsReturned() throws IllegalNumeralSyntaxException {
         assertEquals(3212, converter.romanNumeralToInteger(new RomanNumeral("MMMCCXII")));
     }
 
     @Test
-    public void whenRomanWithSubtractiveFormIsGivenThenArabicIsreturned() {
+    public void whenRomanWithSubtractiveFormIsGivenThenArabicIsreturned() throws IllegalNumeralSyntaxException {
         assertEquals(1940, converter.romanNumeralToInteger(new RomanNumeral("MCMXL")));
     }
 
     @Test
-    public void whenCorrectRomanIsGivenThenArabicIsReturned() {
+    public void whenCorrectRomanIsGivenThenArabicIsReturned() throws IllegalNumeralSyntaxException {
         assertEquals(1100, converter.romanNumeralToInteger(new RomanNumeral("MC")));
     }
 
     @Test
-    public void whenIntegerIsGivenThenRomanStringIsReturned() {
+    public void whenIntegerIsGivenThenRomanStringIsReturned() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         assertEquals(new RomanNumeral("CXII"), converter.integerToRomanNumeral(112));
     }
 
     @Test
-    public void whenIntegerForRomanWithSubtractiveFormIsGivenThenRomanStringIsReturned() {
+    public void whenIntegerForRomanWithSubtractiveFormIsGivenThenRomanStringIsReturned() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
         assertEquals(new RomanNumeral("XCVI"), converter.integerToRomanNumeral(96));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenNegativeIntegerIsGivenThenExceptionIsThrown() {
+    @Test(expected = IllegalArabicValueException.class)
+    public void whenNegativeIntegerIsGivenThenExceptionIsThrown() throws IllegalArabicValueException {
         converter.integerToRomanNumeral(-2);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenTooBigIntegerIsGivenThenExceptionIsThrown() {
+    @Test(expected = IllegalArabicValueException.class)
+    public void whenTooBigIntegerIsGivenThenExceptionIsThrown() throws IllegalArabicValueException {
         converter.integerToRomanNumeral(4001);
     }
 
@@ -83,12 +83,12 @@ public class RomanConverterTest {
     }
     
     @Test
-    public void whenZeroIsConvertedReturnsNullaRomanNumeral() {
+    public void whenZeroIsConvertedReturnsNullaRomanNumeral() throws IllegalArabicValueException {
         assertEquals(new RomanNumeral(), converter.integerToRomanNumeral(0));
     }
 
     @Test
-    public void everyIntegerIsConvertedToASyntacticallyCorrectRomanNumeral() {
+    public void everyIntegerIsConvertedToASyntacticallyCorrectRomanNumeral() throws IllegalArabicValueException {
         for (int i = 0; i <= 3999; i++) {
             try {
                 converter.integerToRomanNumeral(i);
@@ -100,7 +100,7 @@ public class RomanConverterTest {
     }
 
     @Test
-    public void conversionIsBijective() {
+    public void conversionIsBijective() throws IllegalArabicValueException {
         HashMap<Integer, RomanNumeral> intsAndNumerals = new HashMap<>();
         for (int i = 0; i <= 3999; i++) {
             intsAndNumerals.put(i, converter.integerToRomanNumeral(i));
