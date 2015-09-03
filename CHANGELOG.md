@@ -7,15 +7,30 @@ v0.6.0
 Codename: **Sex**  
 Build day: 
 
+> Note: the codename is not a joke, it means "six" in latin.
+
+Added
+-----
+- `RomanException` for generic exceptions in the Numerus package.
+- `IllegalNumeralSyntaxException` for strings with wrong roman syntax when they
+   are inserted into `RomanNumeral` objects.
+- `IllegalArabicValueException` for conversion of integers that are not in the 
+   suitable range of [0, 3999], as with the standard syntax.
+-  Package info JavaDoc.
+
+Changed
+-------
+- `NULLA` is now defined as a static final variable in `RomanNumeral`.
+-  Cleanup of this changelog
 
 Git repository changes
 ----------------------
-- Removed all feature git branches: from now on they will have short 
-  lives only until the completion of the feature
-- Removed `.gitignore` file
 - Changed GitHub username from `MatjazDev` to `TheMatjaz` making the URL of the
   Numerus repository become <https://github.com/TheMatjaz/Numerus> - there are
   **no redirects** from the old URL
+- Removed all feature git branches: from now on they will have short 
+  lives only until the completion of the feature
+- Removed `.gitignore` file
 
 
 v0.5.0
