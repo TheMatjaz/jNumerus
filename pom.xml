@@ -65,10 +65,18 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <mainClass>it.matjaz.numerus.RomanMain</mainClass>
         <netbeans.hint.license>NumerusLicenseHeader</netbeans.hint.license>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
     </properties>
     
     <!-- Plugins and dependencies -->
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -100,6 +108,7 @@
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                             <mainClass>${mainClass}</mainClass>
