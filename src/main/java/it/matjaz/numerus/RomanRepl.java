@@ -11,9 +11,15 @@
  */
 package it.matjaz.numerus;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Simple command line REPL shell for conversions from and to roman numerals.
@@ -32,6 +38,7 @@ public class RomanRepl {
     private String inputLine;
     private int arabicInput;
     private boolean exitFromRepl;
+    private final Properties properties;
 
     /**
      * Default ResourceBundle containing english strings.
@@ -42,12 +49,22 @@ public class RomanRepl {
      * Constructs a Numerus REPL, a shell in which the numbers could be
      * converted and some other commands can be called.
      *
+     * Prepares a keyboard scanner, a RomanConverter and loads the
+     * Project.properties file.
+     *
      * After construction, start the REPL it with the {@code start()} method.
      */
     public RomanRepl() {
         this.keyboardScanner = new Scanner(System.in);
         this.converter = new RomanConverter();
         this.exitFromRepl = false;
+        this.properties = new Properties();
+        try {
+            InputStream in = getClass().getClassLoader().getResourceAsStream("Project.properties");
+            properties.load(in);
+        } catch (IOException ex) {
+            Logger.getLogger(RomanRepl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -78,6 +95,10 @@ public class RomanRepl {
         interpreteCommand();
     }
 
+    /**
+     * Calls different output strings for specific commands from the
+     * romanBundle.
+     */
     private void interpreteCommand() {
         switch (inputLine) {
             case "?":
@@ -98,7 +119,16 @@ public class RomanRepl {
 
             case "about":
             case "info": {
-                System.out.println(romanBundle.getString("InfoText"));
+                /**
+                 * Builds the "InfoText" string inserting the current project
+                 * version read from the project properties file an the current
+                 * year for the copyright statement.
+                 */
+                String message = MessageFormat.format(
+                        romanBundle.getString("InfoText"),
+                        properties.getProperty("version"),
+                        java.time.Year.now());
+                System.out.println(message);
                 break;
             }
 
