@@ -65,6 +65,19 @@ public class RomanRepl {
         }
     }
 
+    /**
+     * Makes the REPL interprete only the passed command or number without
+     * waiting for other input.
+     *
+     * The command gets cleaned up and then passed to the standard REPL parser.
+     *
+     * @param command to be executed or number to be converted
+     */
+    public void interpreteSingleCommand(String command) {
+        this.inputLine = command.trim().toLowerCase();
+        interpreteCommand();
+    }
+
     private void interpreteCommand() {
         switch (inputLine) {
             case "?":
@@ -77,7 +90,7 @@ public class RomanRepl {
                 System.out.println(romanBundle.getString("MooText"));
                 break;
             }
-            
+
             case "ascii": {
                 System.out.println(romanBundle.getString("AsciiArtText"));
                 break;
