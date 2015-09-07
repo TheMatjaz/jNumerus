@@ -11,6 +11,8 @@
  */
 package it.matjaz.numerus;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 /**
@@ -32,6 +34,11 @@ public class RomanRepl {
     private boolean exitFromRepl;
 
     /**
+     * Default ResourceBundle containing english strings.
+     */
+    private static final ResourceBundle romanBundle = ResourceBundle.getBundle("RomanBundle", Locale.US);
+
+    /**
      * Constructs a Numerus REPL, a shell in which the numbers could be
      * converted and some other commands can be called.
      *
@@ -50,9 +57,9 @@ public class RomanRepl {
      * For a command reference, type '{@code ?}'.
      */
     public void start() {
-        System.out.println("Ave tibi.");
+        System.out.println(romanBundle.getString("WelcomeText"));
         while (!exitFromRepl) {
-            System.out.print("numerus> ");
+            System.out.print(romanBundle.getString("Prompt"));
             this.inputLine = keyboardScanner.nextLine().trim().toLowerCase();
             interpreteCommand();
         }
@@ -62,30 +69,35 @@ public class RomanRepl {
         switch (inputLine) {
             case "?":
             case "help": {
-                System.out.println("Here the help");
+                System.out.println(romanBundle.getString("HelpText"));
                 break;
             }
 
             case "moo": {
-                System.out.println("Moo text");
+                System.out.println(romanBundle.getString("MooText"));
+                break;
+            }
+            
+            case "ascii": {
+                System.out.println(romanBundle.getString("AsciiArtText"));
                 break;
             }
 
             case "about":
             case "info": {
-                System.out.println("Info text");
+                System.out.println(romanBundle.getString("InfoText"));
                 break;
             }
 
             case "syntax": {
-                System.out.println("Syntax text");
+                System.out.println(romanBundle.getString("SyntaxText"));
+                break;
             }
 
             case "quit":
-            case "close":
             case "exit": {
                 this.exitFromRepl = true;
-                System.out.println("Exit text");
+                System.out.println(romanBundle.getString("ExitText"));
                 break;
             }
 
@@ -94,7 +106,7 @@ public class RomanRepl {
             }
 
             case "all": {
-                System.out.println("Work in progress...");
+                System.out.println(romanBundle.getString("AllText"));
                 break;
             }
 

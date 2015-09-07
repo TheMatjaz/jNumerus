@@ -11,6 +11,9 @@
  */
 package it.matjaz.numerus;
 
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.util.Pair;
@@ -27,6 +30,11 @@ import javafx.util.Pair;
  * <a href="http://matjaz.it">matjaz.it</a>
  */
 public class RomanConverter {
+
+    /**
+     * Default ResourceBundle containing english strings.
+     */
+    private static final ResourceBundle romanBundle = ResourceBundle.getBundle("RomanBundle", Locale.US);
 
     /**
      * Array of references for translating roman characters into numeric values
@@ -122,7 +130,8 @@ public class RomanConverter {
      */
     private String integerToRomanString(int arabic) throws IllegalArabicValueException {
         if (arabic < 0 || arabic > 3999) {
-            throw new IllegalArabicValueException("Arabic numeral should be an integer in [0, 3999].");
+            String message = romanBundle.getString("ArabicOutOfRange");
+            throw new IllegalArabicValueException(message);
         }
         if (arabic == 0) {
             return RomanNumeral.NULLA;
@@ -159,7 +168,8 @@ public class RomanConverter {
             return new RomanNumeral(integerToRomanString(arabic));
         } catch (IllegalNumeralSyntaxException ex) {
             Logger.getLogger(RomanConverter.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException("RomanConverter could not convert " + arabic + " to a syntactically correct RomanNumeral: " + ex.getMessage());
+            String message = MessageFormat.format(romanBundle.getString("ConverterInternalErrorWhenConvertingToRomanNumeral"), arabic, ex.getMessage());
+            throw new RuntimeException(message);
         }
     }
 }

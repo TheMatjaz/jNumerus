@@ -12,7 +12,10 @@
 package it.matjaz.numerus;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -96,6 +99,11 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * String indicating the roman numeral with value zero, 0.
      */
     public static final String NULLA = "NULLA";
+
+    /**
+     * Default ResourceBundle containing english strings.
+     */
+    private static final ResourceBundle romanBundle = ResourceBundle.getBundle("RomanBundle", Locale.US);
 
     /**
      * Serializable class version number.
@@ -256,26 +264,32 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      */
     private void throwExceptionIfIllegalRomanSyntax(String symbols) throws IllegalNumeralSyntaxException {
         if (symbols.isEmpty()) {
-            throw new IllegalNumeralSyntaxException("Empty roman numeral.");
+            String message = romanBundle.getString("NonRomanChars");
+            throw new IllegalNumeralSyntaxException(romanBundle.getString("EmptyRomanNumeral"));
         }
         if (symbols.length() >= 20) {
-            throw new IllegalNumeralSyntaxException("Impossibly long roman numeral.");
+            String message = romanBundle.getString("NonRomanChars");
+            throw new IllegalNumeralSyntaxException(romanBundle.getString("TooLongRomanNumeral"));
         }
         if (!symbols.matches(CORRECT_ROMAN_SYNTAX_REGEX)) {
             String illegalChars;
             illegalChars = findAllRegexMatchingSubstrings(symbols, NON_ROMAN_CHARS_REGEX);
             if (!illegalChars.isEmpty()) {
-                throw new IllegalNumeralSyntaxException("Non roman characters: " + illegalChars);
+                String message = MessageFormat.format(romanBundle.getString("NonRomanChars"), illegalChars);
+                throw new IllegalNumeralSyntaxException(message);
             }
             illegalChars = findAllRegexMatchingSubstrings(symbols, FOUR_CONSECUTIVE_TEN_LIKE_CHARS_REGEX);
             if (!illegalChars.isEmpty()) {
-                throw new IllegalNumeralSyntaxException("Four consecutive: " + illegalChars);
+                String message = MessageFormat.format(romanBundle.getString("FourConsecutiveChars"), illegalChars);
+                throw new IllegalNumeralSyntaxException(message);
             }
             illegalChars = findAllRegexMatchingSubstrings(symbols, TWO_SAME_FIVE_LIKE_CHARS_REGEX);
             if (!illegalChars.isEmpty()) {
-                throw new IllegalNumeralSyntaxException("Two D, L or V same characters: " + illegalChars);
+                String message = MessageFormat.format(romanBundle.getString("TwoDLVChars"), illegalChars);
+                throw new IllegalNumeralSyntaxException(message);
             }
-            throw new IllegalNumeralSyntaxException("Generic roman numeral syntax error.");
+            String message = romanBundle.getString("GenericRomanSyntaxError");
+            throw new IllegalNumeralSyntaxException(romanBundle.getString("GenericRomanSyntaxError"));
         }
     }
 
