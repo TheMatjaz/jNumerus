@@ -63,7 +63,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!--<mainClass>it.matjaz.Numerus.cli.Main</mainClass>-->
+        <mainClass>it.matjaz.numerus.RomanMain</mainClass>
         <netbeans.hint.license>NumerusLicenseHeader</netbeans.hint.license>
     </properties>
     
