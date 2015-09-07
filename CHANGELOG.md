@@ -2,6 +2,23 @@ _All notable changes to the [Numerus project](http://matjaz.it/numerus/)
 will be documented in this file._
 
 ***************
+v0.7.0
+======
+Codename: **Septem**  
+Build day: 189
+
+Added
+-----
+- Command line interface `RomanRepl` for interactive conversions along with 
+  project information and roman syntax help.
+- Conversion of `java -jar Numerus-*.jar` argument
+
+Changed
+-------
+- Ready for internationalization: hardcoded strings are moved to a 
+  `ResourceBundle` file
+
+
 v0.6.0
 ======
 Codename: **Sex**  
