@@ -34,6 +34,18 @@ public class RomanCalculator {
      */
     private static final ResourceBundle romanBundle = ResourceBundle.getBundle("RomanBundle", Locale.US);
 
+    /**
+     * Returns a RomanInteger containing the sum of two RomanIntegers.
+     *
+     * Throws an exception if the sum is bigger than
+     * {@link RomanInteger#MAXINTEGER}.
+     *
+     * @param one first RomanInteger to be summed.
+     * @param two second RomanInteger to be summed.
+     * @return a RomanInteger containing the sum.
+     * @throws IllegalArabicValueException if the sum is bigger than
+     * {@link RomanInteger#MAXINTEGER}.
+     */
     public static RomanInteger sum(RomanInteger one, RomanInteger two) throws IllegalArabicValueException {
         try {
             return new RomanInteger(one.getValue() + two.getValue());
@@ -42,7 +54,19 @@ public class RomanCalculator {
         }
     }
 
-    public static RomanInteger subtract(RomanInteger one, RomanInteger two) throws IllegalArabicValueException {
+    /**
+     * Returns a RomanInteger containing the difference of two RomanIntegers.
+     *
+     * Throws an exception if the difference is smaller than
+     * {@link RomanInteger#MININTEGER}.
+     *
+     * @param one RomanInteger to be subtracted from.
+     * @param two RomanInteger value to be subtracted from {@code one}.
+     * @return a RomanInteger containing the difference.
+     * @throws IllegalArabicValueException if the difference is smaller than
+     * {@link RomanInteger#MININTEGER}.
+     */
+    public static RomanInteger difference(RomanInteger one, RomanInteger two) throws IllegalArabicValueException {
         try {
             return new RomanInteger(one.getValue() - two.getValue());
         } catch (IllegalArabicValueException ex) {
@@ -50,6 +74,18 @@ public class RomanCalculator {
         }
     }
 
+    /**
+     * Returns a RomanInteger containing the product of two RomanIntegers.
+     *
+     * Throws an exception if the product is bigger than
+     * {@link RomanInteger#MAXINTEGER}.
+     *
+     * @param one first RomanInteger of the product.
+     * @param two first RomanInteger to be multiplied with the {@code one}.
+     * @return a RomanInteger containing the product.
+     * @throws IllegalArabicValueException if the product is bigger than
+     * {@link RomanInteger#MAXINTEGER}.
+     */
     public static RomanInteger product(RomanInteger one, RomanInteger two) throws IllegalArabicValueException {
         try {
             return new RomanInteger(one.getValue() * two.getValue());
@@ -58,7 +94,22 @@ public class RomanCalculator {
         }
     }
 
-    public static RomanInteger intDivision(RomanInteger one, RomanInteger two) throws IllegalArabicValueException {
+    /**
+     * Returns a RomanInteger containing the integer division of two
+     * RomanIntegers.
+     *
+     * It's and integer division so it gets floored. As an example, 5/2 = 2, not
+     * 2.5.
+     *
+     * Throws an exception if the second argument, the divider, is
+     * {@link RomanInteger#NULLA}.
+     *
+     * @param one RomanInteger to be divided.
+     * @param two RomanInteger that divides.
+     * @return a RomanInteger containing the integer division.
+     * @throws ArithmeticException if {@code two} is {@link RomanInteger#NULLA}.
+     */
+    public static RomanInteger intDivision(RomanInteger one, RomanInteger two) {
         try {
             return new RomanInteger(one.getValue() / two.getValue());
         } catch (ArithmeticException ex) {
@@ -66,7 +117,19 @@ public class RomanCalculator {
         }
     }
 
-    public static RomanInteger remainder(RomanInteger one, RomanInteger two) throws IllegalArabicValueException {
+    /**
+     * Returns a RomanInteger containing the remainder of the division of two
+     * RomanIntegers.
+     *
+     * Throws an exception if the second argument, the divider, is
+     * {@link RomanInteger#NULLA}.
+     *
+     * @param one RomanInteger to be divided.
+     * @param two RomanInteger that divides.
+     * @return a RomanInteger containing the remainder of the division.
+     * @throws ArithmeticException if {@code two} is {@link RomanInteger#NULLA}.
+     */
+    public static RomanInteger remainder(RomanInteger one, RomanInteger two) {
         try {
             return new RomanInteger(one.getValue() % two.getValue());
         } catch (ArithmeticException ex) {

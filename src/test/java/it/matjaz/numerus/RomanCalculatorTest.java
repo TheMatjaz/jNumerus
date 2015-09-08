@@ -20,6 +20,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * JUnit test of the {@link RomanCalculator} static methods to perform
+ * arithmetical operations on RomanIntegers.
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">matjaz.it</a>
@@ -67,20 +69,20 @@ public class RomanCalculatorTest {
     @Test
     public void subtractReturnsCorrectResult() throws IllegalArabicValueException {
         setRomanIntegers(10, 2, 8);
-        subtract(one, two);
+        difference(one, two);
     }
 
     @Test(expected = IllegalArabicValueException.class)
     public void whenSubtractionsIsSmallerThanMinThenExceptionIsThrown() throws IllegalArabicValueException {
         setRomanIntegers(10, 20, 0);
-        assertEquals(result, subtract(one, two));
+        assertEquals(result, difference(one, two));
     }
 
     @Test
     public void subtractionExceptionContainsSpecificMessage() {
         setRomanIntegers(10, 20, 0);
         try {
-            subtract(one, two);
+            difference(one, two);
         } catch (IllegalArabicValueException ex) {
             assertEquals(romanBundle.getString("TooSmallSubtraction"), ex.getMessage());
         }
@@ -154,7 +156,7 @@ public class RomanCalculatorTest {
 
     @Test
     public void whenSecondParamterInRemainderIsBiggerThenFirstIsReturned() throws IllegalArabicValueException {
-        setRomanIntegers(10, 11, 10%11);
+        setRomanIntegers(10, 11, 10 % 11);
         assertEquals(result, remainder(one, two));
     }
 }
