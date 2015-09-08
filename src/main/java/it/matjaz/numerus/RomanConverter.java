@@ -37,6 +37,17 @@ public class RomanConverter {
     private static final ResourceBundle romanBundle = ResourceBundle.getBundle("RomanBundle", Locale.US);
 
     /**
+     * The biggest Integer convertable to RomanNumeral with the standard syntax.
+     */
+    public static final int MAXINTEGER = 3999;
+
+    /**
+     * The smallest Integer convertable to RomanNumeral with the standard
+     * syntax.
+     */
+    public static final int MININTEGER = -MAXINTEGER;
+
+    /**
      * Array of references for translating roman characters into numeric values
      * and vice-versa.
      */
@@ -72,12 +83,17 @@ public class RomanConverter {
      * @return int value of the given String.
      */
     private int romanStringToInteger(String romanString) {
-        if (romanString.equals(RomanNumeral.NULLA)) {
+        if (romanString.equals(RomanNumeral.NULLA_STRING)) {
             return 0;
         }
         int arabicValue = 0;
         int romanStringIndex = 0;
         int romanCharIndex = 0;
+        int sign = 1;
+        if (romanString.charAt(0) == '-') {
+            sign = -1;
+            romanStringIndex++;
+        }
         while (romanStringIndex < romanString.length()) {
             String romanChar = (String) charValues[romanCharIndex].getKey();
             int romanCharValue = (int) charValues[romanCharIndex].getValue();
@@ -88,7 +104,7 @@ public class RomanConverter {
                 romanCharIndex++;
             }
         }
-        return arabicValue;
+        return sign * arabicValue;
     }
 
     /**
@@ -129,14 +145,18 @@ public class RomanConverter {
      * range.
      */
     private String integerToRomanString(int arabic) throws IllegalArabicValueException {
-        if (arabic < 0 || arabic > 3999) {
+        if (arabic < -3999 || arabic > 3999) {
             String message = romanBundle.getString("ArabicOutOfRange");
             throw new IllegalArabicValueException(message);
         }
         if (arabic == 0) {
-            return RomanNumeral.NULLA;
+            return RomanNumeral.NULLA_STRING;
         }
         StringBuilder romanString = new StringBuilder();
+        if (arabic < 0) {
+            arabic *= -1;
+            romanString.append('-');
+        }
         for (Pair charAndValue : charValues) {
             int romanCharValue = (int) charAndValue.getValue();
             String romanChar = (String) charAndValue.getKey();

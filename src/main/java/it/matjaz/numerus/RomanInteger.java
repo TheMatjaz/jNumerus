@@ -52,6 +52,17 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
     private static final long serialVersionUID = 20150428L;
 
     /**
+     * The biggest Integer convertable to RomanNumeral with the standard syntax.
+     */
+    public static final int MAXINTEGER = RomanConverter.MAXINTEGER;
+
+    /**
+     * The smallest Integer convertable to RomanNumeral with the standard
+     * syntax.
+     */
+    public static final int MININTEGER = RomanConverter.MININTEGER;
+    
+    /**
      * The arabic value of the roman numeral.
      */
     private int value;

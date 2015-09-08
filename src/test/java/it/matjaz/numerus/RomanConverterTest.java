@@ -70,11 +70,6 @@ public class RomanConverterTest {
     }
 
     @Test(expected = IllegalArabicValueException.class)
-    public void whenNegativeIntegerIsGivenThenExceptionIsThrown() throws IllegalArabicValueException {
-        converter.integerToRomanNumeral(-2);
-    }
-
-    @Test(expected = IllegalArabicValueException.class)
     public void whenTooBigIntegerIsGivenThenExceptionIsThrown() throws IllegalArabicValueException {
         converter.integerToRomanNumeral(4001);
     }
@@ -91,7 +86,7 @@ public class RomanConverterTest {
 
     @Test
     public void everyIntegerIsConvertedToASyntacticallyCorrectRomanNumeral() throws IllegalArabicValueException {
-        for (int i = 0; i <= 3999; i++) {
+        for (int i = -3999; i <= 3999; i++) {
             try {
                 converter.integerToRomanNumeral(i);
             } catch (NumberFormatException ex) {
@@ -104,12 +99,37 @@ public class RomanConverterTest {
     @Test
     public void conversionIsBijective() throws IllegalArabicValueException {
         HashMap<Integer, RomanNumeral> intsAndNumerals = new HashMap<>();
-        for (int i = 0; i <= 3999; i++) {
+        for (int i = -3999; i <= 3999; i++) {
             intsAndNumerals.put(i, converter.integerToRomanNumeral(i));
         }
         intsAndNumerals.keySet().stream().forEach((i) -> {
             assertTrue(i == converter.romanNumeralToInteger(intsAndNumerals.get(i)));
         });
     }
-
+    
+    @Test
+    public void negativeIntegerGetsConvertedToNegativeRoman() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
+        assertEquals(new RomanNumeral("-LXI"), converter.integerToRomanNumeral(-61));
+    }
+    
+    @Test
+    public void negativeRomanGetsConvertedToNegativeInteger() throws IllegalNumeralSyntaxException {
+        assertEquals(-21, converter.romanNumeralToInteger(new RomanNumeral("-XXI")));
+    }
+    
+    @Test(expected = IllegalArabicValueException.class)
+    public void whenTooSmallNegativeIntegerIsGivenThenExceptionIsThrown() throws IllegalArabicValueException {
+        converter.integerToRomanNumeral(-5000);
+    }
+    
+    @Test
+    public void negativeZeroGetsConvertedToPositiveNulla() throws IllegalArabicValueException {
+        assertEquals(new RomanNumeral(), converter.integerToRomanNumeral(-0));
+    }
+    
+    @Test
+    public void negativeNullaGetsConvertedToPositiveZero() throws IllegalNumeralSyntaxException {
+        assertEquals(0, converter.romanNumeralToInteger(new RomanNumeral("-NULLA")));
+    }
+    
 }
