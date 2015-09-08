@@ -64,6 +64,13 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * with the equivalent value.
      */
     public static final int MININTEGER = 0;
+    
+    /**
+     * The default RomanInteger: zero value with NULLA string.
+     *
+     * See also {@link RomanNumeral#NULLA RomanNumeral.NULLA}.
+     */
+    public static final RomanInteger NULLAINTEGER = new RomanInteger();
 
     /**
      * The arabic value of the roman numeral.
