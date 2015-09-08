@@ -147,4 +147,25 @@ public class RomanCalculator {
             throw new RuntimeException(message);
         }
     }
+
+    /**
+     * Returns a RomanInteger containing the power of two RomanIntegers.
+     *
+     * Throws an exception if the product is bigger than
+     * {@link RomanInteger#MAXINTEGER}.
+     *
+     * @param one first RomanInteger as the base.
+     * @param two first RomanInteger as the exponent.
+     * @return a RomanInteger containing the exponantiation.
+     * @throws IllegalArabicValueException if the result is bigger than
+     * {@link RomanInteger#MAXINTEGER}.
+     * @see Math#pow(double, double) on which the method is based.
+     */
+    public static RomanInteger power(RomanInteger one, RomanInteger two) throws IllegalArabicValueException {
+        try {
+            return new RomanInteger((int) Math.pow(one.getValue(), two.getValue()));
+        } catch (IllegalArabicValueException ex) {
+            throw new IllegalArabicValueException(romanBundle.getString("TooBigPower"));
+        }
+    }
 }
