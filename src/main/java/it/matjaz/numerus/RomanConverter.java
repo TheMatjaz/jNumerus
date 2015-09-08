@@ -37,6 +37,17 @@ public class RomanConverter {
     private static final ResourceBundle romanBundle = ResourceBundle.getBundle("RomanBundle", Locale.US);
 
     /**
+     * The biggest Integer convertable to RomanNumeral with the standard syntax.
+     */
+    public static final int MAXINTEGER = 3999;
+
+    /**
+     * The smallest Integer convertable to RomanNumeral with the standard
+     * syntax.
+     */
+    public static final int MININTEGER = -MAXINTEGER;
+
+    /**
      * Array of references for translating roman characters into numeric values
      * and vice-versa.
      */

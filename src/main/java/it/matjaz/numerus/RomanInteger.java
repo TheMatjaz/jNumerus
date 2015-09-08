@@ -54,16 +54,13 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
     /**
      * The biggest Integer convertable to RomanNumeral with the standard syntax.
      */
-    public static final int MAXINTEGER = 3999;
+    public static final int MAXINTEGER = RomanConverter.MAXINTEGER;
 
     /**
      * The smallest Integer convertable to RomanNumeral with the standard
      * syntax.
-     *
-     * See also {@link RomanNumeral#NULLA RomanNumeral.NULLA} for the String
-     * with the equivalent value.
      */
-    public static final int MININTEGER = 0;
+    public static final int MININTEGER = RomanConverter.MININTEGER;
     
     /**
      * The arabic value of the roman numeral.
