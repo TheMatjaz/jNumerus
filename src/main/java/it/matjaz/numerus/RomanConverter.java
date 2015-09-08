@@ -78,6 +78,11 @@ public class RomanConverter {
         int arabicValue = 0;
         int romanStringIndex = 0;
         int romanCharIndex = 0;
+        int sign = 1;
+        if (romanString.charAt(0) == '-') {
+            sign = -1;
+            romanStringIndex++;
+        }
         while (romanStringIndex < romanString.length()) {
             String romanChar = (String) charValues[romanCharIndex].getKey();
             int romanCharValue = (int) charValues[romanCharIndex].getValue();
@@ -88,7 +93,7 @@ public class RomanConverter {
                 romanCharIndex++;
             }
         }
-        return arabicValue;
+        return sign * arabicValue;
     }
 
     /**
@@ -129,7 +134,7 @@ public class RomanConverter {
      * range.
      */
     private String integerToRomanString(int arabic) throws IllegalArabicValueException {
-        if (arabic < 0 || arabic > 3999) {
+        if (arabic < -3999 || arabic > 3999) {
             String message = romanBundle.getString("ArabicOutOfRange");
             throw new IllegalArabicValueException(message);
         }
@@ -137,6 +142,10 @@ public class RomanConverter {
             return RomanNumeral.NULLA;
         }
         StringBuilder romanString = new StringBuilder();
+        if (arabic < 0) {
+            arabic *= -1;
+            romanString.append('-');
+        }
         for (Pair charAndValue : charValues) {
             int romanCharValue = (int) charAndValue.getValue();
             String romanChar = (String) charAndValue.getKey();
