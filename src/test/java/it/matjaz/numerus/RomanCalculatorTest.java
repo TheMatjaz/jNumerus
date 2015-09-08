@@ -159,4 +159,27 @@ public class RomanCalculatorTest {
         setRomanIntegers(10, 11, 10 % 11);
         assertEquals(result, remainder(one, two));
     }
+    
+    @Test
+    public void powerReturnsCorrectValue() throws IllegalArabicValueException {
+        setRomanIntegers(10, 2, 100);
+        assertEquals(result, power(one, two));
+    }
+    
+    @Test(expected = IllegalArabicValueException.class)
+    public void whenPowerIsBiggerThanMaxThenExceptionIsThrown() throws IllegalArabicValueException {
+        setRomanIntegers(10, 1000, 0);
+        assertEquals(result, power(one, two));
+    }
+
+    @Test
+    public void powerExceptionContainsSpecificMessage() {
+        setRomanIntegers(3999, 30, 0);
+        try {
+            power(one, two);
+        } catch (IllegalArabicValueException ex) {
+            assertEquals(romanBundle.getString("TooBigPower"), ex.getMessage());
+        }
+    }
+    
 }
