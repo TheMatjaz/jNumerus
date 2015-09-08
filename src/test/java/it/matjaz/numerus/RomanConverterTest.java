@@ -132,14 +132,4 @@ public class RomanConverterTest {
         assertEquals(0, converter.romanNumeralToInteger(new RomanNumeral("-NULLA")));
     }
     
-    @Test
-    public void minIntegerIsOppositeOfMaxInteger() {
-        
-    }
-    
-    @Test
-    public void isPositiveReturnsTrueForBiggerThanZero() {
-        
-    }
-
 }

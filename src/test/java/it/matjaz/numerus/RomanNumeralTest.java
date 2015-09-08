@@ -295,7 +295,7 @@ public class RomanNumeralTest {
     @Test
     public void negativeNullaBecomesAlwaysPositive() throws IllegalNumeralSyntaxException {
         roman.setNumeral("-NULLA");
-        assertEquals(RomanNumeral.NULLA, roman.getNumeral());
+        assertEquals(RomanNumeral.NULLA_STRING, roman.getNumeral());
     }
 
 }

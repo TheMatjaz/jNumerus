@@ -72,7 +72,7 @@ public class RomanConverter {
      * @return int value of the given String.
      */
     private int romanStringToInteger(String romanString) {
-        if (romanString.equals(RomanNumeral.NULLA)) {
+        if (romanString.equals(RomanNumeral.NULLA_STRING)) {
             return 0;
         }
         int arabicValue = 0;
@@ -139,7 +139,7 @@ public class RomanConverter {
             throw new IllegalArabicValueException(message);
         }
         if (arabic == 0) {
-            return RomanNumeral.NULLA;
+            return RomanNumeral.NULLA_STRING;
         }
         StringBuilder romanString = new StringBuilder();
         if (arabic < 0) {
