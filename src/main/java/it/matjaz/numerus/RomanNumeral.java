@@ -289,7 +289,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
                 throw new IllegalNumeralSyntaxException(message);
             }
             String message = romanBundle.getString("GenericRomanSyntaxError");
-            throw new IllegalNumeralSyntaxException(romanBundle.getString("GenericRomanSyntaxError"));
+            throw new IllegalNumeralSyntaxException(message);
         }
     }
 
