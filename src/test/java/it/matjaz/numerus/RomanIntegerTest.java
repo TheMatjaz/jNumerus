@@ -62,8 +62,8 @@ public class RomanIntegerTest {
         roman = new RomanInteger(90909090);
     }
 
-    @Test(expected = IllegalArabicValueException.class)
-    public void intConstructorRejectNegativeInts() throws IllegalArabicValueException {
+    @Test
+    public void intConstructorAcceptsNegativeInts() throws IllegalArabicValueException {
         roman = new RomanInteger(-1);
     }
 
@@ -206,7 +206,7 @@ public class RomanIntegerTest {
     public void serializabilityWorksBothWays() throws IllegalNumeralSyntaxException {
         FileOutputStream outputFile = null;
         try {
-            roman = new RomanInteger(new RomanNumeral("MMXV"));
+            roman = new RomanInteger(new RomanNumeral("-MMXV"));
             File tempFile = new File("/tmp/romaninteger.ser");
             outputFile = new FileOutputStream(tempFile);
             ObjectOutputStream outputStream = new ObjectOutputStream(outputFile);
@@ -313,6 +313,18 @@ public class RomanIntegerTest {
         roman = new RomanInteger(10);
         long other = 10L;
         assertTrue(roman.equals(new RomanInteger((int) other)) == true);
+    }
+
+    @Test
+    public void minIntegerIsOppositeOfMaxInteger() {
+        assertEquals(RomanInteger.MAXINTEGER, -RomanInteger.MININTEGER);
+    }
+    
+    @Test
+    public void negativeIntSetterUpdatesRomanNumeral() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
+        roman = new RomanInteger();
+        roman.setValue(-42);
+        assertEquals(new RomanNumeral("-XLII"), roman.getNumeral());
     }
 
 }

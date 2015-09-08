@@ -66,6 +66,12 @@ public class RomanCalculatorTest {
         }
     }
 
+    @Test(expected = IllegalArabicValueException.class)
+    public void whenSumIsSmallerThanMinThenExceptionIsThrown() throws IllegalArabicValueException {
+        setRomanIntegers(-3999, -30, 0);
+        sum(one, two);
+    }
+
     @Test
     public void subtractReturnsCorrectResult() throws IllegalArabicValueException {
         setRomanIntegers(10, 2, 8);
@@ -74,7 +80,19 @@ public class RomanCalculatorTest {
 
     @Test(expected = IllegalArabicValueException.class)
     public void whenSubtractionsIsSmallerThanMinThenExceptionIsThrown() throws IllegalArabicValueException {
-        setRomanIntegers(10, 20, 0);
+        setRomanIntegers(-3999, 100, 0);
+        assertEquals(result, difference(one, two));
+    }
+
+    @Test(expected = IllegalArabicValueException.class)
+    public void whenSubtractionsIsBiggerThanMaxThenExceptionIsThrown() throws IllegalArabicValueException {
+        setRomanIntegers(3999, -100, 0);
+        assertEquals(result, difference(one, two));
+    }
+
+    @Test
+    public void whenSubtractionsIsSmallerThanZeroThenNothingIsThrown() throws IllegalArabicValueException {
+        setRomanIntegers(10, 30, -20);
         assertEquals(result, difference(one, two));
     }
 
@@ -100,6 +118,12 @@ public class RomanCalculatorTest {
         assertEquals(result, product(one, two));
     }
 
+    @Test(expected = IllegalArabicValueException.class)
+    public void whenProductIsSmallerThanMinThenExceptionIsThrown() throws IllegalArabicValueException {
+        setRomanIntegers(-10, 3000, 0);
+        assertEquals(result, product(one, two));
+    }
+
     @Test
     public void productExceptionContainsSpecificMessage() {
         setRomanIntegers(3999, 30, 0);
@@ -119,6 +143,12 @@ public class RomanCalculatorTest {
     @Test
     public void integerDivisionDoesNotViolateMinInteger() throws IllegalArabicValueException {
         setRomanIntegers(1, 100, 0);
+        assertEquals(result, intDivision(one, two));
+    }
+
+    @Test
+    public void integerDivisionWithNegativeIsSupported() throws IllegalArabicValueException {
+        setRomanIntegers(10, -2, -5);
         assertEquals(result, intDivision(one, two));
     }
 
@@ -145,6 +175,12 @@ public class RomanCalculatorTest {
     }
 
     @Test
+    public void remainderWithNegativeValuesIsSupported() throws IllegalArabicValueException {
+        setRomanIntegers(5, -2, 1);
+        assertEquals(result, remainder(one, two));
+    }
+
+    @Test
     public void remainderExceptionContainsSpecificMessage() throws IllegalArabicValueException {
         setRomanIntegers(5, 0, 0);
         try {
@@ -159,16 +195,22 @@ public class RomanCalculatorTest {
         setRomanIntegers(10, 11, 10 % 11);
         assertEquals(result, remainder(one, two));
     }
-    
+
     @Test
     public void powerReturnsCorrectValue() throws IllegalArabicValueException {
         setRomanIntegers(10, 2, 100);
         assertEquals(result, power(one, two));
     }
-    
+
     @Test(expected = IllegalArabicValueException.class)
     public void whenPowerIsBiggerThanMaxThenExceptionIsThrown() throws IllegalArabicValueException {
         setRomanIntegers(10, 1000, 0);
+        assertEquals(result, power(one, two));
+    }
+    
+    @Test(expected = IllegalArabicValueException.class)
+    public void whenPowerIsSmallerThanMinThenExceptionIsThrown() throws IllegalArabicValueException {
+        setRomanIntegers(-10, 1000, 0);
         assertEquals(result, power(one, two));
     }
 
@@ -181,5 +223,5 @@ public class RomanCalculatorTest {
             assertEquals(romanBundle.getString("TooBigPower"), ex.getMessage());
         }
     }
-    
+
 }
