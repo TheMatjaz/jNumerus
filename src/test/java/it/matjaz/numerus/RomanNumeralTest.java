@@ -94,9 +94,9 @@ public class RomanNumeralTest {
     @Test
     public void whenStringContainsNonRomanCharactersThenExceptionMessageShowsThem() {
         try {
-            roman.setNumeral("pPFXC-");
+            roman.setNumeral("pPFXC@");
         } catch (IllegalNumeralSyntaxException ex) {
-            assertTrue(ex.getMessage().contains("pPF-".toUpperCase()));
+            assertTrue(ex.getMessage().contains("pPF@".toUpperCase()));
         }
     }
 
@@ -266,5 +266,36 @@ public class RomanNumeralTest {
         roman.setNumeral("CCCXXXIII");
         assertEquals("XXX", roman.subSequence(3, 6));
     }
-    
+
+    @Test
+    public void numeralWithMinusAreAcceptedInSetter() throws IllegalNumeralSyntaxException {
+        roman.setNumeral("-MMC");
+    }
+
+    @Test
+    public void numeralWithMinusAreAcceptedInConstructor() throws IllegalNumeralSyntaxException {
+        RomanNumeral r = new RomanNumeral("-I");
+    }
+
+    @Test
+    public void negativeNullaIsAccepted() throws IllegalNumeralSyntaxException {
+        roman.setNumeral("-NULLA");
+    }
+
+    @Test
+    public void negativeNullaIsAcceptedInSetter() throws IllegalNumeralSyntaxException {
+        roman.setNumeral("-NULLA");
+    }
+
+    @Test
+    public void negativeNullaIsAcceptedInConstructor() throws IllegalNumeralSyntaxException {
+        RomanNumeral r = new RomanNumeral("-NULLA");
+    }
+
+    @Test
+    public void negativeNullaBecomesAlwaysPositive() throws IllegalNumeralSyntaxException {
+        roman.setNumeral("-NULLA");
+        assertEquals(RomanNumeral.NULLA, roman.getNumeral());
+    }
+
 }

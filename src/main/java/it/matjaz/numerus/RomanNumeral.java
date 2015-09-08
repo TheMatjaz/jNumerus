@@ -75,7 +75,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * <a href="http://stackoverflow.com/a/267405">Source of the idea</a> of
      * this regex with a great explanation.
      */
-    public static final String CORRECT_ROMAN_SYNTAX_REGEX = "^(NULLA)|((M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))$";
+    public static final String CORRECT_ROMAN_SYNTAX_REGEX = "^-?(NULLA)|-?((M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))$";
 
     /**
      * Regex matching any non roman characters.
@@ -83,7 +83,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * If a string contains any character matching with this regex, then is not
      * a roman numeral, because contains illegal characters.
      */
-    public static final String NON_ROMAN_CHARS_REGEX = "[^MDCLXVI]";
+    public static final String NON_ROMAN_CHARS_REGEX = "[^-MDCLXVI]";
 
     /**
      * Regex matching four consecutive characters M or C or X or I.
@@ -119,7 +119,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      *
      * @see Serializable
      */
-    private static final long serialVersionUID = 20150903L;
+    private static final long serialVersionUID = 20150908L;
 
     /**
      * Constructs a RomanNumeral initialized to NULLA.
@@ -228,7 +228,11 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     private String cleanUpcaseAndSyntaxCheckString(String symbols) throws IllegalNumeralSyntaxException {
         String cleanSymbols = symbols.replaceAll("\\s+", "").toUpperCase();
         throwExceptionIfIllegalRomanSyntax(cleanSymbols);
-        return cleanSymbols;
+        if (cleanSymbols.equals("-" + NULLA)) {
+            return NULLA;
+        } else {
+            return cleanSymbols;
+        }
     }
 
     /**
