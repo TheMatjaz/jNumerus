@@ -11,8 +11,11 @@
  */
 package it.matjaz.numerus;
 
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Container of static methods to perform arithmetic operations between
@@ -114,6 +117,10 @@ public class RomanCalculator {
             return new RomanInteger(one.getValue() / two.getValue());
         } catch (ArithmeticException ex) {
             throw new ArithmeticException(romanBundle.getString("DivisionByZero"));
+        } catch (IllegalArabicValueException ex) {
+            Logger.getLogger(RomanConverter.class.getName()).log(Level.SEVERE, null, ex);
+            String message = MessageFormat.format(romanBundle.getString("CalculatorInternalErrorDivision"), one, two, ex.getMessage());
+            throw new RuntimeException(message);
         }
     }
 
@@ -134,6 +141,10 @@ public class RomanCalculator {
             return new RomanInteger(one.getValue() % two.getValue());
         } catch (ArithmeticException ex) {
             throw new ArithmeticException(romanBundle.getString("DivisionByZero"));
+        } catch (IllegalArabicValueException ex) {
+            Logger.getLogger(RomanConverter.class.getName()).log(Level.SEVERE, null, ex);
+            String message = MessageFormat.format(romanBundle.getString("CalculatorInternalErrorRemainder"), one, two, ex.getMessage());
+            throw new RuntimeException(message);
         }
     }
 }
