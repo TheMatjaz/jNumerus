@@ -1,29 +1,30 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
 /**
- * Indicates a generic exception happening withing the Numerus classes.
+ * Checked exception thrown to indicate that the arabic Integer values to to be
+ * converted into roman numerals is out of range of possible roman numbers'
+ * values.
  *
- * It's checked. Usually derivations of this class are used instead such as
- * {@link IllegalArabicValueException} or {@link IllegalNumeralSyntaxException}.
+ * Using standard roman syntax, the values should be Integers withing [0, 3999].
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">matjaz.it</a>
- * @see IllegalArabicValueException
- * @see IllegalNumeralSyntaxException
- * @see Exception
+ * @see RomanException
+ * @see RomanConverter
+ * @see RomanInteger
  */
-public class RomanException extends Exception {
+public class IllegalArabicValueException extends RomanException {
 
     /**
      * Serializable class version number.
@@ -42,33 +43,33 @@ public class RomanException extends Exception {
     private static final long serialVersionUID = 20150903L;
 
     /**
-     * Simply delegates the correspondent {@link Exception} constructor.
+     * Simply delegates the correspondent {@link RomanException} constructor.
      *
      * @param message
-     * @see Exception#Exception(java.lang.String)
+     * @see RomanException#RomanException(java.lang.String, java.lang.Throwable)
      */
-    public RomanException(String message) {
+    public IllegalArabicValueException(String message) {
         super(message);
     }
 
     /**
-     * Simply delegates the correspondent {@link Exception} constructor.
+     * Simply delegates the correspondent {@link RomanException} constructor.
      *
      * @param message
      * @param cause
-     * @see Exception#Exception(java.lang.String, java.lang.Throwable)
+     * @see RomanException#RomanException(java.lang.String, java.lang.Throwable)
      */
-    public RomanException(String message, Throwable cause) {
+    public IllegalArabicValueException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * Simply delegates the correspondent {@link Exception} constructor.
+     * Simply delegates the correspondent {@link RomanException} constructor.
      *
      * @param cause
-     * @see Exception#Exception(java.lang.Throwable)
+     * @see RomanException#RomanException(java.lang.String, java.lang.Throwable)
      */
-    public RomanException(Throwable cause) {
+    public IllegalArabicValueException(Throwable cause) {
         super(cause);
     }
 

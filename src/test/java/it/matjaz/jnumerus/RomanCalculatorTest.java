@@ -1,19 +1,21 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
+import it.matjaz.jnumerus.RomanInteger;
+import it.matjaz.jnumerus.IllegalArabicValueException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static it.matjaz.numerus.RomanCalculator.*;
+import static it.matjaz.jnumerus.RomanCalculator.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import org.junit.Test;
