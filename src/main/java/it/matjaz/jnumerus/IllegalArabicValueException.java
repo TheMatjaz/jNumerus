@@ -1,29 +1,30 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
 /**
- * Checked exception thrown to indicate that the string parsed by
- * {@link RomanNumeral} does not contain a syntactically correct roman numeral.
+ * Checked exception thrown to indicate that the arabic Integer values to to be
+ * converted into roman numerals is out of range of possible roman numbers'
+ * values.
  *
- * The correct syntax regex may be found at {@link RomanNumeral#CORRECT_ROMAN_SYNTAX_REGEX
- * }.
+ * Using standard roman syntax, the values should be Integers withing [0, 3999].
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">matjaz.it</a>
- * @see RomanNumeral#CORRECT_ROMAN_SYNTAX_REGEX
  * @see RomanException
+ * @see RomanConverter
+ * @see RomanInteger
  */
-public class IllegalNumeralSyntaxException extends RomanException {
+public class IllegalArabicValueException extends RomanException {
 
     /**
      * Serializable class version number.
@@ -47,7 +48,7 @@ public class IllegalNumeralSyntaxException extends RomanException {
      * @param message
      * @see RomanException#RomanException(java.lang.String, java.lang.Throwable)
      */
-    public IllegalNumeralSyntaxException(String message) {
+    public IllegalArabicValueException(String message) {
         super(message);
     }
 
@@ -58,7 +59,7 @@ public class IllegalNumeralSyntaxException extends RomanException {
      * @param cause
      * @see RomanException#RomanException(java.lang.String, java.lang.Throwable)
      */
-    public IllegalNumeralSyntaxException(String message, Throwable cause) {
+    public IllegalArabicValueException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -68,7 +69,7 @@ public class IllegalNumeralSyntaxException extends RomanException {
      * @param cause
      * @see RomanException#RomanException(java.lang.String, java.lang.Throwable)
      */
-    public IllegalNumeralSyntaxException(Throwable cause) {
+    public IllegalArabicValueException(Throwable cause) {
         super(cause);
     }
 

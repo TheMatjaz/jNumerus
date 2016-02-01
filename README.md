@@ -4,7 +4,7 @@ jNumerus is a Java library for conversion and manipulation of roman numerals.
 
 #### The jNumerus project is discontinued
 
-jNumerus [has been ported to C](https://github.com/TheMatjaz/Numerus) and
+jNumerus [has been ported to C](https://github.com/TheMatjaz/jNumerus) and
 **completely rewritten and optimized**. The C version offers **much more
 features** such as floating point roman numerals.
 

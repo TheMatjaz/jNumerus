@@ -1,18 +1,18 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
 /**
- * Indicates a generic exception happening withing the Numerus classes.
+ * Indicates a generic exception happening withing the jNumerus classes.
  *
  * It's checked. Usually derivations of this class are used instead such as
  * {@link IllegalArabicValueException} or {@link IllegalNumeralSyntaxException}.
@@ -44,7 +44,7 @@ public class RomanException extends Exception {
     /**
      * Simply delegates the correspondent {@link Exception} constructor.
      *
-     * @param message 
+     * @param message
      * @see Exception#Exception(java.lang.String)
      */
     public RomanException(String message) {

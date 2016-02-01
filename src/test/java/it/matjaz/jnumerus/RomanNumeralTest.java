@@ -1,16 +1,18 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
+import it.matjaz.jnumerus.RomanNumeral;
+import it.matjaz.jnumerus.IllegalNumeralSyntaxException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,9 +22,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * JUnit test of {@link RomanNumeral} which is a container for syntactically
@@ -91,9 +96,9 @@ public class RomanNumeralTest {
     @Test
     public void whenStringContainsNonRomanCharactersThenExceptionMessageShowsThem() {
         try {
-            roman.setNumeral("pPFXC-");
+            roman.setNumeral("pPFXC@");
         } catch (IllegalNumeralSyntaxException ex) {
-            assertTrue(ex.getMessage().contains("pPF-".toUpperCase()));
+            assertTrue(ex.getMessage().contains("pPF@".toUpperCase()));
         }
     }
 
@@ -226,7 +231,7 @@ public class RomanNumeralTest {
     public void romanNumeralIsCloneable() throws IllegalNumeralSyntaxException {
         roman.setNumeral("DXI");
         try {
-            RomanNumeral otherRoman = (RomanNumeral) roman.clone();
+            RomanNumeral otherRoman = roman.clone();
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
             fail();
@@ -238,7 +243,7 @@ public class RomanNumeralTest {
         roman.setNumeral("DXI");
         RomanNumeral otherRoman;
         try {
-            otherRoman = (RomanNumeral) roman.clone();
+            otherRoman = roman.clone();
             assertEquals(roman, otherRoman);
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(RomanNumeralTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -263,5 +268,36 @@ public class RomanNumeralTest {
         roman.setNumeral("CCCXXXIII");
         assertEquals("XXX", roman.subSequence(3, 6));
     }
-    
+
+    @Test
+    public void numeralWithMinusAreAcceptedInSetter() throws IllegalNumeralSyntaxException {
+        roman.setNumeral("-MMC");
+    }
+
+    @Test
+    public void numeralWithMinusAreAcceptedInConstructor() throws IllegalNumeralSyntaxException {
+        RomanNumeral r = new RomanNumeral("-I");
+    }
+
+    @Test
+    public void negativeNullaIsAccepted() throws IllegalNumeralSyntaxException {
+        roman.setNumeral("-NULLA");
+    }
+
+    @Test
+    public void negativeNullaIsAcceptedInSetter() throws IllegalNumeralSyntaxException {
+        roman.setNumeral("-NULLA");
+    }
+
+    @Test
+    public void negativeNullaIsAcceptedInConstructor() throws IllegalNumeralSyntaxException {
+        RomanNumeral r = new RomanNumeral("-NULLA");
+    }
+
+    @Test
+    public void negativeNullaBecomesAlwaysPositive() throws IllegalNumeralSyntaxException {
+        roman.setNumeral("-NULLA");
+        assertEquals(RomanNumeral.NULLA_STRING, roman.getNumeral());
+    }
+
 }

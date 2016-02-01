@@ -1,16 +1,20 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
+import it.matjaz.jnumerus.RomanNumeral;
+import it.matjaz.jnumerus.IllegalNumeralSyntaxException;
+import it.matjaz.jnumerus.RomanInteger;
+import it.matjaz.jnumerus.IllegalArabicValueException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,8 +24,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * JUnit test of {@link RomanInteger} which is a container for a RomanNumeral
@@ -58,8 +66,8 @@ public class RomanIntegerTest {
         roman = new RomanInteger(90909090);
     }
 
-    @Test(expected = IllegalArabicValueException.class)
-    public void intConstructorRejectNegativeInts() throws IllegalArabicValueException {
+    @Test
+    public void intConstructorAcceptsNegativeInts() throws IllegalArabicValueException {
         roman = new RomanInteger(-1);
     }
 
@@ -202,7 +210,7 @@ public class RomanIntegerTest {
     public void serializabilityWorksBothWays() throws IllegalNumeralSyntaxException {
         FileOutputStream outputFile = null;
         try {
-            roman = new RomanInteger(new RomanNumeral("MMXV"));
+            roman = new RomanInteger(new RomanNumeral("-MMXV"));
             File tempFile = new File("/tmp/romaninteger.ser");
             outputFile = new FileOutputStream(tempFile);
             ObjectOutputStream outputStream = new ObjectOutputStream(outputFile);
@@ -309,6 +317,18 @@ public class RomanIntegerTest {
         roman = new RomanInteger(10);
         long other = 10L;
         assertTrue(roman.equals(new RomanInteger((int) other)) == true);
+    }
+
+    @Test
+    public void minIntegerIsOppositeOfMaxInteger() {
+        assertEquals(RomanInteger.MAXINTEGER, -RomanInteger.MININTEGER);
+    }
+    
+    @Test
+    public void negativeIntSetterUpdatesRomanNumeral() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
+        roman = new RomanInteger();
+        roman.setValue(-42);
+        assertEquals(new RomanNumeral("-XLII"), roman.getNumeral());
     }
 
 }
