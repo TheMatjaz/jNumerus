@@ -1,15 +1,15 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,7 +46,7 @@ public class RomanRepl {
     private static final ResourceBundle romanBundle = ResourceBundle.getBundle("RomanBundle", Locale.US);
 
     /**
-     * Constructs a Numerus REPL, a shell in which the numbers could be
+     * Constructs a jNumerus REPL, a shell in which the numbers could be
      * converted and some other commands can be called.
      *
      * Prepares a keyboard scanner, a RomanConverter and loads the

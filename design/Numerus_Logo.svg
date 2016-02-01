@@ -64,8 +64,8 @@
         </dc:creator>
         <dc:subject>
           <rdf:Bag>
-            <rdf:li>Numerus</rdf:li>
-            <rdf:li>Nvmervs</rdf:li>
+            <rdf:li>jNumerus</rdf:li>
+            <rdf:li>jNvmervs</rdf:li>
             <rdf:li>logo</rdf:li>
             <rdf:li>roman</rdf:li>
             <rdf:li>numeral</rdf:li>
@@ -74,9 +74,8 @@
             <rdf:li>Java</rdf:li>
           </rdf:Bag>
         </dc:subject>
-        <dc:description>Logo of Numerus, a free and open-source library that allows conversion and manipulation of roman numerals in Java.
-http://matjaz.it/numerus/</dc:description>
-        <dc:source>http://matjaz.it/numerus/</dc:source>
+        <dc:description>Logo of jNumerus, a free and open-source library that allows conversion and manipulation of roman numerals in Java.</dc:description>
+        <dc:source>https://github.com/TheMatjaz/jNumerus</dc:source>
         <cc:license
            rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
         <dc:rights>

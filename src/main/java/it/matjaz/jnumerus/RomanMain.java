@@ -1,26 +1,26 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/MatjazDev/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * Numerus main class.
+ * jNumerus main class.
  *
  * Performs no other action than creating and starting a RomanRepl.
  *
- * Full path: {@code src/main/java/it/matjaz/numerus/RomanMain.java} or
- * {@code it.matjaz.numerus.RomanMain}
+ * Full path: {@code src/main/java/it/matjaz/jnumerus/RomanMain.java} or
+ * {@code it.matjaz.jnumerus.RomanMain}
  *
  * @author Matjaž <a href="mailto:dev@matjaz.it">dev@matjaz.it</a>
  * <a href="http://matjaz.it">matjaz.it</a>
@@ -33,11 +33,11 @@ public class RomanMain {
     private static final ResourceBundle romanBundle = ResourceBundle.getBundle("RomanBundle", Locale.US);
 
     /**
-     * Starts the Numerus project.
+     * Starts the jNumerus project.
      *
      * Starts a REPL to interact with the conversion tools. Alternatively, if
      * any command line arguments are passed, tries to interprete theme without
-     * starting an interactive Numerus shell.
+     * starting an interactive jNumerus shell.
      *
      * @param args the numbers to convert or REPL commands to execute
      */

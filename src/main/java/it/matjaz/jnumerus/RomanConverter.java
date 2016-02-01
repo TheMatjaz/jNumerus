@@ -1,15 +1,15 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -68,7 +68,7 @@ public class RomanConverter {
      * This method performs no checks on the correctness of the roman numeral
      * String so the correct result is <b>not</b> guaranteed if the input is
      * incorrect - this is the reason for it to be private. Use
-     * {@link #romanNumeralToInteger(it.matjaz.numerus.core.RomanNumeral) romanNumeralToInteger(RomanNumeral)}
+     * {@link #romanNumeralToInteger(it.matjaz.jnumerus.core.RomanNumeral) romanNumeralToInteger(RomanNumeral)}
      * to force correct inputs.
      * <p>
      * Works with 2 indexes: one is iterating through the given romanString, the
@@ -180,7 +180,7 @@ public class RomanConverter {
      *
      * @param arabic int to be converted to a RomanNumeral.
      * @return a RomanNumeral representing the passed value.
-     * @throws it.matjaz.numerus.IllegalArabicValueException if arabic is not in
+     * @throws it.matjaz.jnumerus.IllegalArabicValueException if arabic is not in
      * [0, 3999].
      */
     public RomanNumeral integerToRomanNumeral(int arabic) throws IllegalArabicValueException {
