@@ -1,15 +1,15 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -51,6 +51,17 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      */
     private static final long serialVersionUID = 20150428L;
 
+    /**
+     * The biggest Integer convertable to RomanNumeral with the standard syntax.
+     */
+    public static final int MAXINTEGER = RomanConverter.MAXINTEGER;
+
+    /**
+     * The smallest Integer convertable to RomanNumeral with the standard
+     * syntax.
+     */
+    public static final int MININTEGER = RomanConverter.MININTEGER;
+    
     /**
      * The arabic value of the roman numeral.
      */
@@ -119,8 +130,8 @@ public class RomanInteger extends Number implements Cloneable, Comparable<Number
      * Made for code reusal.
      *
      * @param numeral to be set along with its value.
-     * @see #setNumeral(it.matjaz.numerus.core.RomanNumeral)
-     * @see #RomanInteger(it.matjaz.numerus.core.RomanNumeral)
+     * @see #setNumeral(it.matjaz.jnumerus.core.RomanNumeral)
+     * @see #RomanInteger(it.matjaz.jnumerus.core.RomanNumeral)
      */
     private void setNumeralAndValue(RomanNumeral numeral) {
         this.value = converter.romanNumeralToInteger(numeral);

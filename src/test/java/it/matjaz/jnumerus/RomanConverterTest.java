@@ -1,16 +1,20 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
+import it.matjaz.jnumerus.RomanConverter;
+import it.matjaz.jnumerus.RomanNumeral;
+import it.matjaz.jnumerus.IllegalNumeralSyntaxException;
+import it.matjaz.jnumerus.IllegalArabicValueException;
 import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -70,11 +74,6 @@ public class RomanConverterTest {
     }
 
     @Test(expected = IllegalArabicValueException.class)
-    public void whenNegativeIntegerIsGivenThenExceptionIsThrown() throws IllegalArabicValueException {
-        converter.integerToRomanNumeral(-2);
-    }
-
-    @Test(expected = IllegalArabicValueException.class)
     public void whenTooBigIntegerIsGivenThenExceptionIsThrown() throws IllegalArabicValueException {
         converter.integerToRomanNumeral(4001);
     }
@@ -91,7 +90,7 @@ public class RomanConverterTest {
 
     @Test
     public void everyIntegerIsConvertedToASyntacticallyCorrectRomanNumeral() throws IllegalArabicValueException {
-        for (int i = 0; i <= 3999; i++) {
+        for (int i = -3999; i <= 3999; i++) {
             try {
                 converter.integerToRomanNumeral(i);
             } catch (NumberFormatException ex) {
@@ -104,12 +103,37 @@ public class RomanConverterTest {
     @Test
     public void conversionIsBijective() throws IllegalArabicValueException {
         HashMap<Integer, RomanNumeral> intsAndNumerals = new HashMap<>();
-        for (int i = 0; i <= 3999; i++) {
+        for (int i = -3999; i <= 3999; i++) {
             intsAndNumerals.put(i, converter.integerToRomanNumeral(i));
         }
         intsAndNumerals.keySet().stream().forEach((i) -> {
             assertTrue(i == converter.romanNumeralToInteger(intsAndNumerals.get(i)));
         });
     }
-
+    
+    @Test
+    public void negativeIntegerGetsConvertedToNegativeRoman() throws IllegalNumeralSyntaxException, IllegalArabicValueException {
+        assertEquals(new RomanNumeral("-LXI"), converter.integerToRomanNumeral(-61));
+    }
+    
+    @Test
+    public void negativeRomanGetsConvertedToNegativeInteger() throws IllegalNumeralSyntaxException {
+        assertEquals(-21, converter.romanNumeralToInteger(new RomanNumeral("-XXI")));
+    }
+    
+    @Test(expected = IllegalArabicValueException.class)
+    public void whenTooSmallNegativeIntegerIsGivenThenExceptionIsThrown() throws IllegalArabicValueException {
+        converter.integerToRomanNumeral(-5000);
+    }
+    
+    @Test
+    public void negativeZeroGetsConvertedToPositiveNulla() throws IllegalArabicValueException {
+        assertEquals(new RomanNumeral(), converter.integerToRomanNumeral(-0));
+    }
+    
+    @Test
+    public void negativeNullaGetsConvertedToPositiveZero() throws IllegalNumeralSyntaxException {
+        assertEquals(0, converter.romanNumeralToInteger(new RomanNumeral("-NULLA")));
+    }
+    
 }

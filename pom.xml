@@ -2,9 +2,9 @@
 <!--
     Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
 
-    This Source Code Form is part of the project Numerus, a roman numerals
+    This Source Code Form is part of the project jNumerus, a roman numerals
     library for Java. The library and its source code may be found on:
-    https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+    https://github.com/TheMatjaz/jNumerus/
 
     This Source Code Form is subject to the terms of the Mozilla Public
     License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,20 +17,17 @@
     <!-- Artifact information -->
     <modelVersion>4.0.0</modelVersion>
     <groupId>it.matjaz</groupId>
-    <artifactId>Numerus</artifactId>
+    <artifactId>jNumerus</artifactId>
     <version>0.7.0</version>
     <packaging>jar</packaging>
     
     <!-- Project information and description -->
-    <name>Numerus</name>
-    <description>
-        Numerus is a free and open-source library that allows conversion and 
-        manipulation of roman numerals in Java. The library and its source code 
-        may be found on:
-        https://github.com/TheMatjaz/Numerus
-        http://matjaz.it/numerus/
+    <name>jNumerus</name>
+    <description>jNumerus is a free and open-source library that allows conversion and 
+manipulation of roman numerals in Java. The library and its source code 
+may be found on: https://github.com/TheMatjaz/jNumerus
     </description>
-    <url>http://matjaz.it/numerus/</url>
+    <url>https://github.com/TheMatjaz/jNumerus/</url>
     
     <developers>
         <developer>
@@ -63,12 +60,20 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <mainClass>it.matjaz.numerus.RomanMain</mainClass>
-        <netbeans.hint.license>NumerusLicenseHeader</netbeans.hint.license>
+        <mainClass>it.matjaz.jnumerus.RomanMain</mainClass>
+        <netbeans.hint.license>jNumerusLicenseHeader</netbeans.hint.license>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
     </properties>
     
     <!-- Plugins and dependencies -->
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -100,6 +105,7 @@
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                             <mainClass>${mainClass}</mainClass>

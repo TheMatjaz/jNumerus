@@ -1,19 +1,25 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Simple command line REPL shell for conversions from and to roman numerals.
@@ -32,6 +38,7 @@ public class RomanRepl {
     private String inputLine;
     private int arabicInput;
     private boolean exitFromRepl;
+    private final Properties properties;
 
     /**
      * Default ResourceBundle containing english strings.
@@ -39,8 +46,11 @@ public class RomanRepl {
     private static final ResourceBundle romanBundle = ResourceBundle.getBundle("RomanBundle", Locale.US);
 
     /**
-     * Constructs a Numerus REPL, a shell in which the numbers could be
+     * Constructs a jNumerus REPL, a shell in which the numbers could be
      * converted and some other commands can be called.
+     *
+     * Prepares a keyboard scanner, a RomanConverter and loads the
+     * Project.properties file.
      *
      * After construction, start the REPL it with the {@code start()} method.
      */
@@ -48,6 +58,13 @@ public class RomanRepl {
         this.keyboardScanner = new Scanner(System.in);
         this.converter = new RomanConverter();
         this.exitFromRepl = false;
+        this.properties = new Properties();
+        try {
+            InputStream in = getClass().getClassLoader().getResourceAsStream("Project.properties");
+            properties.load(in);
+        } catch (IOException ex) {
+            Logger.getLogger(RomanRepl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -78,6 +95,10 @@ public class RomanRepl {
         interpreteCommand();
     }
 
+    /**
+     * Calls different output strings for specific commands from the
+     * romanBundle.
+     */
     private void interpreteCommand() {
         switch (inputLine) {
             case "?":
@@ -98,7 +119,16 @@ public class RomanRepl {
 
             case "about":
             case "info": {
-                System.out.println(romanBundle.getString("InfoText"));
+                /**
+                 * Builds the "InfoText" string inserting the current project
+                 * version read from the project properties file an the current
+                 * year for the copyright statement.
+                 */
+                String message = MessageFormat.format(
+                        romanBundle.getString("InfoText"),
+                        properties.getProperty("version"),
+                        java.time.Year.now());
+                System.out.println(message);
                 break;
             }
 

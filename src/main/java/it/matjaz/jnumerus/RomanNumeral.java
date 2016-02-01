@@ -1,15 +1,15 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
 import java.io.Serializable;
 import java.text.MessageFormat;
@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
  * <ul>0-1 <b>CM</b> or 0-1 <b>CD</b> or ( 0-1 <b>D</b> and 0-3 <b>C</b> )</ul>
  * <ul>0-1 <b>XC</b> or 0-1 <b>XL</b> or ( 0-1 <b>L</b> and 0-3 <b>X</b> )</ul>
  * <ul>0-1 <b>IX</b> or 0-1 <b>IV</b> or ( 0-1 <b>V</b> and 0-3 <b>I</b> )</ul>
- * <ul>only <b>NULLA</b> instead of any other symbol.</ul>
+ * <ul>only <b>NULLA_STRING</b> instead of any other symbol.</ul>
  * </ol>
  * <p>
  * For the integer values of the symbols, see {@link RomanCharMapFactory}.
@@ -69,13 +69,13 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * )</ul>
      * <ul>0-1 <b>IX</b> or 0-1 <b>IV</b> or ( 0-1 <b>V</b> and 0-3 <b>I</b>
      * )</ul>
-     * <ul>only <b>NULLA</b> instead of any other symbol.</ul>
+     * <ul>only <b>NULLA_STRING</b> instead of any other symbol.</ul>
      * </ol>
      * <p>
      * <a href="http://stackoverflow.com/a/267405">Source of the idea</a> of
      * this regex with a great explanation.
      */
-    public static final String CORRECT_ROMAN_SYNTAX_REGEX = "^(NULLA)|((M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))$";
+    public static final String CORRECT_ROMAN_SYNTAX_REGEX = "^-?(NULLA)|-?((M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))$";
 
     /**
      * Regex matching any non roman characters.
@@ -83,7 +83,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      * If a string contains any character matching with this regex, then is not
      * a roman numeral, because contains illegal characters.
      */
-    public static final String NON_ROMAN_CHARS_REGEX = "[^MDCLXVI]";
+    public static final String NON_ROMAN_CHARS_REGEX = "[^-MDCLXVI]";
 
     /**
      * Regex matching four consecutive characters M or C or X or I.
@@ -98,7 +98,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     /**
      * String indicating the roman numeral with value zero, 0.
      */
-    public static final String NULLA = "NULLA";
+    public static final String NULLA_STRING = "NULLA";
 
     /**
      * Default ResourceBundle containing english strings.
@@ -119,15 +119,15 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
      *
      * @see Serializable
      */
-    private static final long serialVersionUID = 20150903L;
+    private static final long serialVersionUID = 20150908L;
 
     /**
-     * Constructs a RomanNumeral initialized to NULLA.
+     * Constructs a RomanNumeral initialized to NULLA_STRING.
      * <p>
-     * Contains <b>"NULLA"</b> numerals indicating zero value.
+     * Contains <b>"NULLA_STRING"</b> numerals indicating zero value.
      */
     public RomanNumeral() {
-        this.numeral = NULLA;
+        this.numeral = NULLA_STRING;
     }
 
     /**
@@ -157,20 +157,21 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     }
 
     /**
-     * Checks if this RomanNumeral contains a numeral other than NULLA.
+     * Checks if this RomanNumeral contains a numeral other than NULLA_STRING.
      * <p>
      * Returns <code>true</code> if this RomanNumeal has a roman numeral stored
-     * in it that indicates a non-zero value, that is a non-NULLA numeral. Else
-     * <code>false</code> if contains a NULLA string.
+     * in it that indicates a non-zero value, that is a non-NULLA_STRING
+     * numeral. Else
+     * <code>false</code> if contains a NULLA_STRING string.
      * <p>
      * Immediatly after calling the {@link #RomanNumeral() default constructor}
      * (the one without parameters), this method will return <code>true</code>.
      *
-     * @return <code>true</code> has a NULLA numeral stored in it, else
+     * @return <code>true</code> has a NULLA_STRING numeral stored in it, else
      * <code>false</code>.
      */
     public boolean isNulla() {
-        return NULLA.equals(getNumeral());
+        return NULLA_STRING.equals(getNumeral());
     }
 
     /**
@@ -228,7 +229,11 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
     private String cleanUpcaseAndSyntaxCheckString(String symbols) throws IllegalNumeralSyntaxException {
         String cleanSymbols = symbols.replaceAll("\\s+", "").toUpperCase();
         throwExceptionIfIllegalRomanSyntax(cleanSymbols);
-        return cleanSymbols;
+        if (cleanSymbols.equals("-" + NULLA_STRING)) {
+            return NULLA_STRING;
+        } else {
+            return cleanSymbols;
+        }
     }
 
     /**
@@ -289,7 +294,7 @@ public class RomanNumeral implements Serializable, Cloneable, CharSequence {
                 throw new IllegalNumeralSyntaxException(message);
             }
             String message = romanBundle.getString("GenericRomanSyntaxError");
-            throw new IllegalNumeralSyntaxException(romanBundle.getString("GenericRomanSyntaxError"));
+            throw new IllegalNumeralSyntaxException(message);
         }
     }
 

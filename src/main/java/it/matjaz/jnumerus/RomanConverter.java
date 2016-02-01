@@ -1,15 +1,15 @@
 /*
  * Copyright (c) 2015, Matjaž <dev@matjaz.it> matjaz.it
  *
- * This Source Code Form is part of the project Numerus, a roman numerals
+ * This Source Code Form is part of the project jNumerus, a roman numerals
  * library for Java. The library and its source code may be found on:
- * https://github.com/TheMatjaz/Numerus and http://matjaz.it/numerus/
+ * https://github.com/TheMatjaz/jNumerus/
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/
  */
-package it.matjaz.numerus;
+package it.matjaz.jnumerus;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -37,6 +37,17 @@ public class RomanConverter {
     private static final ResourceBundle romanBundle = ResourceBundle.getBundle("RomanBundle", Locale.US);
 
     /**
+     * The biggest Integer convertable to RomanNumeral with the standard syntax.
+     */
+    public static final int MAXINTEGER = 3999;
+
+    /**
+     * The smallest Integer convertable to RomanNumeral with the standard
+     * syntax.
+     */
+    public static final int MININTEGER = -MAXINTEGER;
+
+    /**
      * Array of references for translating roman characters into numeric values
      * and vice-versa.
      */
@@ -57,7 +68,7 @@ public class RomanConverter {
      * This method performs no checks on the correctness of the roman numeral
      * String so the correct result is <b>not</b> guaranteed if the input is
      * incorrect - this is the reason for it to be private. Use
-     * {@link #romanNumeralToInteger(it.matjaz.numerus.core.RomanNumeral) romanNumeralToInteger(RomanNumeral)}
+     * {@link #romanNumeralToInteger(it.matjaz.jnumerus.core.RomanNumeral) romanNumeralToInteger(RomanNumeral)}
      * to force correct inputs.
      * <p>
      * Works with 2 indexes: one is iterating through the given romanString, the
@@ -72,12 +83,17 @@ public class RomanConverter {
      * @return int value of the given String.
      */
     private int romanStringToInteger(String romanString) {
-        if (romanString.equals(RomanNumeral.NULLA)) {
+        if (romanString.equals(RomanNumeral.NULLA_STRING)) {
             return 0;
         }
         int arabicValue = 0;
         int romanStringIndex = 0;
         int romanCharIndex = 0;
+        int sign = 1;
+        if (romanString.charAt(0) == '-') {
+            sign = -1;
+            romanStringIndex++;
+        }
         while (romanStringIndex < romanString.length()) {
             String romanChar = (String) charValues[romanCharIndex].getKey();
             int romanCharValue = (int) charValues[romanCharIndex].getValue();
@@ -88,7 +104,7 @@ public class RomanConverter {
                 romanCharIndex++;
             }
         }
-        return arabicValue;
+        return sign * arabicValue;
     }
 
     /**
@@ -129,14 +145,18 @@ public class RomanConverter {
      * range.
      */
     private String integerToRomanString(int arabic) throws IllegalArabicValueException {
-        if (arabic < 0 || arabic > 3999) {
+        if (arabic < -3999 || arabic > 3999) {
             String message = romanBundle.getString("ArabicOutOfRange");
             throw new IllegalArabicValueException(message);
         }
         if (arabic == 0) {
-            return RomanNumeral.NULLA;
+            return RomanNumeral.NULLA_STRING;
         }
         StringBuilder romanString = new StringBuilder();
+        if (arabic < 0) {
+            arabic *= -1;
+            romanString.append('-');
+        }
         for (Pair charAndValue : charValues) {
             int romanCharValue = (int) charAndValue.getValue();
             String romanChar = (String) charAndValue.getKey();
@@ -160,7 +180,7 @@ public class RomanConverter {
      *
      * @param arabic int to be converted to a RomanNumeral.
      * @return a RomanNumeral representing the passed value.
-     * @throws it.matjaz.numerus.IllegalArabicValueException if arabic is not in
+     * @throws it.matjaz.jnumerus.IllegalArabicValueException if arabic is not in
      * [0, 3999].
      */
     public RomanNumeral integerToRomanNumeral(int arabic) throws IllegalArabicValueException {
